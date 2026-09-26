@@ -1,0 +1,17 @@
+{
+  "name": "noa-site",
+  "version": "1.0.0",
+  "description": "אתר חד-עמודי לסטודיו \"המקום של נעה\" (גבעתיים) **עם ממשק אדמין מלא לעריכת כל התוכן** — טקסטים, תמונות, צבעים, כרטיסים, קישורים — עם תצוגה חיה בזמן עריכה.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "private": "true",
+  "dependencies": {
+    "mongodb": "^7.6.0"
+  }
+}

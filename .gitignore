@@ -1,0 +1,11 @@
+# סודות — לעולם לא ל-commit!
+.env
+*.env
+atlas-credentials*.env
+
+# node
+node_modules/
+
+# מערכת
+.DS_Store
+Thumbs.db

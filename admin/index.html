@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>עריכת האתר · המקום של נעה</title>
+<link rel="icon" type="image/jpeg" href="../assets/noa.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --terra:#e2603c;--gold:#f2b33d;--teal:#2ea6a0;--rose:#f08ca5;--plum:#43302e;--cream:#fff6ec;
+  --ink:#3e2b28;--muted:#8a7369;--line:#f0e0d0;--bg:#faf3ec;--card:#fff;
+  --wa:#25d366;--wa-d:#189a47;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+h1,h2,h3,.btn,.side-brand{font-family:'Fredoka','Heebo',sans-serif}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
+
+/* ===== Login ===== */
+#loginWrap{position:fixed;inset:0;z-index:200;background:radial-gradient(120% 90% at 50% 0%,#8a4a33,#5c3527 48%,#3a2724 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+#loginWrap.hidden{display:none}
+.login-card{background:#fff;border-radius:26px;padding:42px 36px;width:min(400px,94vw);box-shadow:0 30px 70px rgba(0,0,0,.4);text-align:center}
+.login-card .lc-emoji{width:74px;height:74px;border-radius:24px;background:linear-gradient(135deg,var(--terra),var(--gold));display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 18px;transform:rotate(-6deg)}
+.login-card h1{font-size:26px}
+.login-card p{color:var(--muted);margin-top:8px;font-size:14.5px}
+.login-card .fld{margin-top:18px;text-align:right}
+.err{color:#c0392b;font-size:13.5px;margin-top:12px;min-height:18px}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+/* ===== App frame ===== */
+#app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+#app.hidden{display:none}
+header.top{display:flex;align-items:center;gap:14px;padding:12px 20px;background:#fff;border-bottom:2px solid var(--line);flex-shrink:0;flex-wrap:wrap}
+.side-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.side-brand .be{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--terra),var(--gold));display:flex;align-items:center;justify-content:center;font-size:20px;transform:rotate(-6deg)}
+.top .grow{flex:1}
+.save-state{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--muted);background:var(--cream);padding:8px 15px;border-radius:999px;border:1.5px dashed var(--line)}
+.save-state.saving{color:#a16207;border-color:var(--gold)}
+.save-state.saved{color:#15803d;border-color:#86efac}
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;cursor:pointer;border-radius:999px;padding:9px 17px;font-weight:700;font-size:14px;transition:transform .12s,filter .12s;font-family:'Fredoka','Heebo',sans-serif}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.btn:active{transform:translateY(2px)}
+.btn-ghost{background:var(--cream);color:var(--ink);border:1.5px solid var(--line)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-terra{background:var(--terra);color:#fff}
+.btn-dark{background:var(--plum);color:#fff}
+.btn-danger{background:#fdecea;color:#c0392b}
+
+/* ===== Layout ===== */
+main.layout{flex:1;display:grid;grid-template-columns:225px minmax(380px,1fr) minmax(360px,1.15fr);min-height:0}
+aside.sec-nav{background:#fff;border-inline-end:2px solid var(--line);padding:16px 10px;overflow-y:auto}
+.sec-btn{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-radius:14px;padding:11px 13px;font-size:15px;font-weight:700;color:var(--muted);cursor:pointer;text-align:right;transition:background .15s,color .15s;font-family:'Heebo',sans-serif}
+.sec-btn:hover{background:var(--cream);color:var(--ink)}
+.sec-btn.active{background:linear-gradient(120deg,var(--terra),#ec7a52);color:#fff;box-shadow:0 6px 16px rgba(226,96,60,.35)}
+section.forms{padding:20px 26px;overflow-y:auto;min-height:0}
+div.preview{display:flex;flex-direction:column;background:#efe5da;border-inline-start:2px solid var(--line);min-height:0}
+.pv-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.pv-bar .title{font-weight:700;font-size:14px;color:var(--muted)}
+.pv-bar .grow{flex:1}
+.seg{display:inline-flex;background:var(--cream);border-radius:999px;padding:3px;border:1.5px solid var(--line)}
+.seg button{border:none;background:none;padding:7px 14px;border-radius:999px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--muted)}
+.seg button.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.pv-frame{flex:1;overflow:hidden;display:flex;justify-content:center;background:repeating-conic-gradient(#eee 0 25%,#f7f7f7 0 50%) 50%/24px 24px;padding:14px;min-height:0}
+.pv-frame.mobile iframe{width:402px;border-radius:28px;border:8px solid #2c2c2e;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.pv-frame.desktop iframe{width:100%;border-radius:10px;border:1px solid rgba(0,0,0,.1)}
+iframe#pv{height:100%;background:#fff;transition:width .3s}
+
+/* ===== Forms ===== */
+.fld{margin-bottom:16px}
+.fld>label{display:block;font-size:13.5px;font-weight:700;color:var(--plum);margin-bottom:6px}
+.fld input[type=text],.fld input[type=url],.fld input[type=password],.fld textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px;font-size:15px;font-family:'Heebo',sans-serif;background:#fff;color:var(--ink);transition:border-color .15s}
+.fld input:focus,.fld textarea:focus{border-color:var(--terra);outline:none}
+.fld textarea{min-height:84px;resize:vertical;line-height:1.6}
+.fld .hint{font-size:12px;color:var(--muted);margin-top:4px}
+.color-row{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:9px 13px;background:#fff}
+.color-row input[type=color]{width:44px;height:34px;border:none;border-radius:8px;cursor:pointer;background:none;padding:0}
+.color-row .cval{font-size:13.5px;color:var(--muted);direction:ltr}
+.switch{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px;cursor:pointer;user-select:none}
+.switch input{width:20px;height:20px;accent-color:var(--teal);cursor:pointer}
+
+/* image field */
+.img-fld{border:1.5px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.img-row{display:flex;gap:12px;align-items:flex-start}
+.img-thumb{width:86px;height:86px;border-radius:12px;background-size:cover;background-position:center;background-color:var(--cream);flex-shrink:0;border:1px solid var(--line)}
+.img-tools{flex:1;display:flex;flex-direction:column;gap:8px}
+.img-tools .btn{justify-content:center}
+.img-url{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:8px 11px;font-size:13px;direction:ltr;text-align:left}
+
+/* list editor */
+.list-ed{border:1.5px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+
+/* palette presets */
+.pal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px}
+.pal-card{border:2px solid var(--line);border-radius:16px;background:#fff;padding:13px 10px 11px;cursor:pointer;text-align:center;transition:transform .15s,border-color .15s,box-shadow .15s;position:relative;font-family:'Heebo',sans-serif}
+.pal-card:hover{transform:translateY(-3px);border-color:var(--gold)}
+.pal-card.active{border-color:var(--terra);box-shadow:0 8px 20px rgba(226,96,60,.25)}
+.pal-card.active::after{content:'✓ בשימוש';position:absolute;top:-11px;inset-inline-start:50%;transform:translateX(50%);background:var(--terra);color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:999px;white-space:nowrap}
+.pal-card .p-name{font-size:13.5px;font-weight:700;display:block;margin-bottom:10px;color:var(--plum)}
+.pal-card .p-name .orig-star{font-size:12px;display:block;color:#a16207;font-weight:400;margin-top:2px}
+.pal-dots{display:flex;justify-content:center;gap:4px}
+.pal-dots i{width:17px;height:17px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.14)}
+.pal-note{font-size:12.5px;color:var(--muted);margin-top:10px}
+.list-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:var(--cream);border-bottom:1.5px solid var(--line)}
+.list-head b{font-size:14.5px}
+.li-item{padding:14px 15px;border-bottom:1.5px solid var(--line);position:relative}
+.li-item:last-child{border-bottom:none}
+.li-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.li-bar .num{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--terra);font-size:14px;background:var(--cream);border-radius:8px;padding:3px 9px}
+.li-bar .ttl{flex:1;font-weight:700;font-size:13.5px;color:var(--plum);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li-bar button{border:1.5px solid var(--line);background:#fff;border-radius:9px;width:30px;height:30px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.li-bar button:hover{background:var(--cream)}
+.li-bar button.del:hover{background:#fdecea;border-color:#f5c6c0}
+.list-add{display:block;width:100%;padding:13px;background:none;border:none;border-top:1.5px dashed var(--line);color:var(--terra);font-weight:700;font-size:14.5px;cursor:pointer;font-family:'Heebo',sans-serif}
+.list-add:hover{background:var(--cream)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+
+/* section panels */
+.panel{display:none;animation:fadeIn .3s}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.panel h2{font-size:21px;margin-bottom:4px}
+.panel .p-sub{color:var(--muted);font-size:13.5px;margin-bottom:20px}
+.fld-sep{display:flex;align-items:center;gap:10px;margin:26px 0 16px;color:var(--terra);font-weight:700;font-size:14.5px}
+.fld-sep::after{content:'';flex:1;border-top:2px dashed var(--line)}
+
+/* settings modal */
+.modal{position:fixed;inset:0;z-index:150;background:rgba(62,43,40,.55);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.modal.open{display:flex}
+.modal-card{background:#fff;border-radius:22px;padding:30px;width:min(520px,94vw);max-height:88vh;overflow-y:auto}
+.modal-card h3{font-size:20px;margin-bottom:6px}
+.modal-card .m-sub{color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:16px}
+.api-badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;margin-inline-start:8px}
+.api-badge.on{background:#dcfce7;color:#15803d}
+.api-badge.off{background:#f3f4f6;color:#6b7280}
+code.inline{background:var(--cream);padding:2px 7px;border-radius:6px;font-size:12.5px;direction:ltr;display:inline-block}
+
+/* toast */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(90px);z-index:300;background:var(--plum);color:#fff;padding:13px 24px;border-radius:999px;font-size:14.5px;font-weight:700;box-shadow:0 14px 40px rgba(0,0,0,.3);transition:transform .35s cubic-bezier(.2,.9,.3,1.3);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.ok{background:#15803d}
+#toast.err{background:#c0392b}
+
+/* responsive */
+@media(max-width:1150px){
+  main.layout{grid-template-columns:200px 1fr;grid-template-rows:1fr auto}
+  div.preview{grid-column:1/-1;height:52vh;border-inline-start:none;border-top:2px solid var(--line)}
+}
+@media(max-width:760px){
+  main.layout{grid-template-columns:1fr;overflow-y:auto;display:block}
+  aside.sec-nav{display:flex;gap:6px;overflow-x:auto;border:none;border-bottom:2px solid var(--line);padding:10px}
+  .sec-btn{white-space:nowrap;width:auto}
+  section.forms{overflow:visible}
+  div.preview{height:60vh}
+  header.top{padding:10px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Login ===== -->
+<div id="loginWrap">
+  <form class="login-card" id="loginForm" autocomplete="off">
+    <div class="lc-emoji">🎨</div>
+    <h1>עריכת האתר</h1>
+    <p>המקום של נעה — התחברות למנהלים</p>
+    <div class="fld">
+      <label for="lu">שם משתמש</label>
+      <input type="text" id="lu" autocomplete="username">
+    </div>
+    <div class="fld">
+      <label for="lp">סיסמה</label>
+      <input type="password" id="lp" autocomplete="current-password">
+    </div>
+    <button class="btn btn-terra" type="submit" style="width:100%;justify-content:center;padding:13px;font-size:16px;margin-top:6px">התחברות</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</div>
+
+<!-- ===== App ===== -->
+<div id="app" class="hidden">
+  <header class="top">
+    <div class="side-brand"><span class="be">🎨</span><span>עורך האתר · המקום של נעה</span></div>
+    <span class="save-state" id="saveState">מוכן</span>
+    <div class="grow"></div>
+    <button class="btn btn-ghost" id="btnSettings" title="חיבור שרת / MongoDB">⚙️ שרת</button>
+    <button class="btn btn-ghost" id="btnExport" title="הורדת content.json">⬇️ ייצוא</button>
+    <button class="btn btn-ghost" id="btnImport" title="טעינת content.json">⬆️ ייבוא</button>
+    <button class="btn btn-danger" id="btnReset" title="חזרה לתוכן המקורי">↺ איפוס</button>
+    <a class="btn btn-wa" id="btnOpenSite" href="../" target="_blank" rel="noopener">פתיחת האתר ↗</a>
+    <button class="btn btn-dark" id="btnLogout">יציאה</button>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>
+  </header>
+
+  <main class="layout">
+    <aside class="sec-nav" id="secNav"></aside>
+    <section class="forms" id="forms"></section>
+    <div class="preview">
+      <div class="pv-bar">
+        <span class="title">👁 תצוגה חיה</span>
+        <div class="seg">
+          <button id="devDesktop" class="active" type="button">🖥 מחשב</button>
+          <button id="devMobile" type="button">📱 נייד</button>
+        </div>
+        <div class="grow"></div>
+        <button class="btn btn-ghost" id="btnReloadPv" type="button" style="padding:7px 13px;font-size:13px">↻ רענון</button>
+      </div>
+      <div class="pv-frame desktop" id="pvFrame"><iframe id="pv" src="../" title="תצוגה מקדימה של האתר"></iframe></div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== Settings modal ===== -->
+<div class="modal" id="settingsModal">
+  <div class="modal-card">
+    <h3>⚙️ חיבור שרת <span class="api-badge off" id="apiBadge">מצב מקומי</span></h3>
+    <p class="m-sub">ברירת המחדל: <code class="inline">/api/content</code> — ה-API של MongoDB (api/content.js) שמסנכרן את התוכן לכל המכשירים ולכל הגולשים.<br>
+    רוצים לעבוד בלי שרת? נתקו — והשינויים יישמרו מקומית בדפדפן הזה בלבד.</p>
+    <div class="fld">
+      <label for="apiUrl">כתובת API</label>
+      <input type="url" id="apiUrl" placeholder="/api/content" dir="ltr" style="width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px;font-size:14px;direction:ltr;text-align:left">
+      <div class="hint">החוזה: <code class="inline">GET</code> מחזיר את אובייקט התוכן (JSON) · <code class="inline">POST</code> עם ה-JSON שומר אותו</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+      <button class="btn btn-terra" id="btnApiSave" type="button">שמירה והתחברות</button>
+      <button class="btn btn-ghost" id="btnApiTest" type="button">בדיקת חיבור</button>
+      <button class="btn btn-ghost" id="btnApiClear" type="button">ניתוק (חזרה למקומי)</button>
+      <div class="grow"></div>
+      <button class="btn btn-dark" id="btnApiClose" type="button">סגירה</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ================= Login ================= */
+const AUTH_HASH='5cf13c4331904748860a00c35230c1da59ba5ceff1bb0b9bbce80e06778c99fb';
+const AUTH_KEY='noah-admin-auth';
+async function sha256(s){
+  const b=new TextEncoder().encode(s);
+  const h=await crypto.subtle.digest('SHA-256',b);
+  return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+const loginWrap=document.getElementById('loginWrap');
+const app=document.getElementById('app');
+if(sessionStorage.getItem(AUTH_KEY)==='1'){loginWrap.classList.add('hidden');app.classList.remove('hidden');}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value;
+  const err=document.getElementById('loginErr');
+  if(await sha256(u+':'+p+':noah-salt-v1')===AUTH_HASH){
+    sessionStorage.setItem(AUTH_KEY,'1');
+    sessionStorage.setItem(CREDS_KEY,JSON.stringify({u,p}));
+    loginWrap.classList.add('hidden');app.classList.remove('hidden');initApp();
+  }else{
+    err.textContent='שם משתמש או סיסמה שגויים 🙈';
+    loginWrap.querySelector('.login-card').classList.remove('shake');void loginWrap.offsetWidth;
+    loginWrap.querySelector('.login-card').classList.add('shake');
+  }
+});
+document.getElementById('btnLogout').addEventListener('click',()=>{sessionStorage.removeItem(AUTH_KEY);location.reload();});
+
+/* ================= helpers ================= */
+const LS_KEY='noah-content-v1',API_URL_KEY='noah-api-url',CREDS_KEY='noah-admin-creds';
+const $id=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+/* ברירת מחדל: ה-API של MongoDB. אפשר לנתק בהגדרות (אז חוזרים לשמירה מקומית). */
+function getApiUrl(){const v=localStorage.getItem(API_URL_KEY);return v===null?'/api/content':v;}
+function getCreds(){try{return JSON.parse(sessionStorage.getItem(CREDS_KEY)||'null');}catch(e){return null;}}
+function apiHeaders(extra){const c=getCreds()||{};const h=Object.assign({'Content-Type':'application/json'},extra);if(c.u){h['x-admin-user']=c.u;h['x-admin-pass']=c.p;}return h;}
+function toast(msg,kind){const t=$id('toast');t.textContent=msg;t.className=kind?''+kind:'';t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600);}
+
+/* ================= content state ================= */
+let content=null;
+function getPath(o,p){return p.split('.').reduce((a,k)=>a&&a[k],o);}
+function setPath(o,p,v){const ks=p.split('.');let t=o;for(let i=0;i<ks.length-1;i++){if(t[ks[i]]==null)t[ks[i]]={};t=t[ks[i]];}t[ks[ks.length-1]]=v;}
+
+async function fetchDefaultContent(){
+  const r=await fetch('../content.json');return r.json();
+}
+async function loadContent(){
+  const api=getApiUrl();
+  if(api){
+    try{
+      const r=await fetch(api,{headers:apiHeaders()});
+      if(r.ok){setSaveState('saved','מחובר לשרת ✓');return await r.json();}
+      if(r.status!==404)toast('שרת ענה '+r.status+' — טוען מקומי','err');
+    }catch(e){toast('שרת לא זמין — טוען מקומי','err');}
+  }
+  let base=await fetchDefaultContent();
+  try{const ov=localStorage.getItem(LS_KEY);if(ov){const p=JSON.parse(ov);if(p&&p.version)base=p;}}catch(e){}
+  return base;
+}
+
+let saveTimer=null,previewTimer=null;
+function setSaveState(cls,txt){const s=$id('saveState');s.className='save-state'+(cls?' '+cls:'');s.textContent=txt;}
+function onChange(){
+  setSaveState('saving','שומר…');
+  clearTimeout(previewTimer);previewTimer=setTimeout(pushPreview,250);
+  clearTimeout(saveTimer);saveTimer=setTimeout(persist,700);
+}
+function pushPreview(){
+  try{const pv=$id('pv');pv.contentWindow.postMessage({type:'noah:content',content},'*');}catch(e){}
+}
+async function persist(){
+  const api=getApiUrl();
+  try{
+    if(api){
+      const r=await fetch(api,{method:'POST',headers:apiHeaders(),body:JSON.stringify(content)});
+      if(r.status===401){setSaveState('saving','אין הרשאה לשרת!');toast('אין הרשאה — התחברו מחדש (סיסמת שרת שונה?)','err');return;}
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      setSaveState('saved','נשמר בשרת ✓');
+    }else{
+      localStorage.setItem(LS_KEY,JSON.stringify(content));
+      setSaveState('saved','נשמר ✓');
+    }
+  }catch(e){setSaveState('saving','שמירה בשרת נכשלה!');toast('שמירה בשרת נכשלה: '+e.message,'err');}
+}
+
+/* ================= schema ================= */
+const F=(type,path,label,opts={})=>Object.assign({type,path,label},opts);
+const SCHEMA=[
+{id:'general',icon:'🎨',label:'כללי וצבעים',fields:[
+  F('text','meta.title','כותרת האתר (למנועי חיפוש)'),
+  F('textarea','meta.description','תיאור האתר (למנועי חיפוש)'),
+  F('sep','צבעי המותג — פלטות מוכנות'),
+  F('palettes','colors','בחרו פלטה והאתר כולו מתחלף'),
+  F('sep','כיוונון צבעים בודדים'),
+  F('color','colors.terra','טרהקוטה — הצבע הראשי'),
+  F('color','colors.gold','צהוב חרדל'),
+  F('color','colors.teal','טורקיז'),
+  F('color','colors.rose','ורוד'),
+  F('color','colors.lavender','לבנדר'),
+  F('color','colors.plum','חום כהה (טקסט ופוטר)'),
+  F('color','colors.cream','קרם (רקע)'),
+  F('sep','אנימציית הפתיחה'),
+  F('text','intro.logoEmoji','אימוג\'י בפתיחה'),
+  F('text','intro.name','השם שמופיע בפתיחה'),
+  F('text','intro.sub','הכיתוב מתחת לשם'),
+]},
+{id:'header',icon:'🧭',label:'כותרת עליונה',fields:[
+  F('text','header.logoEmoji','אימוג\'י הלוגו'),
+  F('text','header.logoText','טקסט הלוגו (חלק ראשון)'),
+  F('text','header.logoBold','טקסט הלוגו (חלק מודגש)'),
+  F('list','header.nav','קישורי התפריט',{add:()=>({icon:'✨',label:'קישור חדש',href:'#'}),title:it=>it.label,fields:[
+    F('text','icon','אימוג\'י (לתפריט הנייד)'),
+    F('text','label','טקסט'),
+    F('text','href','קישור (למשל #classes)')]}),
+]},
+{id:'hero',icon:'🚀',label:'פתיח (Hero)',fields:[
+  F('text','hero.badge','תגית מעל הכותרת'),
+  F('grid',null,null,{fields:[
+    F('text','hero.title1','כותרת — מילה 1'),
+    F('text','hero.titleAccent','כותרת — מילים מודגשות'),
+    F('text','hero.title2','שורה שנייה של הכותרת')]}),
+  F('textarea','hero.sub','פסקת משנה',{html:true}),
+  F('text','hero.ctaPrimaryText','כפתור ראשי — טקסט'),
+  F('url','hero.ctaPrimaryHref','כפתור ראשי — קישור'),
+  F('text','hero.ctaSecondaryText','כפתור משני — טקסט'),
+  F('text','hero.ctaSecondaryHref','כפתור משני — קישור'),
+  F('textarea','hero.metaPill','הפיל הקטן (סטודיו פתוח…)',{html:true,short:true}),
+  F('grid',null,null,{fields:[
+    F('text','hero.paintBtn','כפתור "לפזר צבע"'),
+    F('text','hero.introBtn','כפתור האינטרו')]}),
+  F('sep','תמונות הפתיח'),
+  F('image','hero.photo','התמונה הראשית'),
+  F('text','hero.photoAlt','תיאור התמונה (נגישות)'),
+  F('image','hero.polaroidSrc','הפולרואיד הקטן'),
+  F('text','hero.polaroidAlt','תיאור הפולרואיד'),
+  F('text','hero.polaroidCaption','כיתוב הפולרואיד'),
+]},
+{id:'activities',icon:'🖌️',label:'פעילויות',fields:[
+  F('text','activities.tag','תגית'),
+  F('text','activities.title','כותרת'),
+  F('textarea','activities.sub','תת-כותרת',{short:true}),
+  F('list','activities.items','כרטיסי פעילויות',{add:()=>({emoji:'✨',title:'פעילות חדשה',text:'',color:'#e2603c'}),title:it=>it.emoji+' '+it.title,fields:[
+    F('text','emoji','אימוג\'י'),
+    F('text','title','שם הפעילות'),
+    F('textarea','text','תיאור (שורה-שתיים)',{short:true}),
+    F('color','color','צבע הכרטיס')]}),
+  F('sep','הסטריפ "קורה עכשיו"'),
+  F('bool','activities.now.visible','להציג את הסטריפ'),
+  F('image','activities.now.img','תמונת הסטריפ'),
+  F('text','activities.now.title','כותרת הסטריפ'),
+  F('text','activities.now.sub','תת-כותרת'),
+  F('text','activities.now.btnText','טקסט הכפתור'),
+  F('url','activities.now.btnHref','קישור הכפתור'),
+]},
+{id:'about',icon:'👩‍🎨',label:'נועה (אודות)',fields:[
+  F('text','about.tag','תגית'),
+  F('text','about.title','כותרת'),
+  F('textarea','about.text','הטקסט על נועה'),
+  F('strlist','about.chips','צ\'יפים (תארים קצרים)'),
+  F('list','about.stats','נתונים',{add:()=>({big:'',small:''}),title:it=>it.big+' — '+it.small,fields:[
+    F('text','big','המספר/המילה'),
+    F('text','small','הכיתוב')]}),
+  F('image','about.photo','תמונת נועה'),
+  F('text','about.photoAlt','תיאור התמונה'),
+]},
+{id:'schedule',icon:'🗓️',label:'המערכת',fields:[
+  F('text','schedule.tag','תגית'),
+  F('text','schedule.title','כותרת'),
+  F('textarea','schedule.text','פסקה',{short:true}),
+  F('list','schedule.chips','צ\'יפי המערכת',{add:()=>({icon:'✨',bold:'',rest:''}),title:it=>it.bold,fields:[
+    F('text','icon','אימוג\'י'),
+    F('text','bold','טקסט מודגש'),
+    F('text','rest','המשך (שעות וכו\')')]}),
+  F('image','schedule.poster','פוסטר המערכת'),
+  F('text','schedule.posterAlt','תיאור הפוסטר'),
+  F('text','schedule.posterCaption','כיתוב מתחת לפוסטר'),
+  F('text','schedule.btnText','טקסט הכפתור'),
+  F('url','schedule.btnHref','קישור הכפתור'),
+]},
+{id:'gallery',icon:'📸',label:'גלריה',fields:[
+  F('text','gallery.tag','תגית'),
+  F('text','gallery.title','כותרת'),
+  F('textarea','gallery.sub','תת-כותרת',{short:true}),
+  F('list','gallery.items','תמונות הגלריה',{add:()=>({img:'',caption:'',alt:''}),title:it=>it.caption||'תמונה',fields:[
+    F('image','img','תמונה'),
+    F('text','caption','כיתוב'),
+    F('text','alt','תיאור (נגישות)')]}),
+  F('sep','השקף האחרון (הבאנר הרחב)'),
+  F('image','gallery.wide.img','תמונת הבאנר'),
+  F('text','gallery.wide.caption','כיתוב הבאנר'),
+  F('text','gallery.wide.alt','תיאור'),
+  F('sep','כפתור אינסטגרם'),
+  F('text','gallery.ctaText','טקסט'),
+  F('url','gallery.ctaHref','קישור'),
+]},
+{id:'contact',icon:'✉️',label:'יצירת קשר',fields:[
+  F('text','contact.title','כותרת'),
+  F('textarea','contact.text','פסקה',{short:true}),
+  F('text','contact.waText','וואטסאפ — טקסט'),
+  F('url','contact.waHref','וואטסאפ — קישור'),
+  F('text','contact.phoneText','טלפון — טקסט'),
+  F('text','contact.phoneHref','טלפון — קישור (tel:…)'),
+  F('url','contact.instagram','אינסטגרם'),
+  F('url','contact.facebook','פייסבוק'),
+  F('text','contact.address','כתובת'),
+  F('text','contact.mapText','טקסט קישור ניווט'),
+  F('url','contact.mapHref','קישור ניווט (מפות)'),
+  F('bool','floatWa','כפתור וואטסאפ צף'),
+]},
+{id:'footer',icon:'🦶',label:'פוטר',fields:[
+  F('text','footer.brand','שורת המותג'),
+  F('list','footer.links','קישורי הפוטר',{add:()=>({label:'קישור',href:'#'}),title:it=>it.label,fields:[
+    F('text','label','טקסט'),
+    F('url','href','קישור')]}),
+  F('text','footer.copyright','שורת זכויות'),
+]}];
+
+/* ================= form building ================= */
+function fieldEl(f,prefix){
+  const path=prefix?prefix+'.'+f.path:f.path;
+  if(f.type==='sep'){const d=document.createElement('div');d.className='fld-sep';d.textContent=f.label;return d;}
+  if(f.type==='palettes'){const w=document.createElement('div');w.className='fld';const l=document.createElement('label');l.textContent=f.label;w.appendChild(l);w.appendChild(buildPalettes());return w;}
+  if(f.type==='grid'){
+    const d=document.createElement('div');d.className='grid2';
+    f.fields.forEach(sf=>d.appendChild(fieldEl(sf,prefix)));
+    return d;
+  }
+  const wrap=document.createElement('div');wrap.className='fld';
+  if(f.type!=='list'){const lab=document.createElement('label');lab.textContent=f.label;wrap.appendChild(lab);}
+  if(f.type==='text'||f.type==='url'){
+    const inp=document.createElement('input');inp.type=f.type==='url'?'text':'text';
+    if(f.type==='url'){inp.dir='ltr';inp.style.textAlign='left';inp.style.fontSize='13px';}
+    inp.value=getPath(content,path)||'';
+    inp.addEventListener('input',()=>{setPath(content,path,inp.value);onChange();});
+    wrap.appendChild(inp);
+  }else if(f.type==='textarea'){
+    const ta=document.createElement('textarea');
+    if(f.short)ta.style.minHeight='58px';
+    ta.value=getPath(content,path)||'';
+    ta.addEventListener('input',()=>{setPath(content,path,ta.value);onChange();});
+    wrap.appendChild(ta);
+    if(f.html){const h=document.createElement('div');h.className='hint';h.textContent='אפשר להשתמש בתגיות פשוטות: <b>מודגש</b>';wrap.appendChild(h);}
+  }else if(f.type==='color'){
+    const row=document.createElement('div');row.className='color-row';
+    const c=document.createElement('input');c.type='color';
+    const val=document.createElement('span');val.className='cval';
+    const cur=getPath(content,path)||'#000000';c.value=cur;val.textContent=cur;
+    c.addEventListener('input',()=>{setPath(content,path,c.value);val.textContent=c.value;onChange();});
+    row.appendChild(c);row.appendChild(val);wrap.appendChild(row);
+  }else if(f.type==='bool'){
+    const lab2=document.createElement('label');lab2.className='switch';
+    const cb=document.createElement('input');cb.type='checkbox';
+    cb.checked=!!getPath(content,path);
+    cb.addEventListener('change',()=>{setPath(content,path,cb.checked);onChange();});
+    lab2.appendChild(cb);lab2.appendChild(document.createTextNode(f.label));
+    wrap.innerHTML='';wrap.appendChild(lab2);
+  }else if(f.type==='strlist'){
+    wrap.appendChild(buildStrList(path));
+  }else if(f.type==='list'){
+    wrap.appendChild(buildList(f,path));
+  }else if(f.type==='image'){
+    wrap.appendChild(buildImage(f,path));
+  }
+  return wrap;
+}
+
+/* palette presets — one click recolors the whole site */
+const PAL_KEYS=['terra','gold','teal','rose','lavender','plum','cream'];
+const PALETTES=[
+ {name:'הפלטה המקורית',orig:true,colors:{terra:'#e2603c',gold:'#f2b33d',teal:'#2ea6a0',rose:'#f08ca5',lavender:'#9b8ce8',plum:'#43302e',cream:'#fff6ec'}},
+ {name:'קשת בגינה',colors:{terra:'#e2513e',gold:'#ffc233',teal:'#3ba05f',rose:'#f88f6d',lavender:'#64a8dd',plum:'#33422e',cream:'#f6faef'}},
+ {name:'פסטל חלומי',colors:{terra:'#ef8f76',gold:'#f8d08a',teal:'#86ccc3',rose:'#f2b6c6',lavender:'#b1a5e8',plum:'#59495f',cream:'#fdf9f5'}},
+ {name:'דובדבן וניל',colors:{terra:'#dd4f6c',gold:'#f2c14e',teal:'#5fb7b0',rose:'#f7a8b8',lavender:'#a394d6',plum:'#472735',cream:'#fff6f1'}},
+ {name:'יער קסום',colors:{terra:'#dd7e57',gold:'#e0b868',teal:'#4c9e6e',rose:'#df8fa5',lavender:'#8aa4d8',plum:'#2f3c33',cream:'#f5f9ef'}},
+ {name:'לבנדר ודבש',colors:{terra:'#e58a52',gold:'#f0b42b',teal:'#63b5ab',rose:'#e79fbf',lavender:'#9677e0',plum:'#3e3350',cream:'#faf6fe'}},
+ {name:'שקיעה זהובה',colors:{terra:'#ec6a4d',gold:'#ffc457',teal:'#2f8f8a',rose:'#f28bb2',lavender:'#c28bd8',plum:'#3c2b3d',cream:'#fff4e8'}},
+ {name:'סוכריות',colors:{terra:'#ff8a7a',gold:'#ffd166',teal:'#2ec4b6',rose:'#ff97c9',lavender:'#9b8cf0',plum:'#35414d',cream:'#f6fbff'}},
+ {name:'תות שדה',colors:{terra:'#e63946',gold:'#ffb703',teal:'#2a9d8f',rose:'#f28482',lavender:'#9b5de5',plum:'#3f232b',cream:'#fff5f0'}},
+ {name:'בוקר חם',colors:{terra:'#f4795b',gold:'#fbcf5c',teal:'#4fb3a9',rose:'#f5a3b3',lavender:'#a79be0',plum:'#4a3528',cream:'#fffaf0'}}
+];
+function paletteActive(p){
+  const cur=content.colors||{};
+  return PAL_KEYS.every(k=>String(cur[k]||'').toLowerCase()===p.colors[k].toLowerCase());
+}
+function buildPalettes(){
+  const box=document.createElement('div');
+  const grid=document.createElement('div');grid.className='pal-grid';
+  PALETTES.forEach(p=>{
+    const b=document.createElement('button');b.type='button';b.className='pal-card'+(paletteActive(p)?' active':'');
+    b.innerHTML='<span class="p-name">'+esc(p.name)+(p.orig?'<span class="orig-star">⭐ הפלטה שאיתה התחלנו</span>':'')+'</span>'+
+      '<span class="pal-dots">'+PAL_KEYS.map(k=>'<i style="background:'+p.colors[k]+'" title="'+k+'"></i>').join('')+'</span>';
+    b.addEventListener('click',()=>{
+      PAL_KEYS.forEach(k=>setPath(content,'colors.'+k,p.colors[k]));
+      buildPanels();openSec('general');
+      onChange();pushPreview();
+      toast('הפלטה "'+p.name+'" הוחלה ✓','ok');
+    });
+    grid.appendChild(b);
+  });
+  const note=document.createElement('div');note.className='pal-note';note.textContent='לחיצה מחליפה את כל צבעי האתר בבת אחת — ואפשר לדייק אחר כך בצבעים בודדים למטה.';
+  box.appendChild(grid);box.appendChild(note);
+  return box;
+}
+
+function buildStrList(path){
+  const box=document.createElement('div');box.className='list-ed';
+  const draw=()=>{
+    box.innerHTML='';
+    const arr=getPath(content,path)||[];
+    arr.forEach((v,i)=>{
+      const it=document.createElement('div');it.className='li-item';
+      const row=document.createElement('div');row.className='img-row';
+      const inp=document.createElement('input');inp.type='text';inp.value=v;inp.style.cssText='flex:1;border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14.5px';
+      inp.addEventListener('input',()=>{arr[i]=inp.value;onChange();});
+      const del=document.createElement('button');del.className='btn btn-danger';del.textContent='✕';del.style.padding='9px 13px';
+      del.addEventListener('click',()=>{arr.splice(i,1);onChange();draw();});
+      row.appendChild(inp);row.appendChild(del);it.appendChild(row);box.appendChild(it);
+    });
+    const add=document.createElement('button');add.className='list-add';add.textContent='＋ הוספה';
+    add.addEventListener('click',()=>{arr.push('');onChange();draw();});
+    box.appendChild(add);
+  };
+  draw();return box;
+}
+
+function buildList(f,path){
+  const box=document.createElement('div');box.className='list-ed';
+  const head=document.createElement('div');head.className='list-head';
+  head.innerHTML='<b>'+esc(f.label)+'</b>';
+  const move=(i,d)=>{
+    const arr=getPath(content,path);const j=i+d;
+    if(j<0||j>=arr.length)return;
+    [arr[i],arr[j]]=[arr[j],arr[i]];onChange();draw();
+  };
+  const draw=()=>{
+    box.querySelectorAll('.li-item,.list-add').forEach(x=>x.remove());
+    const arr=getPath(content,path)||[];
+    arr.forEach((item,i)=>{
+      const it=document.createElement('div');it.className='li-item';
+      const bar=document.createElement('div');bar.className='li-bar';
+      bar.innerHTML='<span class="num">'+(i+1)+'</span><span class="ttl">'+esc(f.title?f.title(item):'')+'</span>';
+      const up=document.createElement('button');up.textContent='↑';up.title='להעלות';up.addEventListener('click',()=>move(i,-1));
+      const dn=document.createElement('button');dn.textContent='↓';dn.title='להוריד';dn.addEventListener('click',()=>move(i,1));
+      const del=document.createElement('button');del.className='del';del.textContent='✕';del.title='מחיקה';
+      del.addEventListener('click',()=>{
+        const name=f.title?f.title(item):'פריט';
+        if(confirm('למחוק את "'+name+'"?')){arr.splice(i,1);onChange();draw();pushPreview();}
+      });
+      bar.appendChild(up);bar.appendChild(dn);bar.appendChild(del);
+      it.appendChild(bar);
+      f.fields.forEach(sf=>{
+        if(sf.type==='image'){it.appendChild(buildImage(sf,path+'.'+i+'.'+sf.path));}
+        else{it.appendChild(fieldEl(sf,path+'.'+i));}
+      });
+      box.appendChild(it);
+    });
+    const add=document.createElement('button');add.className='list-add';add.textContent='＋ הוספת '+(f.label||'פריט');
+    add.addEventListener('click',()=>{
+      if(!Array.isArray(getPath(content,path)))setPath(content,path,[]);
+      getPath(content,path).push(f.add?f.add():{});
+      onChange();draw();pushPreview();
+    });
+    box.appendChild(add);
+  };
+  box.appendChild(head);draw();return box;
+}
+
+/* image field: upload (auto-resized) or URL */
+const resolveImg=u=>(!u||/^(https?:|data:)/.test(u))?u:('../'+String(u).replace(/^\//,''));
+function buildImage(f,path){
+  const box=document.createElement('div');box.className='img-fld';
+  const row=document.createElement('div');row.className='img-row';
+  const thumb=document.createElement('div');thumb.className='img-thumb';
+  const tools=document.createElement('div');tools.className='img-tools';
+  const cur=getPath(content,path)||'';
+  if(cur)thumb.style.backgroundImage='url("'+resolveImg(cur)+'")';
+  const fileBtn=document.createElement('button');fileBtn.className='btn btn-ghost';fileBtn.textContent='📁 העלאת תמונה';
+  const fileInp=document.createElement('input');fileInp.type='file';fileInp.accept='image/*';fileInp.hidden=true;
+  fileBtn.addEventListener('click',()=>fileInp.click());
+  fileInp.addEventListener('change',async()=>{
+    const file=fileInp.files[0];if(!file)return;
+    toast('מעבד תמונה…');
+    try{
+      const dataUrl=await resizeImage(file,1280,.82);
+      setPath(content,path,dataUrl);
+      thumb.style.backgroundImage='url("'+dataUrl+'")';urlInp.value='';
+      onChange();toast('התמונה הועלתה ✓','ok');
+    }catch(e){toast('עיבוד התמונה נכשל: '+e.message,'err');}
+  });
+  const urlInp=document.createElement('input');urlInp.type='text';urlInp.className='img-url';urlInp.placeholder='או כתובת תמונה (URL)';
+  urlInp.value=(cur&&!cur.startsWith('data:'))?cur:'';
+  urlInp.addEventListener('change',()=>{
+    if(!urlInp.value)return;
+    const u=urlInp.value.trim();
+    setPath(content,path,u);
+    thumb.style.backgroundImage='url("'+resolveImg(u)+'")';
+    onChange();
+  });
+  tools.appendChild(fileBtn);tools.appendChild(urlInp);
+  row.appendChild(thumb);row.appendChild(tools);
+  box.appendChild(row);box.appendChild(fileInp);
+  return box;
+}
+function resizeImage(file,maxW,quality){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    const url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const scale=Math.min(1,maxW/img.width);
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      URL.revokeObjectURL(url);
+      res(c.toDataURL('image/jpeg',quality));
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('קובץ לא נתמך'));};
+    img.src=url;
+  });
+}
+
+/* ================= panels ================= */
+let curSec=null;
+function buildPanels(){
+  const nav=$id('secNav'),forms=$id('forms');
+  nav.innerHTML='';forms.innerHTML='';
+  SCHEMA.forEach((sec,ix)=>{
+    const b=document.createElement('button');b.className='sec-btn';b.type='button';
+    b.innerHTML=sec.icon+' '+sec.label;b.dataset.sec=sec.id;
+    b.addEventListener('click',()=>openSec(sec.id));
+    nav.appendChild(b);
+    const p=document.createElement('div');p.className='panel';p.id='panel-'+sec.id;
+    const h=document.createElement('h2');h.textContent=sec.icon+' '+sec.label;
+    const sub=document.createElement('div');sub.className='p-sub';sub.textContent={general:'הגדרות כלליות, צבעים ופתיח האנימציה',header:'הלוגו והתפריט העליון',hero:'החלק הראשון שרואים — הכי חשוב!',activities:'כרטיסי הפעילויות והסטריפ המודלן',about:'הסקשן על נועה',schedule:'פוסטר המערכת והצ\'יפים',gallery:'התמונות מוצגות באתר כקרוסלה נעה — הוסיפו, סדרו ומחקו שקפים',contact:'טלפון, וואטסאפ, רשתות וכתובת',footer:'תחתית העמוד'}[sec.id]||'';
+    p.appendChild(h);p.appendChild(sub);
+    sec.fields.forEach(f=>p.appendChild(fieldEl(f,null)));
+    forms.appendChild(p);
+  });
+  openSec(SCHEMA[0].id);
+}
+function openSec(id){
+  curSec=id;
+  document.querySelectorAll('.sec-btn').forEach(b=>b.classList.toggle('active',b.dataset.sec===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
+}
+
+/* ================= toolbar ================= */
+function updateApiBadge(){
+  const api=getApiUrl(),b=$id('apiBadge');
+  b.className='api-badge '+(api?'on':'off');
+  b.textContent=api?'מחובר לשרת':'מצב מקומי';
+}
+function initApp(){
+  updateApiBadge();
+  loadContent().then(c=>{
+    content=c;
+    buildPanels();
+    setSaveState('saved','מוכן לעריכה');
+    const pv=$id('pv');
+    pv.addEventListener('load',()=>setTimeout(pushPreview,150));
+  });
+
+  $id('btnSettings').addEventListener('click',()=>{$id('apiUrl').value=getApiUrl();$id('settingsModal').classList.add('open');});
+  $id('btnApiClose').addEventListener('click',()=>$id('settingsModal').classList.remove('open'));
+  $id('settingsModal').addEventListener('click',e=>{if(e.target.id==='settingsModal')e.target.classList.remove('open');});
+  $id('btnApiSave').addEventListener('click',async()=>{
+    const u=$id('apiUrl').value.trim();
+    if(u){localStorage.setItem(API_URL_KEY,u);toast('השרת חובר — טוען תוכן מחדש','ok');setTimeout(()=>location.reload(),900);}
+    else{localStorage.setItem(API_URL_KEY,'');toast('עברנו לשמירה מקומית');setTimeout(()=>location.reload(),900);}
+  });
+  $id('btnApiTest').addEventListener('click',async()=>{
+    const u=$id('apiUrl').value.trim();
+    if(!u){toast('הזן כתובת, או השאר ריק לשמירה מקומית','err');return;}
+    try{const r=await fetch(u,{headers:apiHeaders()});toast(r.ok?'חיבור תקין ✓ ('+r.status+')':'השרת ענה '+r.status,r.ok?'ok':'err');}
+    catch(e){toast('חיבור נכשל: '+e.message,'err');}
+  });
+  $id('btnApiClear').addEventListener('click',()=>{localStorage.setItem(API_URL_KEY,'');toast('נותק — שמירה מקומית');setTimeout(()=>location.reload(),900);});
+
+  $id('btnExport').addEventListener('click',()=>{
+    const blob=new Blob([JSON.stringify(content,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='content.json';a.click();
+    URL.revokeObjectURL(a.href);toast('content.json הורד ✓','ok');
+  });
+  $id('btnImport').addEventListener('click',()=>$id('importFile').click());
+  $id('importFile').addEventListener('change',async e=>{
+    const f=e.target.files[0];if(!f)return;
+    try{
+      const j=JSON.parse(await f.text());
+      if(!j.version)throw new Error('פורמט שגוי');
+      content=j;persist();buildPanels();pushPreview();toast('התוכן יובא ✓','ok');
+    }catch(err){toast('ייבוא נכשל: '+err.message,'err');}
+    e.target.value='';
+  });
+  $id('btnReset').addEventListener('click',async()=>{
+    if(!confirm('לאפס את כל התוכן לגרסה המקורית? שינויים שלא יוצאו יימחקו.'))return;
+    localStorage.removeItem(LS_KEY);
+    content=await fetchDefaultContent();
+    persist();buildPanels();pushPreview();toast('אופס לברירת המחדל ✓','ok');
+  });
+
+  $id('btnReloadPv').addEventListener('click',()=>{$id('pv').src='../';});
+  $id('devDesktop').addEventListener('click',()=>{$id('pvFrame').className='pv-frame desktop';$id('devDesktop').classList.add('active');$id('devMobile').classList.remove('active');});
+  $id('devMobile').addEventListener('click',()=>{$id('pvFrame').className='pv-frame mobile';$id('devMobile').classList.add('active');$id('devDesktop').classList.remove('active');});
+
+  addEventListener('beforeunload',e=>{if(saveTimer){persist();}});
+}
+/* auto-init for an already-authed session (deferred so all consts are ready) */
+if(sessionStorage.getItem(AUTH_KEY)==='1')initApp();
+</script>
+</body>
+</html>
