@@ -38,9 +38,9 @@
     "metaPill": "סטודיו פתוח: <b>שישי 09:30–12:30</b>",
     "paintBtn": "🎈 לפזר צבע",
     "introBtn": "🧩 לפרק ולהרכיב את הדף",
-    "photo": "assets/hero-create.jpg",
+    "photo": "assets/hero-create.jpg?v=2",
     "photoAlt": "ידיים קטנות של ילדים יוצרות בעבודת יצירה עם נייר ומדבקות",
-    "polaroidSrc": "assets/drawing-cat.jpg",
+    "polaroidSrc": "assets/drawing-cat.jpg?v=2",
     "polaroidCaption": "מציירים ביחד 🐱",
     "polaroidAlt": "ילדה מציירת חתול עם טוש שחור"
   },
@@ -58,7 +58,7 @@
     ],
     "now": {
       "visible": true,
-      "img": "assets/camp-flyer.jpg",
+      "img": "assets/camp-flyer.jpg?v=2",
       "imgAlt": "פלייר ימי היצירה לראש השנה",
       "title": "🎯 קורה עכשיו: ימי יצירה לראש השנה",
       "sub": "28–30 בספטמבר · 09:00–12:00 · כולל ערכת יצירה וכיבוד",
@@ -76,7 +76,7 @@
       { "big": "קטנות", "small": "קבוצות עם יחס אישי" },
       { "big": "גבעתיים", "small": "שינקין 45 📍" }
     ],
-    "photo": "assets/noa.jpg",
+    "photo": "assets/noa.jpg?v=2",
     "photoAlt": "נועה מאירנץ אגמי, בעלת המקום"
   },
   "schedule": {
@@ -88,7 +88,7 @@
       { "icon": "🎨", "bold": "ציור, יצירה וקבוצות חברתיות", "rest": " · אחה״צ" },
       { "icon": "✏️", "bold": "שיעורים פרטיים וקבוצות למידה", "rest": " · בתיאום מראש" }
     ],
-    "poster": "assets/schedule-poster.jpg",
+    "poster": "assets/schedule-poster.jpg?v=2",
     "posterAlt": "פוסטר המערכת השבועית של המקום של נעה",
     "posterCaption": "לצפייה בגודל מלא 🗜️",
     "btnText": "💬 למערכת המדויקת בוואאטספ",
@@ -99,12 +99,12 @@
     "title": "צצו לנו לסטודיו 📸",
     "sub": "קצת מהקסם שקורה כאן כל שבוע — ביצירה, בלמידה וביחד.",
     "items": [
-      { "img": "assets/studio-table.jpg", "caption": "השולחן תמיד מוכן 🎨", "alt": "שולחן יצירה מסודר עם חומרים ומפות צבעוניות" },
-      { "img": "assets/art-wall.jpg", "caption": "קיר היצירות של הילדים 🖼️", "alt": "קיר תצוגה עם יצירות של ילדים" },
-      { "img": "assets/drawing-cat.jpg", "caption": "מציירים חתול 🐱", "alt": "ילדה מציירת חתול עם טוש" },
-      { "img": "assets/cat-art.jpg", "caption": "יצירה על ניילון ✨", "alt": "יצירה של ילד — חתולה מצוירת על ניילון שקוף" }
+      { "img": "assets/studio-table.jpg?v=2", "caption": "השולחן תמיד מוכן 🎨", "alt": "שולחן יצירה מסודר עם חומרים ומפות צבעוניות" },
+      { "img": "assets/art-wall.jpg?v=2", "caption": "קיר היצירות של הילדים 🖼️", "alt": "קיר תצוגה עם יצירות של ילדים" },
+      { "img": "assets/drawing-cat.jpg?v=2", "caption": "מציירים חתול 🐱", "alt": "ילדה מציירת חתול עם טוש" },
+      { "img": "assets/cat-art.jpg?v=2", "caption": "יצירה על ניילון ✨", "alt": "יצירה של ילד — חתולה מצוירת על ניילון שקוף" }
     ],
-    "wide": { "img": "assets/social-banner.jpg", "caption": "„יוצרים יחד — ובעיקר נפגשים״ 🧡", "alt": "באנר — יוצרים יחד ובעיקר נפגשים" },
+    "wide": { "img": "assets/social-banner.jpg?v=2", "caption": "„יוצרים יחד — ובעיקר נפגשים״ 🧡", "alt": "באנר — יוצרים יחד ובעיקר נפגשים" },
     "ctaText": "📸 עוד רגעים באינסטגרם",
     "ctaHref": "https://www.instagram.com/mairantznoah/"
   },

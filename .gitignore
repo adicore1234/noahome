@@ -10,3 +10,5 @@ dist/
 # מערכת
 .DS_Store
 Thumbs.db
+
+.vercel
