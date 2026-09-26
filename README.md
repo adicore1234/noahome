@@ -43,7 +43,7 @@
 ### הרצה מקומית (שרת Node עם API + קבצים)
 ```bash
 cd noa-studio
-node server.js
+node local-server.js
 # האתר: http://localhost:8123 · האדמין: http://localhost:8123/admin/
 ```
 (דורש `npm install` פעם אחת — כבר בוצע.)
@@ -57,7 +57,7 @@ Settings ← Environment Variables ← להוסיף את `MONGODB_URI`, `MONGO_D
 ## הרצה מקומית
 ```bash
 cd noa-studio
-node server.js        # שרת + MongoDB API (המומלץ)
+node local-server.js  # שרת + MongoDB API (המומלץ)
 # או ללא API:  python -m http.server 8123
 ```
 

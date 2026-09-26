@@ -2,6 +2,8 @@
  * שרת מקומי — מגיש את האתר + את /api/content (MongoDB) בכתובת אחת.
  * הרצה:  node server.js   →   http://localhost:8123  (ו-/admin/)
  * בדיפלוי ל-Vercel הקובץ הזה לא נחוץ — api/content.js רץ כ-serverless.
+ * השם אינו server.js בכוונה: Vercel מזהה שם כזה אוטומטית כשרת ראשי
+ * ובמקרה כזה אינו מפרסם את קובצי ה-static מתוך dist.
  */
 const http = require('http');
 const fs = require('fs');

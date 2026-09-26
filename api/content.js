@@ -5,7 +5,7 @@
  *        אם המסד לא זמין — נופל בחזרה ל-content.json (האתר לא נופל לעולם).
  * POST → שומר את התוכן. דורש כותרות x-admin-user / x-admin-pass (כמו באדמין).
  *
- * עובד גם כ-Vercel serverless function וגם דרך server.js המקומי.
+ * עובד גם כ-Vercel serverless function וגם דרך local-server.js המקומי.
  * משתני סביבה: MONGODB_URI (+MONGODB_PASSWORD אם ה-URI מכיל <password>),
  *               MONGO_DB (ברירת מחדל: noa_site), ADMIN_USER, ADMIN_PASS.
  */
