@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "public": true,
   "buildCommand": "echo 'Static site - no build needed'",
-  "outputDirectory": ".",
   "headers": [
     {
       "source": "/(.*)",
