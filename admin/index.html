@@ -290,7 +290,16 @@ async function loadContent(){
   if(api){
     try{
       const r=await fetch(api,{headers:apiHeaders()});
-      if(r.ok){setSaveState('saved','מחובר לשרת ✓');return await r.json();}
+      if(r.ok){
+        const src=r.headers.get('x-content-source');
+        if(src==='file-fallback'){
+          setSaveState('saving','⚠️ MongoDB לא מחובר בשרת');
+          toast('⚠️ השרת לא מצליח להתחבר ל-MongoDB — בדקו משתני סביבה (MONGODB_URI)','err');
+        }else{
+          setSaveState('saved','מחובר לשרת ✓');
+        }
+        return await r.json();
+      }
       if(r.status!==404)toast('שרת ענה '+r.status+' — טוען מקומי','err');
     }catch(e){toast('שרת לא זמין — טוען מקומי','err');}
   }
@@ -315,7 +324,11 @@ async function persist(){
     if(api){
       const r=await fetch(api,{method:'POST',headers:apiHeaders(),body:JSON.stringify(content)});
       if(r.status===401){setSaveState('saving','אין הרשאה לשרת!');toast('אין הרשאה — התחברו מחדש (סיסמת שרת שונה?)','err');return;}
-      if(!r.ok)throw new Error('HTTP '+r.status);
+      if(!r.ok){
+        let msg='HTTP '+r.status;
+        try{const j=await r.json();if(j&&j.error)msg+=' · '+j.error;}catch(e){}
+        throw new Error(msg);
+      }
       setSaveState('saved','נשמר בשרת ✓');
     }else{
       localStorage.setItem(LS_KEY,JSON.stringify(content));

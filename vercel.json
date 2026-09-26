@@ -1,6 +1,7 @@
 {
   "version": 2,
   "buildCommand": "echo 'Static site - no build needed'",
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/(.*)",
