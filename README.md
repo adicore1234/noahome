@@ -52,6 +52,8 @@ node server.js
 אותו פוש כרגיל — Vercel מזהה לבד את `api/content.js` כפונקציה ומריץ `npm install` לפי package.json. לאחר ה-import:
 Settings ← Environment Variables ← להוסיף את `MONGODB_URI`, `MONGO_DB`, `ADMIN_USER`, `ADMIN_PASS` ← Redeploy. זהו — האתר, האדמין והמסד חיים.
 
+> בשדה הערך של Vercel מדביקים רק את הכתובת שמתחילה ב־`mongodb+srv://` — ללא `MONGODB_URI=` וללא מרכאות. הקוד מנרמל כעת גם ערכים כאלה, אבל זהו הפורמט המומלץ.
+
 ## הרצה מקומית
 ```bash
 cd noa-studio
