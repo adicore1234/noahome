@@ -5,6 +5,7 @@ atlas-credentials*.env
 
 # node
 node_modules/
+dist/
 
 # מערכת
 .DS_Store
