@@ -272,7 +272,7 @@ const LS_KEY='noah-content-v1',API_URL_KEY='noah-api-url',CREDS_KEY='noah-admin-
 const $id=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 /* ברירת מחדל: ה-API של MongoDB. אפשר לנתק בהגדרות (אז חוזרים לשמירה מקומית). */
-function getApiUrl(){const v=localStorage.getItem(API_URL_KEY);return v===null?'/api/content':v;}
+function getApiUrl(){const v=localStorage.getItem(API_URL_KEY);return v===null?'/api/content?v=2':v;}
 function getCreds(){try{return JSON.parse(sessionStorage.getItem(CREDS_KEY)||'null');}catch(e){return null;}}
 function apiHeaders(extra){const c=getCreds()||{};const h=Object.assign({'Content-Type':'application/json'},extra);if(c.u){h['x-admin-user']=c.u;h['x-admin-pass']=c.p;}return h;}
 function toast(msg,kind){const t=$id('toast');t.textContent=msg;t.className=kind?''+kind:'';t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600);}
@@ -289,7 +289,7 @@ async function loadContent(){
   const api=getApiUrl();
   if(api){
     try{
-      const r=await fetch(api,{headers:apiHeaders()});
+      const r=await fetch(api,{headers:apiHeaders(),cache:'no-store'});
       if(r.ok){
         const src=r.headers.get('x-content-source');
         if(src==='file-fallback'){
@@ -322,7 +322,7 @@ async function persist(){
   const api=getApiUrl();
   try{
     if(api){
-      const r=await fetch(api,{method:'POST',headers:apiHeaders(),body:JSON.stringify(content)});
+      const r=await fetch(api,{method:'POST',headers:apiHeaders(),body:JSON.stringify(content),cache:'no-store'});
       if(r.status===401){setSaveState('saving','אין הרשאה לשרת!');toast('אין הרשאה — התחברו מחדש (סיסמת שרת שונה?)','err');return;}
       if(!r.ok){
         let msg='HTTP '+r.status;
@@ -724,7 +724,7 @@ function initApp(){
   $id('btnApiTest').addEventListener('click',async()=>{
     const u=$id('apiUrl').value.trim();
     if(!u){toast('הזן כתובת, או השאר ריק לשמירה מקומית','err');return;}
-    try{const r=await fetch(u,{headers:apiHeaders()});toast(r.ok?'חיבור תקין ✓ ('+r.status+')':'השרת ענה '+r.status,r.ok?'ok':'err');}
+    try{const r=await fetch(u,{headers:apiHeaders(),cache:'no-store'});toast(r.ok?'חיבור תקין ✓ ('+r.status+')':'השרת ענה '+r.status,r.ok?'ok':'err');}
     catch(e){toast('חיבור נכשל: '+e.message,'err');}
   });
   $id('btnApiClear').addEventListener('click',()=>{localStorage.setItem(API_URL_KEY,'');toast('נותק — שמירה מקומית');setTimeout(()=>location.reload(),900);});

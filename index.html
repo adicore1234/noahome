@@ -923,7 +923,7 @@ function applyContent(c){
 async function loadContent(){
   let base=null,apiOk=false;
   if(CONTENT_API){
-    try{const r=await fetch(CONTENT_API);if(r.ok){base=await r.json();apiOk=true;}}catch(e){}
+    try{const r=await fetch(CONTENT_API+'?v=2',{cache:'no-store'});if(r.ok){base=await r.json();apiOk=true;}}catch(e){}
   }
   if(!base){try{const r=await fetch('content.json');if(r.ok)base=await r.json();}catch(e){}}
   if(!apiOk){ /* ה-API לא זמין — עריכות מקומיות מהדפדפן */
