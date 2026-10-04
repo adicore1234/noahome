@@ -172,14 +172,11 @@ section[id]{scroll-margin-top:86px}
 .acts[data-cs="editorial"] .act .ico{background:transparent;border-color:rgba(24,20,14,.13);color:#4a443b}
 .acts[data-cs="editorial"] .act .ico .ico-img{filter:sepia(.4) saturate(.5) brightness(.55)}
 .acts[data-cs="editorial"] .act:hover{transform:translateY(1px);border-color:rgba(24,20,14,.16);box-shadow:inset 0 2px 5px rgba(20,16,10,.07),inset 0 1px 0 rgba(255,255,255,.5),0 4px 14px -10px rgba(20,16,10,.2)}
-/* ערימת דפים — שכבות נייר מאחור, בהובר נפרשות בקפיציות אלסטית */
-.acts[data-cs="stack"] .act{background:#fffdf8;border:1px solid #ece5d8;box-shadow:0 16px 40px -20px rgba(50,40,20,.25)}
-.acts[data-cs="stack"] .act::before{content:'';position:absolute;inset:0;border-radius:inherit;background:#f1ede4;transform:translate(3px,3px) rotate(.5deg);z-index:-1;transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
-.acts[data-cs="stack"] .act::after{content:'';position:absolute;inset:0;border-radius:inherit;background:#e7e1d5;transform:translate(6px,6px) rotate(-.7deg);z-index:-2;transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+/* ערימת דפים — שכבות נייר מוסטות כ-box-shadow מרובה (חסין ל-stacking contexts,
+   בלי z-index שלילי — לא נשבר באמצע אנימציית כניסה), בהובר נפרשות */
+.acts[data-cs="stack"] .act{background:#fffdf8;border:1px solid #ece5d8;box-shadow:5px 5px 0 -1px #ece3d0,5px 5px 0 0 #ddd1b9,10px 10px 0 -1px #e0d5bd,10px 10px 0 0 #d2c4a7,14px 22px 40px -18px rgba(50,40,20,.28);transition:box-shadow .4s cubic-bezier(.34,1.56,.64,1)}
+.acts[data-cs="stack"] .act:hover{transform:none;box-shadow:8px 8px 0 -1px #ece3d0,8px 8px 0 0 #ddd1b9,16px 16px 0 -1px #e0d5bd,16px 16px 0 0 #d2c4a7,18px 30px 44px -18px rgba(50,40,20,.3)}
 .acts[data-cs="stack"] .act .ico{background:#f5f1e8;border-color:#e3dccd;color:#5b5344}
-.acts[data-cs="stack"] .act:hover{transform:none}
-.acts[data-cs="stack"] .act:hover::before{transform:translate(6px,6px) rotate(1.3deg)}
-.acts[data-cs="stack"] .act:hover::after{transform:translate(12px,12px) rotate(-1.6deg)}
 /* ברק נקודתי — ספוט-UV: אריח אייקון כהה-מבריק בלבד, סוויפ מראה בהובר */
 @keyframes uvSweep{to{transform:translateX(135%) skewX(-8deg)}}
 .acts[data-cs="gloss"] .act{background:#fafafa;border-color:#ececec;box-shadow:0 2px 6px rgba(13,22,38,.04)}
@@ -316,13 +313,9 @@ section[id]{scroll-margin-top:86px}
   .acts .act.rv:nth-child(5){transition-delay:.28s}
   .acts .act.rv:nth-child(n+6){transition-delay:.32s}
 }
-/* כיווני מובייל — ערימת הדפים נראית לעין ברוחב צר, אורורה ממוקדת יותר */
+/* כיווני מובייל — אורורה מרוכזת ועזה יותר ברוחב צר */
 @media(max-width:640px){
-  .acts[data-cs="stack"] .act::before{transform:translate(5px,5px) rotate(1.1deg)}
-  .acts[data-cs="stack"] .act::after{transform:translate(10px,10px) rotate(-1.5deg)}
-  .acts[data-cs="stack"] .act:hover::before{transform:translate(9px,9px) rotate(2.2deg)}
-  .acts[data-cs="stack"] .act:hover::after{transform:translate(16px,16px) rotate(-2.4deg)}
-  .acts[data-cs="aurora"] .act::before{filter:blur(24px);opacity:.8}
+  .acts[data-cs="aurora"] .act::before{inset:-16%;filter:blur(18px);opacity:.9;background:radial-gradient(120% 90% at 0% 0%,color-mix(in srgb,var(--ac,var(--terra)) 62%,transparent),transparent 55%),radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--teal) 52%,transparent),transparent 55%),radial-gradient(120% 90% at 50% 105%,color-mix(in srgb,var(--plum) 46%,transparent),transparent 58%)}
 }
 
 /* About */
