@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <defs>
+    <linearGradient id="yellow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF176"/><stop offset="1" stop-color="#FFB300"/></linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF9FC2"/><stop offset="1" stop-color="#E83E7B"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A5EAFF"/><stop offset="1" stop-color="#3FA9F5"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9B7FF"/><stop offset="1" stop-color="#8055D9"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#422B59" flood-opacity=".28"/></filter>
+  </defs>
+  <g filter="url(#shadow)" stroke-linejoin="round" stroke-width="1.6"><circle cx="32" cy="29" r="22" fill="url(#blue)" stroke="#2777B8"/><path d="M19 16c5 1 6 5 11 5 4 0 3 5 0 7-4 2-2 7-7 8-5 1-8-3-12-2m31-21c-5 3-3 8 1 10 5 3 7 7 8 11-5-1-10 2-12 7-2 5-6 7-10 9" fill="#63D471" stroke="#318C42"/><path d="M22 55h20M32 51v4" stroke="#5D4B70" stroke-width="4" stroke-linecap="round"/></g>
+</svg>

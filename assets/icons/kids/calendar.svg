@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <defs>
+    <linearGradient id="yellow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF176"/><stop offset="1" stop-color="#FFB300"/></linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF9FC2"/><stop offset="1" stop-color="#E83E7B"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A5EAFF"/><stop offset="1" stop-color="#3FA9F5"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9B7FF"/><stop offset="1" stop-color="#8055D9"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#422B59" flood-opacity=".28"/></filter>
+  </defs>
+  <g filter="url(#shadow)" stroke-linejoin="round" stroke-width="1.6"><rect x="9" y="13" width="46" height="43" rx="7" fill="#F9FCFF" stroke="#7147B7"/><path d="M9 26h46V19c0-3-3-6-6-6H15c-3 0-6 3-6 6z" fill="url(#purple)"/><path d="M20 8v11M44 8v11" stroke="#5D4B70" stroke-width="4" stroke-linecap="round"/><g fill="#FF7AA8"><circle cx="20" cy="35" r="3"/><circle cx="32" cy="35" r="3"/><circle cx="44" cy="35" r="3"/></g><g fill="#5AC8FA"><circle cx="20" cy="46" r="3"/><circle cx="32" cy="46" r="3"/><circle cx="44" cy="46" r="3"/></g></g>
+</svg>

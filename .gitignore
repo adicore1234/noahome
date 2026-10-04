@@ -12,3 +12,11 @@ dist/
 Thumbs.db
 
 .vercel
+
+# כלי עבודה/בדיקות מקומיים — לא חלק מהמוצר
+.mimosa/
+.playwright-mcp/
+.video_agent/
+.zcode/
+.zcodeignore
+bg3d-matrix*.json

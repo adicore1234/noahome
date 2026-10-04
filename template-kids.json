@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "meta": {
+    "title": "הדף החדש שלי",
+    "description": "דף נחיתה חדש שנוצר עם Pagely — התאימו את התוכן, התמונות והצבעים בעורך."
+  },
+  "colors": {
+    "terra": "#e2603c",
+    "gold": "#f2b33d",
+    "teal": "#2ea6a0",
+    "rose": "#f08ca5",
+    "lavender": "#9b8ce8",
+    "plum": "#43302e",
+    "cream": "#fff6ec"
+  },
+  "header": {
+    "logoImg": "",
+    "logoMark": "",
+    "logoText": "הדף",
+    "logoBold": "שלי",
+    "nav": [
+      {
+        "icon": "✨",
+        "label": "מה יש כאן",
+        "href": "#classes"
+      },
+      {
+        "icon": "👋",
+        "label": "קצת עליי",
+        "href": "#noa"
+      },
+      {
+        "icon": "🗓️",
+        "label": "מערכת",
+        "href": "#schedule"
+      },
+      {
+        "icon": "📸",
+        "label": "גלריה",
+        "href": "#gallery"
+      },
+      {
+        "icon": "✉️",
+        "label": "יצירת קשר",
+        "href": "#contact"
+      }
+    ]
+  },
+  "hero": {
+    "badge": "✨ דף נחיתה חדש — מתחילים עכשיו",
+    "title1": "כאן",
+    "titleAccent": "כותבים",
+    "title2": "את הסיפור שלכם",
+    "sub": "זה המקום להציג את מה שאתם עושים בדיוק כמו שאתם — <b>בכמה מילים</b>, עם <b>תמונה יפה</b> וכפתור שמזמין לפעולה.",
+    "ctaPrimaryText": "✉️ צרו איתי קשר",
+    "ctaPrimaryHref": "#contact",
+    "ctaSecondaryText": "✨ מה יש כאן?",
+    "ctaSecondaryHref": "#classes",
+    "metaPill": "עודכן לאחרונה: <b>היום</b>",
+    "paintBtn": "🎈 לפזר צבע",
+    "introBtn": "🧩 לפרק ולהרכיב את הדף",
+    "photo": "assets/placeholders/hero.svg",
+    "photoAlt": "תמונת פתיח — החליפו אותה בתמונה שלכם",
+    "polaroidSrc": "assets/placeholders/square.svg",
+    "polaroidCaption": "רגע מהשגרה 📸",
+    "polaroidAlt": "תמונה קטנה ליד הפתיח"
+  },
+  "activities": {
+    "tag": "מה יש כאן",
+    "title": "מה מציעים בדף הזה",
+    "sub": "החליפו את הכרטיסים הבאים בשירותים, החוגים או המוצרים שלכם — אפשר להוסיף, למחוק ולסדר.",
+    "items": [
+      {
+        "emoji": "✨",
+        "title": "הדבר הראשון שלכם",
+        "text": "כאן כותבים בקצרה מה מקבלים — משפט-שניים שקל לקרוא.",
+        "color": "#e2603c"
+      },
+      {
+        "emoji": "🌟",
+        "title": "הדבר השני שלכם",
+        "text": "גם כאן — קצר, ברור, ועם חיוך קטן.",
+        "color": "#2ea6a0"
+      },
+      {
+        "emoji": "💫",
+        "title": "הדבר השלישי שלכם",
+        "text": "וזהו — שלושה עד שישה כרטיסים זה בדרך כלל הכי קריא.",
+        "color": "#f2b33d"
+      }
+    ],
+    "now": {
+      "visible": false,
+      "img": "assets/placeholders/square.svg",
+      "imgAlt": "",
+      "title": "🎯 קורה עכשיו",
+      "sub": "כשיש משהו חם — הדליקו את הסטריפ הזה בעורך",
+      "btnText": "לפרטים",
+      "btnHref": "#contact"
+    }
+  },
+  "about": {
+    "tag": "נעים להכיר 👋",
+    "title": "קצת עליי — ועל המקום",
+    "text": "כאן כותבים פסקה קצרה ואנושית: מי אתם, מה מניע אתכם, ומה מיוחד בדרך שבה אתם עושים את זה. שתיים-שלוש שורות שגורמות לאנשים להרגיש בבית.",
+    "chips": [
+      "🎓 הניסיון שלכם",
+      "❤️ מה שאתם אוהבים",
+      "🏆 סיבה להאמין"
+    ],
+    "stats": [
+      {
+        "big": "7+",
+        "small": "שנות ניסיון (עדכנו!)"
+      },
+      {
+        "big": "100%",
+        "small": "אהבה למה שעושים"
+      },
+      {
+        "big": "כאן",
+        "small": "העיר שלכם 📍"
+      }
+    ],
+    "photo": "assets/placeholders/portrait.svg",
+    "photoAlt": "תמונת פרופיל — החליפו בתמונה שלכם"
+  },
+  "schedule": {
+    "tag": "המערכת",
+    "title": "מתי אפשר למצוא אתכם?",
+    "text": "ימים, שעות ופורמטים — בקצרה. אפשר גם להעלות פוסטר של המערכת במקום טקסט.",
+    "chips": [
+      {
+        "icon": "🗓️",
+        "bold": "ימי פעילות",
+        "rest": " · עדכנו את השעות"
+      },
+      {
+        "icon": "⏰",
+        "bold": "מפגשים קבועים",
+        "rest": " · לפי תיאום"
+      }
+    ],
+    "poster": "assets/placeholders/poster.svg",
+    "posterAlt": "פוסטר המערכת — החליפו בשלכם",
+    "posterCaption": "לצפייה בגודל מלא 🗜️",
+    "btnText": "💬 לתיאום בוואטסאפ",
+    "btnHref": "#contact"
+  },
+  "gallery": {
+    "tag": "גלריה",
+    "title": "כמה רגעים 📸",
+    "sub": "העלו תמונות מהשטח — הגלריה נגללת אוטומטית ואפשר לגרור אותה.",
+    "items": [
+      {
+        "img": "assets/placeholders/portrait.svg",
+        "caption": "תמונה ראשונה — החליפו אותי",
+        "alt": "תמונת דוגמה"
+      },
+      {
+        "img": "assets/placeholders/square.svg",
+        "caption": "תמונה שנייה",
+        "alt": "תמונת דוגמה"
+      },
+      {
+        "img": "assets/placeholders/square.svg",
+        "caption": "תמונה שלישית",
+        "alt": "תמונת דוגמה"
+      }
+    ],
+    "wide": {
+      "img": "assets/placeholders/wide.svg",
+      "caption": "„הבאנר הרחב שסוגר את הגלריה״ 🧡",
+      "alt": "באנר רחב"
+    },
+    "ctaText": "📸 עקבו אחרינו באינסטגרם",
+    "ctaHref": "https://www.instagram.com/"
+  },
+  "contact": {
+    "title": "בואו נדבר ✉️",
+    "text": "כאן מזמינים לפעולה: להרשמה, לשאלה או סתם להתרשם. עדכנו את הטלפון, הוואטסאפ והרשתות בעורך.",
+    "phoneText": "📞 הטלפון שלכם",
+    "phoneHref": "tel:+972500000000",
+    "waText": "💬 וואטסאפ",
+    "waHref": "https://wa.me/972500000000",
+    "instagram": "https://www.instagram.com/",
+    "facebook": "https://www.facebook.com/",
+    "address": "📍 הכתובת שלכם, העיר",
+    "mapText": "נווטו אלינו",
+    "mapHref": "https://www.google.com/maps"
+  },
+  "footer": {
+    "brand": "הדף שלי 🧩 נוצר עם Pagely",
+    "links": [
+      {
+        "label": "אינסטגרם",
+        "href": "https://www.instagram.com/"
+      },
+      {
+        "label": "וואטסאפ",
+        "href": "https://wa.me/972500000000"
+      }
+    ],
+    "copyright": "כל הזכויות שמורות © 2026"
+  },
+  "intro": {
+    "logoEmoji": "🧩",
+    "name": "הדף שלי",
+    "sub": "נוצר עם Pagely",
+    "skipText": "לחצו לדילוג",
+    "style": "blocks"
+  },
+  "floatWa": true,
+  "sections": {
+    "order": [
+      "activities",
+      "about",
+      "schedule",
+      "gallery",
+      "contact"
+    ],
+    "activities": true,
+    "about": true,
+    "schedule": true,
+    "gallery": true,
+    "contact": true
+  },
+  "icons": {
+    "pack": "kids"
+  }
+}

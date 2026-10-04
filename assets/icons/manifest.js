@@ -1,0 +1,6 @@
+/* Pagely — מניפסט חבילות האייקונים (נוצר מתוכן התיקיות assets/icons/business ו-assets/icons/kids).
+   כשמוסיפים אייקונים חדשים לתיקיות — מעדכנים גם כאן, והבוחר בעורך יציג אותם. */
+window.PAGELY_ICONS = {
+  business: ["analytics","bank","briefcase","building","calculator","calendar","cart","chart","chat","check","clipboard","clock","cloud","coffee","coins","contract","credit_card","database","delivery","document","email","factory","filter","fingerprint","folder","globe","growth","handshake","idea","invoice","key","laptop","location","lock","medal","megaphone","money_bag","network","package","phone","presentation","qr","rating","search","security","server","settings","smartphone","storefront","strategy","target","team","tie","trophy","wallet","whatsapp"],
+  kids: ["airplane","apple","backpack","ball","balloon","bicycle","blocks","book","bus","butterfly","calendar","camera","car","clock","cloud","cookie","crown","cupcake","dinosaur","drum","fish","flag","flower","gamepad","gift","globe","heart","house","icecream","key","kite","lightbulb","lock","magnifier","medal","microphone","moon","music","palette","pencil","planet","puzzle","rainbow","robot","rocket","school","shield","star","sun","teddy","train","tree","trophy","unicorn","wand"]
+};

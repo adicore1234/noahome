@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <defs>
+    <linearGradient id="yellow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF176"/><stop offset="1" stop-color="#FFB300"/></linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF9FC2"/><stop offset="1" stop-color="#E83E7B"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A5EAFF"/><stop offset="1" stop-color="#3FA9F5"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9B7FF"/><stop offset="1" stop-color="#8055D9"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#422B59" flood-opacity=".28"/></filter>
+  </defs>
+  <g filter="url(#shadow)" stroke-linejoin="round" stroke-width="1.6"><rect x="7" y="15" width="50" height="35" rx="9" fill="url(#yellow)" stroke="#B77A00"/><path d="M13 21h29v15H13zM46 21h6v15h-6z" fill="#BDEBFF" stroke="#2777B8"/><path d="M8 39h49" stroke="#D48B00" stroke-width="3"/><circle cx="19" cy="51" r="6" fill="#4D4658"/><circle cx="45" cy="51" r="6" fill="#4D4658"/><circle cx="19" cy="51" r="2" fill="#D9D4E1"/><circle cx="45" cy="51" r="2" fill="#D9D4E1"/></g>
+</svg>

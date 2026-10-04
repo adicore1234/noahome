@@ -1,0 +1,246 @@
+{
+  "version": 1,
+  "meta": {
+    "title": "שם העסק שלכם",
+    "description": "דף נחיתה עסקי שנוצר עם Pagely — התאימו את הטקסטים, התמונות והצבעים בעורך."
+  },
+  "colors": {
+    "terra": "#1e3a5f",
+    "gold": "#b08d3e",
+    "teal": "#3e6d9c",
+    "rose": "#7a2e3e",
+    "lavender": "#5a6f8f",
+    "plum": "#0d1626",
+    "cream": "#f7f8fa"
+  },
+  "header": {
+    "logoImg": "",
+    "logoMark": "",
+    "logoText": "שם העסק",
+    "logoBold": "שלכם",
+    "nav": [
+      {
+        "icon": "assets/icons/business/briefcase.svg",
+        "label": "שירותים",
+        "href": "#classes"
+      },
+      {
+        "icon": "assets/icons/business/team.svg",
+        "label": "אודות",
+        "href": "#noa"
+      },
+      {
+        "icon": "assets/icons/business/calendar.svg",
+        "label": "שעות פעילות",
+        "href": "#schedule"
+      },
+      {
+        "icon": "assets/icons/business/presentation.svg",
+        "label": "גלריה",
+        "href": "#gallery"
+      },
+      {
+        "icon": "assets/icons/business/chat.svg",
+        "label": "צור קשר",
+        "href": "#contact"
+      }
+    ]
+  },
+  "hero": {
+    "badge": "הפתרון המקצועי שחיפשתם",
+    "title1": "שירות מקצועי,",
+    "titleAccent": "תוצאות אמיתיות",
+    "title2": "בכל פרויקט",
+    "sub": "כאן כותבים משפט פתיחה חד וברור: מה אתם עושים, למי, ומה הלקוח מקבל בסוף. שתי שורות — לא יותר.",
+    "ctaPrimaryText": "קבלו הצעת מחיר",
+    "ctaPrimaryHref": "#contact",
+    "ctaSecondaryText": "השירותים שלנו",
+    "ctaSecondaryHref": "#classes",
+    "metaPill": "ליווי אישי · התחייבות לתוצאה · הכל בזמן",
+    "paintBtn": "",
+    "introBtn": "",
+    "photo": "assets/placeholders/hero.svg",
+    "noImage": false,
+    "photoAlt": "תמונת פתיח — החליפו בתמונה שמציגה את העסק שלכם",
+    "bgImg": "",
+    "bg3d": "",
+    "bgVeil": 65,
+    "polaroidSrc": "",
+    "polaroidCaption": "",
+    "polaroidAlt": ""
+  },
+  "activities": {
+    "tag": "השירותים שלנו",
+    "cardStyle": "classic",
+    "title": "מה אנחנו מציעים",
+    "sub": "שלושה עד שישה שירותים מרכזיים — כל אחד עם כותרת ברורה ושורת הסבר אחת.",
+    "items": [
+      {
+        "emoji": "assets/icons/business/target.svg",
+        "title": "השירות הראשון",
+        "text": "שורה אחת שמסבירה מה הלקוח מקבל ומה הוא מרוויח מזה.",
+        "color": "#1e3a5f"
+      },
+      {
+        "emoji": "assets/icons/business/strategy.svg",
+        "title": "השירות השני",
+        "text": "תמציתי, קונקרטי, בלי מילים מיותרות — בדיוק כמו שלקוח עסקי אוהב.",
+        "color": "#3e6d9c"
+      },
+      {
+        "emoji": "assets/icons/business/chart.svg",
+        "title": "השירות השלישי",
+        "text": "אפשר להוסיף עוד כרטיסים בעורך, לשנות צבע וסדר.",
+        "color": "#b08d3e"
+      }
+    ],
+    "now": {
+      "visible": false,
+      "img": "",
+      "imgAlt": "",
+      "title": "עדכון חשוב",
+      "sub": "כשיש מבצע או הודעה — הדליקו את הפס הזה בעורך",
+      "btnText": "לפרטים",
+      "btnHref": "#contact"
+    }
+  },
+  "about": {
+    "tag": "אודות",
+    "title": "קצת עלינו",
+    "text": "פסקה קצרה שבונה אמון: ניסיון, התמחות, ואיך אתם עובדים עם לקוחות. כמה מילים על הגישה — ולמה לבחור דווקא בכם.",
+    "chips": [
+      "ניסיון מוכח",
+      "שירות אישי",
+      "אמינות וזמינות"
+    ],
+    "stats": [
+      {
+        "big": "10+",
+        "small": "שנות ניסיון"
+      },
+      {
+        "big": "250+",
+        "small": "לקוחות מרוצים"
+      },
+      {
+        "big": "98%",
+        "small": "חוזרים אלינו"
+      }
+    ],
+    "photo": "assets/placeholders/portrait.svg",
+    "photoAlt": "תמונת צוות או משרד — החליפו בתמונה שלכם"
+  },
+  "schedule": {
+    "tag": "שעות פעילות",
+    "title": "מתי אפשר להגיע אלינו",
+    "text": "ימים ושעות פעילות, אזור שירות וכל מידע לוגיסטי שלקוח צריך לדעת לפני שמתקשר.",
+    "chips": [
+      {
+        "icon": "assets/icons/business/clock.svg",
+        "bold": "א'-ה'",
+        "rest": " · 09:00–18:00"
+      },
+      {
+        "icon": "assets/icons/business/calendar.svg",
+        "bold": "ו'",
+        "rest": " · בתיאום מראש"
+      },
+      {
+        "icon": "assets/icons/business/location.svg",
+        "bold": "אזור השירות",
+        "rest": " · כל הארץ"
+      }
+    ],
+    "poster": "assets/placeholders/poster.svg",
+    "posterAlt": "תמונת מידע — אפשר להעלות פלייר או תמונת משרד",
+    "posterCaption": "לצפייה בגודל מלא",
+    "btnText": "לתיאום פגישה",
+    "btnHref": "#contact"
+  },
+  "gallery": {
+    "tag": "גלרריה",
+    "title": "עבודות נבחרות",
+    "sub": "תמונות של עבודות, לפני/אחרי או המשרד — הגלרריה מוצגת כגריד נקי ומסודר.",
+    "items": [
+      {
+        "img": "assets/placeholders/portrait.svg",
+        "caption": "פרויקט ראשון — החליפו אותי",
+        "alt": "תמונת דוגמה"
+      },
+      {
+        "img": "assets/placeholders/square.svg",
+        "caption": "פרויקט שני",
+        "alt": "תמונת דוגמה"
+      },
+      {
+        "img": "assets/placeholders/square.svg",
+        "caption": "פרויקט שלישי",
+        "alt": "תמונת דוגמה"
+      }
+    ],
+    "wide": {
+      "img": "assets/placeholders/wide.svg",
+      "caption": "תמונה רחבה שסוגרת את הגלריה",
+      "alt": "באנר רחב"
+    },
+    "ctaText": "עקבו אחרינו באינסטגרם",
+    "ctaHref": "https://www.instagram.com/"
+  },
+  "contact": {
+    "title": "בואו נדבר",
+    "text": "השאירו פרטים או צרו קשר ישירות — חוזרים אליכם באותו יום עסקים.",
+    "phoneText": "התקשרו אלינו",
+    "phoneHref": "tel:+972500000000",
+    "waText": "וואטסאפ",
+    "waHref": "https://wa.me/972500000000",
+    "instagram": "https://www.instagram.com/",
+    "facebook": "https://www.facebook.com/",
+    "address": "הכתובת שלכם, העיר",
+    "mapText": "נווטו אלינו",
+    "mapHref": "https://www.google.com/maps"
+  },
+  "footer": {
+    "brand": "שם העסק · נוצר עם Pagely",
+    "links": [
+      {
+        "label": "אינסטגרם",
+        "href": "https://www.instagram.com/"
+      },
+      {
+        "label": "וואטסאפ",
+        "href": "https://wa.me/972500000000"
+      }
+    ],
+    "copyright": "כל הזכויות שמורות © 2026"
+  },
+  "intro": {
+    "logoEmoji": "assets/icons/business/briefcase.svg",
+    "name": "שם העסק",
+    "sub": "נוצר עם Pagely",
+    "skipText": "לדלג",
+    "style": "fade"
+  },
+  "floatWa": true,
+  "sections": {
+    "order": [
+      "hero",
+      "header",
+      "activities",
+      "about",
+      "schedule",
+      "gallery",
+      "contact",
+      "footer"
+    ],
+    "hero": true,
+    "header": true,
+    "activities": true,
+    "about": true,
+    "schedule": true,
+    "gallery": true,
+    "contact": true
+  },
+  "icons": {
+    "pack": "business"
+  }
+}

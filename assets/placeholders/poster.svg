@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 900">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8f5ef"/><stop offset="1" stop-color="#ece7db"/></linearGradient></defs>
+  <rect width="700" height="900" fill="url(#bg)"/>
+  <g fill="none" stroke="#42506b" stroke-opacity=".13" stroke-width="1.5">
+    <circle cx="350" cy="950" r="160"/><circle cx="350" cy="950" r="320"/><circle cx="350" cy="950" r="400"/><circle cx="350" cy="950" r="480"/>
+  </g>
+  <circle cx="350" cy="950" r="240" fill="none" stroke="#b08d3e" stroke-opacity=".55" stroke-width="2"/>
+  <text x="350" y="360" text-anchor="middle" font-family="Heebo,Arial,sans-serif" font-size="21" fill="#5a6577" direction="rtl" letter-spacing="1">כאן מעלים פוסטר או תמונה</text>
+  <text x="350" y="394" text-anchor="middle" font-family="Heebo,Arial,sans-serif" font-size="15" fill="#8d96a6" direction="rtl">למשל פוסטר המערכת השבועית</text>
+</svg>

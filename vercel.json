@@ -26,6 +26,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/b/:slug", "destination": "/site-business.html" },
+    { "source": "/:slug", "destination": "/site.html" }
   ]
 }

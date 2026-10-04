@@ -1,0 +1,401 @@
+/* ============================================================
+   Pagely UI — מערכת העיצוב המשותפת (אדמין · סופר-אדמין · כניסה)
+   נטען אחרי ה-<style> המקומי של כל עמוד, ולכן מנצח בתיקו —
+   טוקנים + פרימיטיבים פרימיום 2026, בהיר בלבד.
+   (60-30-10: ניטרלים חמים דומיננטיים, הצבע רק בגליפים קטנים)
+   ============================================================ */
+
+/* ===== טוקנים ===== */
+:root{
+  /* מותג */
+  --accent:#e2603c;--accent-d:#c14e2e;--accent-soft:#fdeee8;--accent-ring:rgba(226,96,60,.16);
+  --gold:#f2b33d;--teal:#2ea6a0;
+  /* טקסט */
+  --ink:#111827;--text:#374151;--muted:#6b7280;
+  /* משטחים — ניטרלים חמים */
+  --line:#e8e4dd;--line-strong:#d6d1c7;--bg:#faf9f7;--card:#fff;--soft:#f7f5f1;
+  --nav:#1c2333;
+  /* סמנטיקה */
+  --ok:#15803d;--ok-soft:#f0fdf4;--ok-line:#86efac;
+  --err:#c0392b;--err-soft:#fef2f2;--err-line:#fecaca;
+  --warn:#92400e;--warn-soft:#fffbeb;--warn-line:#fcd34d;
+  /* זכוכית וטיפים */
+  --glass:rgba(255,255,255,.82);--tip-bg:#161b28;--toast-bg:#1f2937;
+  /* מרווחים — סקאלת 4px */
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-7:32px;--sp-8:40px;
+  /* רדיוסים */
+  --r-xs:6px;--r-sm:8px;--r-md:10px;--r-lg:12px;--r-xl:16px;--r-2xl:20px;--r-full:999px;
+  /* הגבהה רב-שכבתית (ambient + key) */
+  --elev-1:0 1px 2px rgba(17,24,39,.05),0 2px 6px rgba(17,24,39,.05);
+  --elev-2:0 1px 2px rgba(17,24,39,.05),0 6px 18px rgba(17,24,39,.09);
+  --elev-3:0 2px 6px rgba(17,24,39,.08),0 18px 44px rgba(17,24,39,.16);
+  --hi-light:inset 0 1px 0 rgba(255,255,255,.65);
+  /* תנועה */
+  --dur-1:120ms;--dur-2:200ms;--dur-3:340ms;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  color-scheme:light;
+}
+
+/* ===== בסיס ===== */
+.hidden{display:none!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+::selection{background:var(--accent-soft)}
+kbd{font-family:inherit;background:var(--soft);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font-size:11px;font-weight:700;color:var(--muted);line-height:1.5}
+
+/* גרעין רעש עדין — שכבת פילם על כל הוויופט */
+body.grain::after{content:'';position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* סקרולברים דקים עם משטח מותאם */
+section.forms,.icon-grid,.cmdk-list,.modal-card,.tbl-scroll,main{scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+section.forms::-webkit-scrollbar,.icon-grid::-webkit-scrollbar,.cmdk-list::-webkit-scrollbar,.modal-card::-webkit-scrollbar,.tbl-scroll::-webkit-scrollbar{width:9px;height:9px}
+section.forms::-webkit-scrollbar-thumb,.icon-grid::-webkit-scrollbar-thumb,.cmdk-list::-webkit-scrollbar-thumb,.modal-card::-webkit-scrollbar-thumb,.tbl-scroll::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px;border:2px solid transparent;background-clip:content-box}
+section.forms::-webkit-scrollbar-track,.icon-grid::-webkit-scrollbar-track,.cmdk-list::-webkit-scrollbar-track,.modal-card::-webkit-scrollbar-track,.tbl-scroll::-webkit-scrollbar-track{background:transparent}
+
+/* Tooltips — מונעלו למנוע Floating UI (.tip); ה-API נשאר data-tip */
+
+/* ===== כפתורים — שכבת פרימיום ===== */
+.btn{border-radius:var(--r-md);transition:transform var(--dur-1),box-shadow var(--dur-2),background var(--dur-1),border-color var(--dur-1),color var(--dur-1),filter var(--dur-1)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn-ghost{box-shadow:var(--hi-light)}
+.btn-ghost:hover{box-shadow:var(--hi-light),var(--elev-1)}
+.btn-terra{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 90%,#fff),var(--accent));color:#fff;box-shadow:var(--hi-light),0 1px 2px rgba(193,78,46,.35),0 8px 20px -8px rgba(226,96,60,.55)}
+.btn-terra:hover{background:linear-gradient(180deg,color-mix(in srgb,var(--accent-d) 88%,#fff),var(--accent-d));color:#fff;box-shadow:var(--hi-light),0 2px 4px rgba(193,78,46,.4),0 12px 26px -8px rgba(226,96,60,.6)}
+.btn-dark{background:linear-gradient(180deg,#2a3348,#1f2937);color:#fff;box-shadow:var(--hi-light),0 1px 2px rgba(17,24,39,.3)}
+.btn-dark:hover{background:linear-gradient(180deg,#1f2937,#111827);color:#fff}
+.btn-danger{background:var(--err-soft);color:var(--err);border:1px solid var(--err-line)}
+.btn-danger:hover{background:color-mix(in srgb,var(--err-soft) 60%,var(--err) 8%);color:var(--err)}
+.btn-danger-solid{background:var(--err);color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.18),0 8px 18px -8px color-mix(in srgb,var(--err) 65%,transparent)}
+.btn-danger-solid:hover{background:color-mix(in srgb,var(--err) 86%,#000);color:#fff}
+.btn-icon{width:37px;padding:9px 0;flex:none}
+
+/* כפתור חיפוש מהיר בכותרת */
+.cmdk-btn{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line-strong);background:var(--card);color:var(--muted);border-radius:var(--r-md);padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;min-height:36px;transition:border-color var(--dur-1),color var(--dur-1),box-shadow var(--dur-2),background var(--dur-1)}
+.cmdk-btn svg.lucide{width:15px;height:15px}
+.cmdk-btn:hover{border-color:var(--accent);color:var(--accent-d);box-shadow:var(--elev-1)}
+@media(max-width:760px){.cmdk-btn kbd{display:none}}
+
+/* ===== כותרת זכוכית ===== */
+header.top{background:var(--glass);backdrop-filter:blur(14px) saturate(1.5);-webkit-backdrop-filter:blur(14px) saturate(1.5)}
+
+/* צ'יפ שמירה עם נקודת פעימות */
+.save-state{gap:8px;border-radius:var(--r-full)}
+.save-state .ss-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none;transition:background var(--dur-2),box-shadow var(--dur-2)}
+.save-state.saved .ss-dot{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 20%,transparent)}
+.save-state.saving .ss-dot{background:#f59e0b;animation:ssPulse 1.2s ease-in-out infinite}
+@keyframes ssPulse{0%{box-shadow:0 0 0 0 rgba(245,158,11,.45)}70%{box-shadow:0 0 0 6px rgba(245,158,11,0)}100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}}
+
+/* ===== תפריט נפתח (⋯) ===== */
+.menu-wrap{position:relative}
+.menu-pop{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:238px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--elev-3),var(--hi-light);padding:6px;z-index:120;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top;transition:opacity var(--dur-1),transform var(--dur-2) var(--ease-out),visibility var(--dur-1)}
+.menu-pop.open{opacity:1;visibility:visible;transform:none}
+.menu-item{display:flex;align-items:center;gap:10px;width:100%;border:none;background:none;border-radius:var(--r-sm);padding:8px 10px;font:inherit;font-size:13.5px;font-weight:600;color:var(--text);cursor:pointer;text-align:right;transition:background var(--dur-1),color var(--dur-1)}
+.menu-item .mi-ic{width:28px;height:28px;border-radius:7px;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--muted);flex:none;transition:color var(--dur-1)}
+.menu-item .mi-ic svg.lucide{width:15px;height:15px}
+.menu-item:hover{background:var(--soft);color:var(--ink)}
+.menu-item:hover .mi-ic{color:var(--accent)}
+.menu-item.danger,.menu-item.danger .mi-ic{color:var(--err)}
+.menu-item.danger:hover{background:var(--err-soft);color:var(--err)}
+.menu-sep{height:1px;background:var(--line);margin:6px 8px}
+
+/* ===== מתג toggle מותאם ===== */
+.switch input[type=checkbox]{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.sw-track{width:40px;height:22px;border-radius:var(--r-full);background:var(--line-strong);position:relative;flex:none;transition:background var(--dur-2);box-shadow:inset 0 1px 2px rgba(17,24,39,.18)}
+.sw-knob{position:absolute;top:3px;inset-inline-start:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(17,24,39,.35);transition:transform var(--dur-2) var(--ease-spring)}
+.switch input:checked ~ .sw-track{background:var(--accent)}
+.switch input:checked ~ .sw-track .sw-knob{transform:translateX(-18px)}
+.switch input:focus-visible ~ .sw-track{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ===== מודלים — כפתור ✕ משותף + כרטיס אישור ===== */
+.m-x{position:absolute;top:16px;inset-inline-end:16px;width:32px;height:32px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--card);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color var(--dur-1),color var(--dur-1),background var(--dur-1);z-index:2}
+.m-x:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.m-x svg.lucide{width:15px;height:15px}
+.modal{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(17,24,39,.52)}
+.modal-card{border:1px solid var(--line);animation:modalCard var(--dur-3) var(--ease-spring)}
+.modal-card h3{padding-inline-end:36px}
+.confirm-card{text-align:center;padding:30px 26px 24px;width:min(430px,94vw)}
+.cf-ic{width:52px;height:52px;border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;background:var(--err-soft);color:var(--err)}
+.cf-ic.acc{background:var(--accent-soft);color:var(--accent-d)}
+.cf-ic svg.lucide{width:24px;height:24px}
+.confirm-card h3{justify-content:center;font-size:17.5px;padding-inline-end:0}
+.cf-actions{display:flex;gap:10px;justify-content:center;margin-top:20px}
+
+/* ===== טוסטים — מחסנית נערמת ===== */
+#toasts{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column-reverse;align-items:center;gap:8px;z-index:380;pointer-events:none}
+.toast-item{display:flex;align-items:center;gap:10px;background:var(--toast-bg);color:#fff;padding:11px 18px;border-radius:var(--r-md);font-size:13.5px;font-weight:600;box-shadow:0 14px 40px rgba(0,0,0,.32);max-width:min(500px,90vw);opacity:0;transform:translateY(14px) scale(.97);transition:opacity .28s var(--ease-out),transform .28s var(--ease-spring)}
+.toast-item.in{opacity:1;transform:none}
+.toast-item.out{opacity:0;transform:translateY(8px) scale(.97)}
+.toast-item .t-ic{display:flex;flex:none;color:rgba(255,255,255,.85)}
+.toast-item .t-ic svg.lucide{width:16px;height:16px}
+.toast-item.ok{background:var(--ok)}
+.toast-item.err{background:var(--err)}
+
+/* ===== סקלטונים ===== */
+.skel{position:relative;overflow:hidden;background:var(--soft);border-radius:var(--r-sm)}
+.skel::after{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:skelShimmer 1.4s infinite}
+@keyframes skelShimmer{to{transform:translateX(100%)}}
+.sk-tr td{border-bottom:1px solid var(--line)}
+.sk-tr:hover td{background:transparent}
+
+/* ===== מצב ריק מעוצב ===== */
+.empty-hint{display:flex;flex-direction:column;align-items:center;gap:9px;padding:28px 14px;color:var(--muted);font-size:13px;text-align:center}
+.empty-hint .e-ic{width:42px;height:42px;border-radius:var(--r-md);background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.empty-hint .e-ic svg.lucide{width:19px;height:19px}
+
+/* ===== Command Palette ===== */
+.modal.cmdk{align-items:flex-start;z-index:350}
+.cmdk-card{width:min(580px,94vw);margin-top:12vh;padding:0;overflow:hidden;animation:cmdkIn .22s var(--ease-spring)}
+@keyframes cmdkIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.cmdk-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.cmdk-head > svg.lucide{width:17px;height:17px;color:var(--muted);flex:none}
+.cmdk-head input{flex:1;border:none;background:none;outline:none;font:inherit;font-size:15px;color:var(--ink)}
+.cmdk-head input::placeholder{color:var(--muted)}
+.cmdk-list{max-height:min(430px,52vh);overflow-y:auto;padding:8px}
+.cmdk-group{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--muted);padding:10px 10px 5px}
+.cmdk-item{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:none;background:none;border-radius:var(--r-md);font:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;text-align:right;transition:background var(--dur-1),color var(--dur-1)}
+.cmdk-item .ci{width:30px;height:30px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex:none;background:hsl(var(--sh,18) 65% 52% / .14);color:hsl(var(--sh,18) 65% 42%)}
+.cmdk-item .ci svg.lucide{width:15px;height:15px}
+.cmdk-item.sel,.cmdk-item:hover{background:var(--accent-soft);color:var(--accent-d)}
+.cmdk-item .hint-k{margin-inline-start:auto;color:var(--muted);font-size:11.5px;font-weight:500;display:inline-flex;align-items:center;gap:5px}
+.cmdk-empty{padding:36px 10px;text-align:center;color:var(--muted);font-size:13.5px}
+.cmdk-foot{display:flex;gap:14px;padding:10px 16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);align-items:center}
+.cmdk-foot .grow{flex:1}
+
+/* ===== נומרלים טבלאיים לסטטיסטיקות ===== */
+.stat b,.vw,.pill b,.cmdk-item .hint-k,.veil-val{font-variant-numeric:tabular-nums}
+
+/* ===== סופר-אדמין — לוח ===== */
+.stat{border-radius:var(--r-lg);box-shadow:var(--elev-1),var(--hi-light);transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--elev-2),var(--hi-light)}
+.tbl-wrap{border-radius:var(--r-lg);box-shadow:var(--elev-1)}
+.tbl-scroll{max-height:min(62vh,640px)}
+th{position:sticky;top:0;z-index:5}
+tbody tr{transition:background var(--dur-1)}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.bar i{transition:filter var(--dur-1)}
+.bar:hover i{filter:brightness(1.15)}
+
+/* צ'יפים לסינון + חיפוש */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line-strong);background:var(--card);color:var(--text);border-radius:var(--r-full);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:border-color var(--dur-1),color var(--dur-1),background var(--dur-1)}
+.chip:hover{border-color:var(--accent);color:var(--accent-d)}
+.chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.res-count{font-size:12.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+.q-clear{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:8px;width:22px;height:22px;border:none;background:var(--soft);border-radius:50%;color:var(--muted);display:none;align-items:center;justify-content:center;cursor:pointer}
+.q-clear.show{display:flex}
+.q-clear:hover{color:var(--err)}
+.q-clear svg.lucide{width:12px;height:12px}
+
+/* ===== כניסה ===== */
+.card{box-shadow:var(--elev-3)}
+
+/* ===== מודלים קומפקטיים — כמה שפחות גלילה ===== */
+.modal-card{padding:20px 22px 18px}
+.modal-card h3{font-size:17px;margin-bottom:4px}
+.modal-card .m-sub{font-size:13px;line-height:1.5;margin-bottom:10px}
+.modal-card .fld{margin-bottom:9px}
+.modal-card .fld>label{margin-bottom:5px;font-size:12.5px}
+.modal-card .fld input[type=text],.modal-card .fld input[type=password],.modal-card .fld input[type=url],.modal-card .fld textarea{padding:9px 11px;min-height:38px}
+.modal-card .fld .hint{font-size:11.5px;margin-top:3px}
+.modal-card .m-actions{margin-top:8px}
+.m-x{top:12px;inset-inline-end:12px}
+.confirm-card{padding:22px 20px 18px}
+.cf-ic{width:44px;height:44px;border-radius:12px;margin:0 auto 10px}
+.cf-ic svg.lucide{width:21px;height:21px}
+.cf-actions{margin-top:14px}
+/* כרטיסי תבנית בתוך מודלים — שורה אופקית קומפקטית */
+.modal{padding:14px}
+
+/* ===== פאנלי עריכה — צפופים, פחות גלילה ===== */
+section.forms{padding:14px 18px}
+section.forms .fld{margin-bottom:9px}
+section.forms .fld>label{margin-bottom:3px;font-size:12px}
+section.forms .fld input[type=text],section.forms .fld input[type=url],section.forms .fld input[type=password],section.forms .fld textarea{padding:7px 10px;font-size:13.5px}
+section.forms .fld textarea{min-height:54px}
+section.forms .fld .hint{font-size:11px;margin-top:1px}
+section.forms .btn{padding:7px 12px;min-height:32px;font-size:12.5px}
+section.forms .icon-grid{grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px}
+section.forms .icon-cell{padding:6px}
+.panel{padding-top:10px}
+.panel h2{font-size:16px;gap:8px}
+.h2-tile{width:26px;height:26px;border-radius:7px}
+.h2-tile svg.lucide{width:14px;height:14px}
+.panel .p-sub{font-size:12px;margin-bottom:10px}
+.fld-sep{margin:13px 0 8px;font-size:12px}
+.grid2{gap:0 10px}
+/* שדה תמונה — נמוך וצמוד, הכלים בשורה */
+.img-fld{padding:8px}
+.img-row{gap:9px;align-items:center}
+.img-thumb{width:58px;height:58px}
+.img-tools{flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px}
+.img-url{flex:1;min-width:120px;padding:6px 9px;font-size:12px}
+/* רשימות */
+.list-head{padding:7px 10px}
+.list-head b{font-size:12px}
+.li-item{padding:8px 10px 9px}
+.li-bar{margin-bottom:6px;gap:7px}
+.li-bar .ttl{font-size:12.5px}
+.li-bar .num{font-size:11.5px;padding:2px 7px}
+.li-bar button{width:25px;height:25px;font-size:12px}
+.list-add{padding:8px;font-size:12px}
+/* אקורדיון פריטי רשימה — מתקפל לשורה אחת, לחיצה פותחת */
+.list-ed .li-bar{cursor:pointer}
+.li-chev{display:flex;align-items:center;color:var(--muted);flex:none;transition:transform .18s var(--ease-out)}
+.li-chev svg.lucide{width:14px;height:14px}
+.li-item.open .li-chev{transform:rotate(180deg)}
+.li-body{display:none}
+.li-item.open>.li-body{display:block;animation:fadeIn .18s ease}
+/* כרטיסי בחירה — סגנונות פתיחה / כרטיסים / סצנות */
+.istyle-grid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:9px}
+.istyle-card{padding:9px 7px 8px}
+.istyle-card .is-ico{width:36px;height:36px;margin-bottom:4px}
+.istyle-card .is-ico svg.lucide{width:18px;height:18px}
+.istyle-card .is-name{font-size:12px}
+.is-new{font-style:normal;font-size:9.5px;font-weight:800;color:var(--accent-d);background:var(--accent-soft);border-radius:99px;padding:1px 7px;margin-inline-start:5px;vertical-align:1px}
+.istyle-card .is-desc{font-size:10.5px;margin-top:2px;line-height:1.35}
+.istyle-fam{margin:4px 0 0;font-size:11px}
+.mc{height:40px;margin-bottom:5px}
+.mc-i{width:10px;height:10px;top:5px;right:5px}
+.mc-t{top:8px;right:21px;width:30px;height:4px}
+.mc-d{bottom:5px;right:5px;left:12px;height:3px}
+/* פלטות צבע */
+.pal-grid{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:9px}
+.pal-card{padding:9px 7px 8px}
+.pal-card .p-name{font-size:12px;margin-bottom:6px}
+.pal-dots i{width:14px;height:14px}
+/* שורות בקרה */
+.veil-row,.color-row{padding:6px 9px;gap:10px}
+.color-row input[type=color]{width:36px;height:28px}
+.switch{padding:7px 9px;gap:8px}
+.veil-chip{padding:5px 12px;font-size:12px}
+.emj-prev{width:36px;height:36px;font-size:17px}
+.theme-note,.pal-note{font-size:11px;padding:7px 11px;line-height:1.55;margin-top:7px}
+/* כרטיסי תבנית בפאנל "עיצוב כללי" */
+section.forms .theme-grid{gap:9px}
+section.forms .theme-card{padding:9px}
+section.forms .theme-card .t-prev{height:46px;margin-bottom:6px}
+section.forms .theme-card .t-sub{font-size:10.5px}
+section.forms .theme-card.active::after{font-size:10px;padding:1px 8px;top:-8px}
+
+/* ===== כרטיסי תבנית בתוך מודלים — שורה אופקית קומפקטית ===== */
+.modal{padding:14px}
+.modal-card .theme-grid{gap:8px;margin-bottom:8px}
+.modal-card .theme-card{display:flex;align-items:center;gap:10px;text-align:right;padding:8px 12px}
+.modal-card .theme-card .t-prev{width:36px;height:36px;margin:0;flex:none;border-radius:9px}
+.modal-card .theme-card .t-prev svg.lucide{width:17px;height:17px}
+.modal-card .theme-card .t-name{font-size:13px}
+.modal-card .theme-card .t-sub{font-size:10.5px;margin-top:1px}
+.modal-card .theme-card .tc-txt{display:flex;flex-direction:column;min-width:0;text-align:right}
+.modal-card .theme-card.active::after{top:-9px}
+/* בורר אייקונים — גם בזום 150% בלי גלילת מודל */
+#iconModal .icon-grid{grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:5px;max-height:36vh}
+#iconModal .icon-cell{padding:5px}
+/* מודל סטטיסטיקות — קומפקטי; הגלילה נשארת רק ברשימת הביקורים */
+.pill{padding:7px 12px;border-radius:var(--r-sm)}
+.pill b{font-size:17px}
+.bars{height:104px;margin:10px 0 2px}
+.bar i{max-width:24px}
+.recent{padding-top:9px;margin-top:10px;max-height:120px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.recent .ri{padding:5px 4px}
+
+/* ============================================================
+   דור הבא — רמפת Geist · חומרים · נייטיב 2026 · (בהיר בלבד)
+   ============================================================ */
+/* רמפת ניטרלים לפי תפקיד: הובר תמיד צעד אחד, אף פעם לא צבע אד-הוק */
+:root{
+  --bg-1:var(--card);        /* משטח בסיס */
+  --bg-2:#f4f1eb;            /* רקע ריחוף */
+  --bg-3:#ebe7df;            /* רקע פעיל/לחוץ */
+  --bd-1:var(--line);        /* גבול בסיס */
+  --bd-2:var(--line-strong); /* גבול ריחוף */
+  --bd-3:#c8c1b2;            /* גבול פעיל */
+  --text-1:var(--ink);--text-2:var(--muted);
+  --fill:#1f2937;            /* מילוי ניגודי-גבוה */
+}
+/* חומרים — שתי שכבות בלבד: משטח וצף */
+.mat-base{background:var(--bg-1);border:1px solid var(--bd-1);border-radius:var(--r-md)}
+.mat-menu{background:var(--bg-1);border:1px solid var(--bd-1);border-radius:var(--r-lg);box-shadow:var(--elev-3),var(--hi-light)}
+.mat-modal{background:var(--bg-1);border:1px solid var(--bd-1);border-radius:var(--r-xl)}
+/* נייטיב 2026 — הכל בנפילה חלקה */
+@supports (text-box-trim: trim-both){
+  .btn,.chip,.badge,.veil-val,.save-state,.seg button,th,.num{text-box:trim-both cap alphabetic}
+}
+@supports (field-sizing: content){
+  section.forms .fld textarea{field-sizing:content;max-height:320px}
+}
+section.forms,.cmdk-list,.icon-grid,.tbl-scroll,.modal-card,.recent,.menu-pop{overscroll-behavior:contain}
+@supports (transition-behavior: allow-discrete){
+  .tip{transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out),display var(--dur-1) allow-discrete}
+  @starting-style{.tip{opacity:0;transform:translateY(3px)}}
+}
+/* View Transitions — מעבר לשוניות (רק אזור הפאנל מורף) */
+.panel.active{view-transition-name:pg-panel}
+::view-transition-old(pg-panel),::view-transition-new(pg-panel){animation-duration:.18s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+/* טולטיפ Floating UI */
+.tip{position:fixed;top:0;left:0;z-index:600;background:var(--tip-bg);color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px;box-shadow:0 6px 18px rgba(0,0,0,.28);pointer-events:none;opacity:0;max-width:240px}
+.tip.in{opacity:1}
+/* Undo */
+.btn-undo{transition:opacity var(--dur-1),transform var(--dur-1)}
+.btn-undo:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}
+/* באנר שמירה (Stripe: באנר = דורש פעולה) */
+.save-banner{display:flex;align-items:center;gap:10px;padding:8px 16px;background:var(--warn-soft,#fffbeb);border-bottom:1px solid var(--warn-line,#fcd34d);color:var(--warn,#92400e);font-size:13px;font-weight:600;flex-wrap:wrap}
+.save-banner .grow{flex:1}
+.save-banner svg.lucide{width:16px;height:16px;flex:none}
+.save-banner .btn{min-height:30px;padding:6px 12px;font-size:12.5px}
+.save-banner .sb-x{border:none;background:none;color:inherit;cursor:pointer;font-size:14px;opacity:.6;padding:4px}
+.save-banner .sb-x:hover{opacity:1}
+/* טוסט עם פעולה */
+.toast-act{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.14);color:#fff;border-radius:7px;padding:4px 12px;font:600 12px 'Assistant',sans-serif;cursor:pointer;margin-inline-start:6px}
+.toast-act:hover{background:rgba(255,255,255,.28)}
+/* הבהוב שדה (חיבור דו-כיווני) */
+.fld-flash{outline:2px solid var(--accent)!important;outline-offset:2px;border-radius:8px;animation:fldFlash 1.3s var(--ease-out)}
+@keyframes fldFlash{0%,60%{box-shadow:0 0 0 5px var(--accent-ring)}100%{box-shadow:none}}
+/* אפיני עריכה בתצוגה (מוזרק גם לאתרים) */
+.pg-edit-hover{outline:2px solid #e2603c!important;outline-offset:2px;cursor:pointer!important;border-radius:4px}
+.pg-edit-pill{position:fixed;z-index:2147483000;background:#e2603c;color:#fff;font:600 12px/1 'Assistant',sans-serif;padding:5px 11px;border-radius:999px;pointer-events:none;box-shadow:0 4px 14px rgba(17,24,39,.3)}
+/* מפת קיצורים */
+.keys-modal .k-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:7px 4px;border-bottom:1px solid var(--line);font-size:13.5px}
+.keys-modal .k-row:last-child{border-bottom:none}
+.keys-modal .k-row span{color:var(--text)}
+/* סיור הדרכה — כפתור בתפריט */
+.tour-pill{font-size:10.5px;font-weight:700;background:var(--accent-soft);color:var(--accent-d);border-radius:99px;padding:2px 8px;margin-inline-start:auto}
+/* זום תצוגה */
+.pv-zoom{display:inline-flex;align-items:center;gap:2px}
+.pv-zoom button{border:1px solid var(--line-strong);background:var(--card);border-radius:7px;width:27px;height:27px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:color var(--dur-1),border-color var(--dur-1)}
+.pv-zoom button:hover{color:var(--accent);border-color:var(--accent)}
+.pv-zoom button svg.lucide{width:13px;height:13px}
+.pv-zoom .zval{font-size:11.5px;font-weight:700;color:var(--muted);min-width:34px;text-align:center;font-variant-numeric:tabular-nums}
+.pv-frame.tablet iframe{width:768px;border-radius:18px;border:6px solid #1f2937;box-shadow:0 18px 44px rgba(17,24,39,.3)}
+
+/* נקודת מיקוד — בוחר + חיווי על התמונה הקטנה */
+.focal-stage{position:relative;border-radius:var(--r-lg);overflow:hidden;max-height:270px;display:flex;justify-content:center;background:var(--soft);user-select:none;touch-action:none}
+.focal-stage img{max-width:100%;max-height:270px;object-fit:contain;display:block}
+.focal-dot{position:absolute;width:28px;height:28px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--accent),0 2px 10px rgba(0,0,0,.35);cursor:grab;background:rgba(226,96,60,.3);transform:translate(-50%,-50%);padding:0}
+.focal-dot:active{cursor:grabbing}
+.img-thumb{position:relative}
+.img-thumb.focal::after{content:'';position:absolute;width:10px;height:10px;border-radius:50%;border:2px solid #fff;background:var(--accent);box-shadow:0 0 0 1px rgba(17,24,39,.4);left:calc(var(--fx,.5)*100%);top:calc(var(--fy,.5)*100%);transform:translate(-50%,-50%);pointer-events:none}
+/* שורת אלט מונחית */
+.alt-row{display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.alt-row input[type=text]{flex:1;min-width:140px;border:1px solid var(--line-strong);border-radius:var(--r-sm);padding:7px 10px;font-size:12px;font-family:'Assistant',sans-serif;background:var(--card);color:var(--text)}
+.alt-row input[type=text]:focus{border-color:var(--accent);outline:none}
+.alt-dec{font-size:11.5px;color:var(--muted);display:flex;gap:5px;align-items:center;white-space:nowrap;cursor:pointer}
+.alt-dec input{accent-color:var(--accent)}
+
+/* קליטת טקסט מהלקוח */
+.intake-list{margin-top:12px;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;max-height:44vh;overflow-y:auto}
+.int-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:13px}
+.int-row:last-child{border-bottom:none}
+.int-row.maybe{background:var(--soft)}
+.int-row input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;flex:none;cursor:pointer}
+.int-lab{font-weight:700;color:var(--ink);flex:none;max-width:180px}
+.int-val{flex:1;min-width:0;border:1px solid transparent;background:transparent;font:inherit;font-size:12.5px;color:var(--text);padding:4px 6px;border-radius:6px}
+.int-val:focus{border-color:var(--accent);outline:none;background:var(--card)}
+.int-val[readonly]{color:var(--muted)}
+.int-head{display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--soft);font-size:11.5px;font-weight:800;letter-spacing:.4px;color:var(--muted);position:sticky;top:0}
+
+/* ===== תנועה מופחתת ===== */
+@media(prefers-reduced-motion:reduce){
+  .toast-item,.menu-pop,.modal-card,.cmdk-card,.sw-knob,.stat{transition:none!important;animation:none!important}
+  .save-state.saving .ss-dot{animation:none}
+}

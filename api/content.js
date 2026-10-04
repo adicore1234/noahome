@@ -1,60 +1,21 @@
 /**
- * /api/content — MongoDB-backed content for the site
- * -------------------------------------------------
- * GET  → מחזיר את אובייקט התוכן (JSON). אם המסד ריק — זורע מ-content.json.
- *        אם המסד לא זמין — נופל בחזרה ל-content.json (האתר לא נופל לעולם).
- * POST → שומר את התוכן. דורש כותרות x-admin-user / x-admin-pass (כמו באדמין).
+ * /api/content — תוכן דפי נחיתה לפי slug (Pagely)
+ * ------------------------------------------------
+ * GET  /api/content?slug=noa  → תוכן הדף של היוזר (ציבורי). דף לא קיים/מושהה → 404.
+ * POST /api/content?slug=noa  → שמירת תוכן. דורש Authorization: Bearer <token>.
+ *                              יוזר שומר רק את הדף של עצמו; סופר-אדמין — כל דף דרך ?slug=.
  *
- * עובד גם כ-Vercel serverless function וגם דרך local-server.js המקומי.
- * משתני סביבה: MONGODB_URI (+MONGODB_PASSWORD אם ה-URI מכיל <password>),
- *               MONGO_DB (ברירת מחדל: noa_site), ADMIN_USER, ADMIN_PASS.
+ * עובד גם כ-Vercel serverless וגם דרך local-server.js.
+ * משתני סביבה: MONGODB_URI (+MONGODB_PASSWORD), MONGO_DB.
  */
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const defaultContent = require('../content.json');
-
-function mongoUri() {
-  let u = process.env.MONGODB_URI || process.env.MONGO_URI || '';
-  /*
-   * Vercel stores the value exactly as pasted. It is common to paste either
-   * `MONGODB_URI="mongodb+srv://..."` or just a quoted URI from an .env file.
-   * Normalize both forms so a harmless dashboard formatting mistake does not
-   * take the admin editor offline.
-   */
-  u = String(u).trim().replace(/^MONGODB_URI\s*=\s*/i, '').trim();
-  if ((u.startsWith('"') && u.endsWith('"')) || (u.startsWith("'") && u.endsWith("'"))) {
-    u = u.slice(1, -1).trim();
-  }
-  const p = process.env.MONGODB_PASSWORD;
-  if (p && u.includes('<password>')) u = u.replace('<password>', encodeURIComponent(p));
-  if (u && !/^mongodb(?:\+srv)?:\/\//i.test(u)) {
-    throw new Error('MONGODB_URI must start with mongodb:// or mongodb+srv://');
-  }
-  return u;
-}
-
-let _client = null;
-async function getDb() {
-  const uri = mongoUri();
-  if (!uri) throw new Error('MONGODB_URI is not configured');
-  if (!_client) {
-    _client = new MongoClient(uri, { serverApi: ServerApiVersion.api1 });
-    await _client.connect();
-  }
-  return _client.db(process.env.MONGO_DB || 'noa_site');
-}
-
-function authOk(req) {
-  const u = process.env.ADMIN_USER || 'noahome';
-  const p = process.env.ADMIN_PASS || '12345678';
-  return req.headers['x-admin-user'] === u && req.headers['x-admin-pass'] === p;
-}
+'use strict';
+const lib = require('./_lib.js');
+const noaContent = require('../content.json'); /* הגיבוי הסטטי של הדף המקורי */
 
 module.exports = async function handler(req, res) {
-  /* Content is editable: never let Vercel/CDN or the browser cache API data. */
+  /* התוכן ניתן לעריכה — אף שכבת CDN/דפדפן לא שומרת אותו.
+     כל עמודי המערכת מוגשים מאותו מקור — אין CORS ל cross-origin. */
   res.setHeader('Cache-Control', 'no-store, max-age=0');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,x-admin-user,x-admin-pass');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   if (req.method === 'OPTIONS') { res.status(204).end(); return; }
 
   try {
@@ -63,47 +24,87 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    /* Authenticate before opening MongoDB and before exposing connection errors. */
-    if (req.method === 'POST' && !authOk(req)) {
-      res.status(401).json({ ok: false, error: 'unauthorized' });
-      return;
+    /* אימות לפני פתיחת ה-Mongo — כדי לא לחשוף שגיאות חיבור ללא-מורשים */
+    if (req.method === 'POST') {
+      const db0 = await lib.getDb().catch(() => null);
+      const s0 = db0 ? await lib.getSession(req, db0).catch(() => null) : null;
+      if (!s0) { res.status(401).json({ ok: false, error: 'unauthorized' }); return; }
     }
 
-    const db = await getDb();
+    const db = await lib.getDb();
+    await lib.ensureReady(db);
     const col = db.collection('content');
 
+    const u = new URL(req.url, 'http://localhost');
+    const slug = String(u.searchParams.get('slug') || '').trim().toLowerCase();
+
+    /* ---------- GET (ציבורי) ---------- */
     if (req.method === 'GET') {
-      const doc = await col.findOne({ key: 'site' });
+      if (!slug) {
+        res.status(400).json({ ok: false, error: 'missing slug' });
+        return;
+      }
+      const user = await db.collection('users').findOne({ slug }, { projection: { status: 1, displayName: 1, theme: 1 } });
+      if (!user || user.status === 'suspended') {
+        res.status(404).json({ ok: false, error: 'not_found' });
+        return;
+      }
+      if (user.theme) res.setHeader('x-user-theme', user.theme);
+      const doc = await col.findOne({ slug });
       if (doc && doc.content) {
         res.setHeader('x-content-source', 'db');
         res.status(200).json(doc.content);
         return;
       }
-      /* first run: seed the DB from the static file */
-      await col.updateOne({ key: 'site' }, { $set: { key: 'site', content: defaultContent, updatedAt: new Date() } }, { upsert: true });
+      /* ליוזר קיים אין עדיין מסמך תוכן — זורעים תבנית */
+      const tpl = lib.templateContent(user.displayName, user.theme);
+      await col.updateOne({ slug }, { $set: { slug, content: tpl, updatedAt: new Date() } }, { upsert: true });
       res.setHeader('x-content-source', 'seeded');
-      res.status(200).json(defaultContent);
+      res.status(200).json(tpl);
       return;
     }
 
-    if (req.method === 'POST') {
-      const body = req.body;
-      if (!body || typeof body !== 'object' || !body.version) {
-        res.status(400).json({ ok: false, error: 'invalid content' });
+    /* ---------- POST (דורש סשן) ---------- */
+    const s = await lib.getSession(req, db);
+    if (!s) { res.status(401).json({ ok: false, error: 'unauthorized' }); return; }
+
+    let target;
+    if (s.role === 'superadmin') {
+      target = slug;
+      if (!lib.validSlug(target)) {
+        res.status(400).json({ ok: false, error: 'missing or invalid slug' });
         return;
       }
-      await col.updateOne({ key: 'site' }, { $set: { content: body, updatedAt: new Date() } }, { upsert: true });
-      res.status(200).json({ ok: true });
-      return;
+      const u2 = await db.collection('users').findOne({ slug: target }, { projection: { _id: 1 } });
+      if (!u2) { res.status(404).json({ ok: false, error: 'no such user' }); return; }
+    } else {
+      target = s.slug; /* יוזר רגיל — תמיד רק הדף של עצמו */
     }
 
-  } catch (e) {
-    /* DB unreachable: GET falls back to the bundled file so the site stays up */
-    if (req.method === 'GET') {
-      res.setHeader('x-content-source', 'file-fallback');
-      res.status(200).json(defaultContent);
+    const body = req.body;
+    if (!body || typeof body !== 'object' || !body.version) {
+      res.status(400).json({ ok: false, error: 'invalid content' });
       return;
     }
-    res.status(500).json({ ok: false, error: e.message });
+    await col.updateOne(
+      { slug: target },
+      { $set: { slug: target, content: body, updatedAt: new Date() } },
+      { upsert: true }
+    );
+    res.status(200).json({ ok: true });
+    return;
+
+  } catch (e) {
+    /* המסד לא זמין: לדף המקורי (noa) יש גיבוי סטטי כדי שהאתר לא ייפול */
+    if (req.method === 'GET') {
+      const u = new URL(req.url, 'http://localhost');
+      const slug = String(u.searchParams.get('slug') || '').trim().toLowerCase();
+      if (slug === 'noa') {
+        res.setHeader('x-content-source', 'file-fallback');
+        res.status(200).json(noaContent);
+        return;
+      }
+    }
+    res.status(503).json({ ok: false, error: 'db unavailable' });
   }
 };

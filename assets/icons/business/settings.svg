@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img"><defs>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6F8DC7"/><stop offset="1" stop-color="#314A82"/></linearGradient>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A9E2FF"/><stop offset="1" stop-color="#4595DB"/></linearGradient>
+  <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#CBBEFF"/><stop offset="1" stop-color="#7561C8"/></linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9AE8C9"/><stop offset="1" stop-color="#2DB183"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFE49A"/><stop offset="1" stop-color="#E6A52F"/></linearGradient>
+  <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFB0AA"/><stop offset="1" stop-color="#E35F68"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#172441" flood-opacity=".25"/></filter></defs><g filter="url(#shadow)" stroke-linejoin="round" stroke-width="1.6"><path d="M55 36v-8l-7-2c-1-2-2-4-4-6l2-7-7-4-5 5h-7l-5-5-7 4 2 7c-2 2-3 4-4 6l-7 2v8l7 2c1 2 2 4 4 6l-2 7 7 4 5-5h7l5 5 7-4-2-7c2-2 3-4 4-6z" fill="url(#navy)" stroke="#263B70"/><circle cx="32" cy="32" r="9" fill="#E9F5FF" stroke="#5470A5"/></g></svg>
