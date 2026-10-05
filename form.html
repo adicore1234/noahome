@@ -12,105 +12,84 @@
 <link rel="icon" href="/assets/placeholders/favicon.svg" type="image/svg+xml">
 <style>
 :root{
-  --bg:#faf9f7;--card:#ffffff;--ink:#1c2333;--muted:#6b7280;--line:#e8e4dd;
-  --gold:#b08d3e;--navy:#1e3a5f;--ok:#2e7d4f;--err:#b3403a;--r:16px;
-  --ff:'Heebo',sans-serif;--ff-d:'Assistant','Heebo',sans-serif;
+  --bg:#fff8f1;--bg-2:#f8f5f0;--card:#fff;--ink:#102a43;--text:#334e68;--muted:#708398;
+  --line:#e8e2da;--line-strong:#d7dfe7;--accent:#e2603c;--accent-d:#c64d2d;--accent-soft:#fdf0ea;
+  --gold:#f2b33d;--teal:#2ea6a0;--navy:#173b62;--navy-d:#0d2439;--ok:#218b68;--err:#c4453b;
+  --r:22px;--ff:'Heebo',sans-serif;--ff-d:'Assistant','Heebo',sans-serif;
+  --shadow:0 1px 2px rgba(16,42,67,.04),0 18px 48px -30px rgba(16,42,67,.34);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:var(--ff);background:radial-gradient(120% 80% at 80% -10%,rgba(176,141,62,.07),transparent 55%),radial-gradient(120% 80% at 10% -10%,rgba(30,58,95,.06),transparent 55%),var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{max-width:640px;margin:0 auto;padding:28px 18px 140px}
+html{scroll-behavior:smooth;scroll-padding-top:18px}
+body{font-family:var(--ff);background:
+  radial-gradient(850px 520px at 8% -4%,rgba(242,179,61,.13),transparent 68%),
+  radial-gradient(760px 540px at 100% 6%,rgba(226,96,60,.12),transparent 70%),
+  linear-gradient(180deg,#fffaf5 0%,var(--bg-2) 42%,#fffaf5 100%);color:var(--ink);min-height:100svh;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(rgba(16,42,67,.18) .7px,transparent .7px);background-size:26px 26px;mask-image:linear-gradient(#000,transparent 76%);-webkit-mask-image:linear-gradient(#000,transparent 76%)}
+.wrap{width:min(1120px,100%);margin:0 auto;padding:26px 24px 154px;position:relative;z-index:1}
 
-/* כותרת */
-.brand{display:flex;align-items:center;gap:10px;margin-bottom:34px}
-.brand .mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--navy),#0d1626);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--ff-d);font-weight:800;font-size:19px;box-shadow:0 4px 12px -4px rgba(13,22,38,.4)}
-.brand b{font-family:var(--ff-d);font-weight:800;font-size:19px;letter-spacing:.2px}
-.brand span{color:var(--muted);font-size:13px;margin-inline-start:auto}
-h1{font-family:var(--ff-d);font-weight:800;font-size:clamp(25px,6vw,32px);line-height:1.3}
-h1 em{font-style:normal;color:var(--gold)}
-.sub{color:var(--muted);margin-top:10px;font-size:15.5px}
-.sub b{color:var(--ink)}
+/* מותג */
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:40px;min-height:50px}
+.brand .mark{width:46px;height:46px;position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;transform:rotate(-5deg);flex:none}
+.brand .mark i{display:block;border-radius:8px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12),0 4px 10px rgba(16,42,67,.14)}
+.brand .mark i:nth-child(1){background:linear-gradient(145deg,#ff9774,var(--accent))}.brand .mark i:nth-child(2){background:linear-gradient(145deg,#ffd56f,var(--gold))}.brand .mark i:nth-child(3){background:linear-gradient(145deg,#67d2cb,var(--teal))}.brand .mark i:nth-child(4){background:linear-gradient(145deg,#f7adc0,#e67f9b)}
+.brand b{font-family:var(--ff-d);font-weight:800;font-size:24px;letter-spacing:-.6px}.brand b em{font-style:normal;color:var(--accent)}
+.brand>span{color:var(--muted);font-size:13px;margin-inline-start:auto;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.68);backdrop-filter:blur(8px)}
+h1{font-family:var(--ff-d);font-weight:800;font-size:clamp(31px,5vw,48px);line-height:1.08;letter-spacing:-1.3px;max-width:510px}
+h1 em{font-style:normal;color:var(--accent);display:block;overflow-wrap:anywhere}
+.sub{color:var(--text);margin-top:16px;font-size:16px;line-height:1.75;max-width:490px}.sub b{color:var(--ink)}
 
-/* מצבים — רק אחד נראה בכל רגע (חשוב שינצח את .center המאוחר) */
-.state:not(.on){display:none!important}
-.state.on{display:block}
-.state.on.center{display:flex}
-.center{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
-.spin{width:44px;height:44px;border-radius:50%;border:3.5px solid var(--line);border-top-color:var(--gold);animation:sp 1s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.lock-ico{width:64px;height:64px;border-radius:50%;background:#f6ece7;color:var(--err);display:flex;align-items:center;justify-content:center;font-size:28px}
-.ok-ico{width:76px;height:76px;border-radius:50%;background:#eaf4ee;color:var(--ok);display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 12px 30px -12px rgba(46,125,79,.45)}
+/* מצבים */
+.state:not(.on){display:none!important}.state.on{display:block}.state.on.center{display:flex}
+.center{min-height:65vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:15px}
+.spin{width:46px;height:46px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--accent);animation:sp .8s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.lock-ico,.ok-ico{width:78px;height:78px;border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);transform:rotate(-4deg)}
+.lock-ico{background:var(--accent-soft);color:var(--err)}.lock-ico svg{width:39px;height:39px}.ok-ico{background:#e9f7f1;color:var(--ok);margin:auto}.ok-ico svg{width:42px;height:42px}
+.form-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(520px,670px);gap:68px;align-items:start}
+.intro-panel{position:sticky;top:28px;min-width:0;padding-top:10px}
+.hero-art{width:min(350px,92%);aspect-ratio:1.45;margin:34px auto 28px;position:relative;filter:drop-shadow(0 22px 22px rgba(16,42,67,.11))}
+.hero-art svg{width:100%;height:100%;display:block;overflow:visible}.hero-art .sheet{animation:float 5s ease-in-out infinite}.hero-art .chip{animation:float 5s .5s ease-in-out infinite}@keyframes float{50%{transform:translateY(-7px)}}
+.progress-card{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+.progress-top{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:10px}.progress-top b{color:var(--ink);font-size:13px}.progress-track{height:6px;border-radius:99px;background:#e8e2da;overflow:hidden}.progress-fill{height:100%;width:8%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),#ff9b78);transition:width .35s cubic-bezier(.22,1,.36,1)}
+.step-dots{display:flex;align-items:center;justify-content:space-between;margin-top:13px;direction:rtl}.step-dot{width:9px;height:9px;border:0;border-radius:50%;background:#d8dfe6;cursor:pointer;transition:transform .2s,background .2s;box-shadow:0 0 0 5px transparent}.step-dot.on{background:var(--accent);transform:scale(1.22);box-shadow:0 0 0 5px rgba(226,96,60,.1)}
 
-/* כרטיסי מקטע */
-.fs{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px 20px;margin-bottom:16px;box-shadow:0 2px 10px -6px rgba(13,22,38,.08)}
-.fs-h{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.fs-ico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;background:linear-gradient(135deg,#f3efe6,#faf7f0);border:1px solid var(--line)}
-.fs-h b{font-family:var(--ff-d);font-weight:800;font-size:17.5px}
-.fs-h small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;line-height:1.4;margin-top:1px}
-.fs .hint{color:var(--muted);font-size:13px;margin:4px 0 14px}
+/* מקטעי טופס */
+.form-flow{min-width:0}.fs{background:rgba(255,255,255,.94);border:1px solid rgba(215,223,231,.9);border-radius:var(--r);padding:25px 24px 23px;margin-bottom:18px;box-shadow:var(--shadow);scroll-margin-top:18px;transition:transform .22s,box-shadow .22s,border-color .22s}
+.fs:focus-within{border-color:rgba(226,96,60,.42);box-shadow:0 2px 4px rgba(16,42,67,.04),0 26px 56px -32px rgba(16,42,67,.4),0 0 0 4px rgba(226,96,60,.05);transform:translateY(-2px)}
+.fs-h{display:flex;align-items:center;gap:15px;margin-bottom:13px}.fs-ico{width:58px;height:58px;border-radius:17px;display:flex;align-items:center;justify-content:center;flex:none;background:linear-gradient(145deg,#fff5ec,#fff);box-shadow:inset 0 1px 0 #fff,0 10px 24px -14px rgba(16,42,67,.38);border:1px solid #f5e3d8}.fs-ico img{width:49px;height:49px;display:block;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}.fs:hover .fs-ico img{transform:translateY(-2px) rotate(2deg) scale(1.04)}
+.fs-h b{font-family:var(--ff-d);font-weight:800;font-size:21px;line-height:1.15;letter-spacing:-.25px}.fs-h small{display:block;color:var(--muted);font-weight:400;font-size:13px;line-height:1.45;margin-top:4px}.fs .hint{color:var(--muted);font-size:13.5px;margin:0 0 16px;padding-inline-start:73px}
 
 /* שדות */
-label.f{display:block;margin-bottom:13px}
-label.f:last-child{margin-bottom:0}
-label.f>span{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
-label.f>span i{font-style:normal;color:var(--muted);font-weight:400}
-input[type=text],input[type=tel],textarea{width:100%;font-family:var(--ff);font-size:16px;color:var(--ink);background:#fdfcfa;border:1.5px solid var(--line);border-radius:11px;padding:11px 14px;transition:border-color .15s,box-shadow .15s;appearance:none}
-input:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3.5px rgba(176,141,62,.14)}
-textarea{resize:vertical;min-height:76px;line-height:1.55}
-input.ltr,textarea.ltr{direction:ltr;text-align:left}
+label.f{display:block;margin-bottom:14px}label.f:last-child{margin-bottom:0}label.f>span{display:block;font-size:13.5px;font-weight:700;margin-bottom:7px;color:var(--ink)}label.f>span i{font-style:normal;color:var(--muted);font-weight:400}
+input[type=text],input[type=tel],textarea{width:100%;font-family:var(--ff);font-size:16px;color:var(--ink);background:#fbfcfd;border:1.5px solid var(--line-strong);border-radius:13px;padding:12px 14px;transition:border-color .16s,box-shadow .16s,background .16s;appearance:none;min-height:49px}
+input:hover,textarea:hover{border-color:#b9c7d4;background:#fff}input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(226,96,60,.11);background:#fff}textarea{resize:vertical;min-height:92px;line-height:1.6}input.ltr,textarea.ltr{direction:ltr;text-align:left}::placeholder{color:#9aa8b6;opacity:1}
 
-/* שורות חוזרות (שירותים/שעות) */
-.rows{display:flex;flex-direction:column;gap:11px}
-.row{display:grid;gap:8px;background:#faf8f4;border:1px solid var(--line);border-radius:12px;padding:12px 12px 12px;position:relative}
-.row.duo{grid-template-columns:1fr 1fr}
-@media(max-width:420px){.row.duo{grid-template-columns:1fr}}
-.row .del{position:absolute;top:8px;inset-inline-start:8px;width:28px;height:28px;border-radius:8px;border:none;background:#f6ece7;color:var(--err);font-size:15px;cursor:pointer;line-height:1;transition:transform .15s}
-.row .del:hover{transform:scale(1.1)}
-.row input,.row textarea{background:#fff}
-.row .num{position:absolute;top:-9px;inset-inline-end:10px;background:var(--gold);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px}
-.add{margin-top:11px;width:100%;padding:11px;border-radius:11px;border:1.5px dashed var(--line);background:none;color:var(--navy);font-family:var(--ff);font-size:14.5px;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s}
-.add:hover{border-color:var(--gold);background:#faf7f0}
+/* שורות חוזרות */
+.rows{display:flex;flex-direction:column;gap:12px}.row{display:grid;gap:9px;background:linear-gradient(145deg,#fbfcfd,#fff8f3);border:1px solid var(--line);border-radius:16px;padding:15px;position:relative}.row.duo{grid-template-columns:1fr 1fr}.row .del{position:absolute;top:11px;inset-inline-start:11px;width:32px;height:32px;border-radius:10px;border:1px solid #f2d1c8;background:#fff4ef;color:var(--err);font-size:14px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .16s,background .16s}.row .del:hover{transform:scale(1.07) rotate(-4deg);background:#ffe8df}.row input,.row textarea{background:#fff}.row .num{position:absolute;top:-8px;inset-inline-end:14px;background:var(--navy);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px;box-shadow:0 4px 10px -5px rgba(16,42,67,.55)}
+.add{margin-top:12px;width:100%;padding:12px;border-radius:13px;border:1.5px dashed #ebaa98;background:var(--accent-soft);color:var(--accent-d);font-family:var(--ff);font-size:14.5px;font-weight:700;cursor:pointer;transition:transform .16s,border-color .16s,background .16s}.add:hover{border-color:var(--accent);background:#fde7de;transform:translateY(-1px)}
 
-/* מתג הצגה */
-.tog{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#faf8f4;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-top:15px}
-.tog .t-l{display:flex;flex-direction:column}
-.tog .t-l b{font-size:14px;font-weight:700}
-.tog .t-l small{color:var(--muted);font-size:12px}
-.tog input{position:absolute;opacity:0;pointer-events:none}
-.tog .tr{width:46px;height:26px;border-radius:999px;background:#e4ded2;position:relative;transition:background .2s;flex:none;cursor:pointer}
-.tog .tr::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.2);transition:transform .2s}
-.tog input:checked+.tr{background:var(--ok)}
-.tog input:checked+.tr::after{transform:translateX(-20px)}
-.tog.off-row .t-l small{color:var(--err)}
+/* מתג */
+.tog{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#f7f9fb;border:1px solid #e2e8ee;border-radius:15px;padding:13px 15px;margin-top:16px;transition:background .2s,border-color .2s}.tog .t-l{display:flex;flex-direction:column}.tog .t-l b{font-size:14px;font-weight:700}.tog .t-l small{color:var(--muted);font-size:12px}.tog input{position:absolute;opacity:0;width:1px;height:1px}.tog .tr{width:48px;height:28px;border-radius:999px;background:#cfd8e1;position:relative;transition:background .22s;flex:none;cursor:pointer;box-shadow:inset 0 1px 3px rgba(16,42,67,.17)}.tog .tr::after{content:'';position:absolute;top:4px;inset-inline-start:4px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(16,42,67,.25);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}.tog input:checked+.tr{background:var(--teal)}.tog input:checked+.tr::after{transform:translateX(-20px)}.tog input:focus-visible+.tr{outline:3px solid rgba(226,96,60,.22);outline-offset:2px}.tog.off-row{background:#fff5f1;border-color:#f2d1c8}.tog.off-row .t-l small{color:var(--err)}
 
 /* שמירה */
-.savebar{position:fixed;bottom:0;inset-inline:0;z-index:50;background:linear-gradient(to top,var(--bg) 62%,transparent);padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
-.savebar .in{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:12px}
-.btn-p{flex:1;border:none;border-radius:13px;padding:15px 20px;background:linear-gradient(135deg,var(--navy),#0d1626);color:#fff;font-family:var(--ff-d);font-weight:800;font-size:16.5px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(13,22,38,.55);transition:transform .15s,box-shadow .15s}
-.btn-p:hover{transform:translateY(-1px)}
-.btn-p:disabled{opacity:.55;cursor:wait;transform:none}
-.status{flex:none;font-size:13px;color:var(--muted);min-width:20px}
-.status.err{color:var(--err);font-weight:600}
+.savebar{position:fixed;bottom:0;inset-inline:0;z-index:50;background:linear-gradient(to top,rgba(255,248,241,1) 45%,rgba(255,248,241,.92) 76%,transparent);padding:28px 24px calc(18px + env(safe-area-inset-bottom,0px));pointer-events:none}.savebar .in{max-width:670px;margin:0 calc((100vw - min(1120px,100vw))/2 + 24px) 0 auto;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);border-radius:20px;padding:8px;box-shadow:0 18px 48px -22px rgba(16,42,67,.42);backdrop-filter:blur(15px);pointer-events:auto}.btn-p{position:relative;overflow:hidden;flex:1;border:none;border-radius:14px;padding:15px 20px;background:linear-gradient(135deg,#f17650,var(--accent));color:#fff;font-family:var(--ff-d);font-weight:800;font-size:17px;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 25px -12px rgba(226,96,60,.75);transition:transform .16s,box-shadow .16s}.btn-p::after{content:'';position:absolute;inset:-50% auto -50% -25%;width:20%;transform:rotate(20deg);background:rgba(255,255,255,.24);transition:left .45s}.btn-p:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 15px 28px -14px rgba(226,96,60,.85)}.btn-p:hover::after{left:120%}.btn-p:active{transform:scale(.985)}.btn-p:disabled{opacity:.58;cursor:wait;transform:none}.status{flex:none;font-size:13px;color:var(--muted);min-width:20px}.status.err{color:var(--err);font-weight:700}
+.btn-p svg{width:21px;height:21px;vertical-align:-5px;margin-inline-end:7px}
 
-/* הצלחה */
-.ok-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:38px 26px;box-shadow:0 18px 44px -20px rgba(13,22,38,.2);text-align:center}
-.ok-card h2{font-family:var(--ff-d);font-weight:800;font-size:24px;margin:16px 0 8px}
-.ok-card p{color:var(--muted);font-size:15px}
-.ok-card .go{display:inline-block;margin-top:22px;border:none;border-radius:13px;padding:14px 30px;background:linear-gradient(135deg,var(--navy),#0d1626);color:#fff;font-family:var(--ff-d);font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 10px 26px -10px rgba(13,22,38,.55)}
-.ok-card .again{margin-top:14px;background:none;border:none;color:var(--muted);font-size:13.5px;text-decoration:underline;cursor:pointer;font-family:var(--ff)}
+/* הצלחה ופרטיות */
+.privacy-note{margin-top:22px;background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:18px;padding:17px;display:flex;gap:13px;align-items:center;text-align:right;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}.privacy-note img{width:48px;height:48px;flex:none}.privacy-note b{color:var(--ink)}
+.ok-card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:42px 30px;box-shadow:0 28px 70px -35px rgba(16,42,67,.46);text-align:center;max-width:520px}.ok-card h2{font-family:var(--ff-d);font-weight:800;font-size:28px;margin:18px 0 8px}.ok-card p{color:var(--muted);font-size:15px}.ok-card .go{display:inline-block;margin-top:22px;border:none;border-radius:14px;padding:14px 30px;background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;font-family:var(--ff-d);font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 12px 28px -14px rgba(16,42,67,.7)}.ok-card .again{margin-top:16px;background:none;border:none;color:var(--muted);font-size:13.5px;text-decoration:underline;cursor:pointer;font-family:var(--ff)}
+:focus-visible{outline:3px solid rgba(226,96,60,.35);outline-offset:2px}.note{display:none}
 
-/* נגישות */
-:focus-visible{outline:2.5px solid var(--gold);outline-offset:2px}
-.note{margin-top:26px;text-align:center;color:var(--muted);font-size:12.5px}
-.note b{color:var(--ink)}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:900px){.wrap{max-width:700px}.form-layout{display:block}.intro-panel{position:static;padding-top:0}.hero-art{width:min(320px,88%);margin:24px auto 18px}.progress-card{margin-bottom:22px}.savebar .in{max-width:652px;margin:0 auto}}
+@media(max-width:560px){.wrap{padding:18px 15px 142px}.brand{margin-bottom:28px}.brand .mark{width:40px;height:40px}.brand b{font-size:22px}.brand>span{font-size:11.5px;padding:5px 9px}h1{font-size:clamp(30px,9.5vw,40px);line-height:1.06;letter-spacing:-.9px}.sub{font-size:14.5px;margin-top:13px}.hero-art{width:250px;margin:18px auto 12px}.progress-card{padding:13px 15px;margin-bottom:17px}.fs{border-radius:19px;padding:20px 17px 18px;margin-bottom:14px}.fs-h{gap:12px}.fs-ico{width:52px;height:52px;border-radius:15px}.fs-ico img{width:45px;height:45px}.fs-h b{font-size:19px}.fs-h small{font-size:12.5px}.fs .hint{padding:0;font-size:13px}.row.duo{grid-template-columns:1fr}.savebar{padding:22px 14px calc(12px + env(safe-area-inset-bottom,0px))}.savebar .in{border-radius:18px;padding:7px}.btn-p{font-size:16px;padding:14px 16px}.privacy-note{margin-top:18px}.center{min-height:70vh}.ok-card{padding:34px 22px}}
+@media(max-width:360px){.brand>span{display:none}.fs{padding-inline:14px}.row{padding-inline:12px}.hero-art{width:220px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="brand">
-    <div class="mark">P</div>
-    <b>Pagely</b>
+    <div class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <b>Page<em>ly</em></b>
     <span>טופס מילוי פרטים</span>
   </div>
 
@@ -122,36 +101,73 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
 
   <!-- נעול -->
   <div class="state center" id="stLock">
-    <div class="lock-ico" aria-hidden="true">🔒</div>
+    <div class="lock-ico" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M14 21v-5c0-7 4-11 10-11s10 4 10 11v5" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="9" y="20" width="30" height="24" rx="8" fill="currentColor"/><circle cx="24" cy="31" r="3" fill="#fff"/><path d="M24 34v4" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg></div>
     <h1 style="font-size:24px">הקישור לא תקין</h1>
     <p class="sub" style="max-width:420px" id="lockMsg">ייתכן שהקישור שגוי, ישן או שפג תוקפו. בקשו מהמנהל קישור חדש ונסו שוב.</p>
   </div>
 
   <!-- הטופס -->
   <div class="state" id="stForm">
-    <h1>בואו נמלא את הדף של <em id="bizName"></em></h1>
-    <p class="sub">לוקח בערך <b>3 דקות</b>. מה שלא מילאתם — יישאר כמו שהוא עכשיו. מה שלא תרצו בדף — פשוט כבו.</p>
-
+    <div class="form-layout">
+      <aside class="intro-panel">
+        <h1>בואו נמלא את הדף של <em id="bizName"></em></h1>
+        <p class="sub">לוקח בערך <b>3 דקות</b>. מה שלא מילאתם — יישאר כמו שהוא עכשיו. מה שלא תרצו בדף — פשוט כבו.</p>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 390 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ha" x1="86" y1="36" x2="284" y2="226" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#f5f8fb"/></linearGradient>
+              <linearGradient id="hb" x1="210" y1="48" x2="307" y2="221" gradientUnits="userSpaceOnUse"><stop stop-color="#315e88"/><stop offset="1" stop-color="#102a43"/></linearGradient>
+              <linearGradient id="hc" x1="111" y1="87" x2="257" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#ff9b78"/><stop offset="1" stop-color="#e2603c"/></linearGradient>
+              <filter id="hs" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#102a43" flood-opacity=".2"/></filter>
+            </defs>
+            <ellipse cx="195" cy="231" rx="130" ry="21" fill="#d7c6b5" opacity=".32"/>
+            <g class="sheet" filter="url(#hs)">
+              <rect x="85" y="24" width="220" height="205" rx="31" transform="rotate(6 85 24)" fill="url(#ha)" stroke="#e2e8ee" stroke-width="3"/>
+              <rect x="112" y="63" width="88" height="17" rx="8.5" transform="rotate(6 112 63)" fill="url(#hc)"/>
+              <rect x="111" y="100" width="154" height="14" rx="7" transform="rotate(6 111 100)" fill="#173b62"/>
+              <rect x="108" y="130" width="128" height="14" rx="7" transform="rotate(6 108 130)" fill="#315e88"/>
+              <rect x="105" y="160" width="94" height="14" rx="7" transform="rotate(6 105 160)" fill="#f2b33d"/>
+              <circle cx="263" cy="182" r="27" fill="url(#hb)"/>
+              <path d="M250 183l9 9 18-21" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="chip" filter="url(#hs)"><rect x="33" y="142" width="91" height="74" rx="22" transform="rotate(-8 33 142)" fill="url(#hc)"/><path d="M59 178h39M78 159v38" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g>
+          </svg>
+        </div>
+        <div class="progress-card" aria-label="התקדמות בטופס">
+          <div class="progress-top"><b>ההתקדמות שלכם</b><span id="progressLabel">מתחילים</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="step-dots" id="stepDots">
+            <button class="step-dot on" type="button" data-target="step-business" aria-label="מעבר לשם העסק"></button>
+            <button class="step-dot" type="button" data-target="step-intro" aria-label="מעבר למשפט פתיחה"></button>
+            <button class="step-dot" type="button" data-target="step-services" aria-label="מעבר לשירותים"></button>
+            <button class="step-dot" type="button" data-target="step-about" aria-label="מעבר לאודות"></button>
+            <button class="step-dot" type="button" data-target="step-hours" aria-label="מעבר לשעות"></button>
+            <button class="step-dot" type="button" data-target="step-contact" aria-label="מעבר לפרטי קשר"></button>
+            <button class="step-dot" type="button" data-target="step-gallery" aria-label="מעבר לגלריה"></button>
+          </div>
+        </div>
+      </aside>
+      <div class="form-flow">
     <form id="theForm" novalidate>
       <!-- 1 שם העסק -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🏷️</div><div><b>שם העסק</b><small>איך שהלקוחות מכירים אתכם</small></div></div>
+      <section class="fs" id="step-business" data-step="0">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/business.svg" alt=""></div><div><b>שם העסק</b><small>איך שהלקוחות מכירים אתכם</small></div></div>
         <label class="f"><span>שם העסק / המותג</span>
           <input type="text" id="fName" maxlength="60" autocomplete="organization" placeholder="לדוגמה: סטודיו אלה">
         </label>
       </section>
 
       <!-- 2 משפט פתיחה -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">✨</div><div><b>משפט פתיחה</b><small>מה אתם עושים — במשפט אחד שמוכר אותכם</small></div></div>
+      <section class="fs" id="step-intro" data-step="1">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/intro.svg" alt=""></div><div><b>משפט פתיחה</b><small>מה אתם עושים — במשפט אחד שמוכר אותכם</small></div></div>
         <label class="f"><span>המשפט שיופיע בפתיחת הדף <i>(שורה-שתיים)</i></span>
           <textarea id="fHero" maxlength="300" placeholder="לדוגמה: מטפלות מוסמכות בשיטת … עם ליווי אישי מהפגישה הראשונה"></textarea>
         </label>
       </section>
 
       <!-- 3 שירותים -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🃏</div><div><b>השירותים שלנו</b><small>כל שירות = כרטיס בדף. הוסיפו בין 1 ל-12</small></div></div>
+      <section class="fs" id="step-services" data-step="2">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/services.svg" alt=""></div><div><b>השירותים שלנו</b><small>כל שירות = כרטיס בדף. הוסיפו בין 1 ל-12</small></div></div>
         <p class="hint">כתבו את שם השירות ושורת הסבר קצרה. אפשר למחוק שירות שלא רלוונטי.</p>
         <div class="rows" id="fServices"></div>
         <button type="button" class="add" id="addService">＋ הוספת שירות</button>
@@ -162,8 +178,8 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
       </section>
 
       <!-- 4 אודות -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">💬</div><div><b>קצת עלינו</b><small>פסקה קצרה שבונה אמון</small></div></div>
+      <section class="fs" id="step-about" data-step="3">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/about.svg" alt=""></div><div><b>קצת עלינו</b><small>פסקה קצרה שבונה אמון</small></div></div>
         <label class="f"><span>על העסק <i>(ניסיון, התמחות, מה מיוחד בכם)</i></span>
           <textarea id="fAbout" maxlength="800" rows="4" placeholder="לדוגמה: עם 12 שנות ניסיון ומאות לקוחות מרוצים…"></textarea>
         </label>
@@ -174,8 +190,8 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
       </section>
 
       <!-- 5 שעות -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🕘</div><div><b>שעות פעילות</b><small>ימים ושעות — כל שורה תופיע בדף</small></div></div>
+      <section class="fs" id="step-hours" data-step="4">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/hours.svg" alt=""></div><div><b>שעות פעילות</b><small>ימים ושעות — כל שורה תופיע בדף</small></div></div>
         <div class="rows" id="fHours"></div>
         <button type="button" class="add" id="addHour">＋ הוספת שורת שעות</button>
         <div class="tog" id="tog-schedule">
@@ -185,8 +201,8 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
       </section>
 
       <!-- 6 יצירת קשר -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">📞</div><div><b>איך יוצרים אתכם קשר</b><small>המספרים יפעילו את כפתורי ההתקשרות והוואטסאפ בדף</small></div></div>
+      <section class="fs" id="step-contact" data-step="5">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/contact.svg" alt=""></div><div><b>איך יוצרים אתכם קשר</b><small>המספרים יפעילו את כפתורי ההתקשרות והוואטסאפ בדף</small></div></div>
         <div class="row duo" style="margin-bottom:13px">
           <label class="f"><span>טלפון <i>(לחיצה לשיחה)</i></span>
             <input type="tel" id="fPhone" inputmode="tel" autocomplete="tel" placeholder="050-1234567">
@@ -213,8 +229,8 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
       </section>
 
       <!-- 7 גלריה -->
-      <section class="fs">
-        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🖼️</div><div><b>גלריית תמונות</b><small>התמונות עצמן מעלה עבורכם המנהל</small></div></div>
+      <section class="fs" id="step-gallery" data-step="6">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true"><img src="/assets/icons/pagely-form/gallery.svg" alt=""></div><div><b>גלריית תמונות</b><small>התמונות עצמן מעלה עבורכם המנהל</small></div></div>
         <p class="hint">אם אין לכם תמונות או שאתם לא רוצים גלריה — כבו את החלק הזה והוא ירד מהדף.</p>
         <div class="tog" id="tog-gallery">
           <div class="t-l"><b>הצגת הגלריה בדף</b><small>כיבוי — החלק כולו ירד מהדף</small></div>
@@ -222,13 +238,15 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
         </div>
       </section>
     </form>
-    <p class="note">זה הקישור האישי שלכם — <b>אל תשתפו</b> אותו עם אף אחד.<br>אפשר לחזור לטופס הזה בכל רגע ולעדכן שוב.</p>
+    <div class="privacy-note"><img src="/assets/icons/pagely-form/shield.svg" alt=""><p>זה הקישור האישי שלכם — <b>אל תשתפו</b> אותו עם אף אחד.<br>אפשר לחזור לטופס הזה בכל רגע ולעדכן שוב.</p></div>
+      </div>
+    </div>
   </div>
 
   <!-- הצלחה -->
   <div class="state center" id="stDone">
     <div class="ok-card">
-      <div class="ok-ico" aria-hidden="true">✓</div>
+      <div class="ok-ico" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="currentColor" opacity=".15"/><path d="M13 25l7 7 15-17" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h2>הדף שלכם עודכן!</h2>
       <p>כל מה שמילאתם כבר חי בדף.<br>רוצים לשנות משהו? פשוט מלאו שוב.</p>
       <a class="go" id="goPage" href="#" target="_blank" rel="noopener">לצפייה בדף שלכם ←</a>
@@ -240,7 +258,7 @@ input.ltr,textarea.ltr{direction:ltr;text-align:left}
 <!-- סרגל שמירה -->
 <div class="savebar" id="savebar" hidden>
   <div class="in">
-    <button type="button" class="btn-p" id="saveBtn">שמירה ועדכון הדף</button>
+    <button type="button" class="btn-p" id="saveBtn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 3h11l3 3v15H5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 3v6h8V3M8 21v-7h8v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>שמירה ועדכון הדף</button>
     <div class="status" id="saveStatus" role="status" aria-live="polite"></div>
   </div>
 </div>
@@ -301,10 +319,41 @@ $('addHour').addEventListener('click', () => addHourRow('', ''));
 /* מתגי הצגה — הדגשה כשמכובים */
 document.querySelectorAll('.tog').forEach(t => {
   const cb = t.querySelector('input');
+  const track = t.querySelector('.tr');
   const paint = () => t.classList.toggle('off-row', !cb.checked);
   cb.addEventListener('change', paint);
+  track.setAttribute('role', 'switch');
+  track.setAttribute('tabindex', '0');
+  const toggle = () => { cb.checked = !cb.checked; cb.dispatchEvent(new Event('change', { bubbles: true })); };
+  track.addEventListener('click', toggle);
+  track.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  cb.addEventListener('change', () => track.setAttribute('aria-checked', String(cb.checked)));
+  track.setAttribute('aria-checked', String(cb.checked));
   paint();
 });
+
+/* ---------- התקדמות וניווט בין חלקים ---------- */
+const FORM_SECTIONS = [...document.querySelectorAll('.fs[data-step]')];
+const STEP_DOTS = [...document.querySelectorAll('.step-dot')];
+function setProgress(step){
+  const safe = Math.max(0, Math.min(FORM_SECTIONS.length - 1, Number(step) || 0));
+  const pct = 8 + (safe / Math.max(1, FORM_SECTIONS.length - 1)) * 92;
+  $('progressFill').style.width = pct + '%';
+  $('progressLabel').textContent = safe === FORM_SECTIONS.length - 1 ? 'כמעט סיימנו' : ('חלק ' + (safe + 1) + ' מתוך ' + FORM_SECTIONS.length);
+  STEP_DOTS.forEach((dot, i) => dot.classList.toggle('on', i <= safe));
+}
+STEP_DOTS.forEach(dot => dot.addEventListener('click', () => {
+  const target = document.getElementById(dot.dataset.target);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}));
+FORM_SECTIONS.forEach(section => section.addEventListener('focusin', () => setProgress(section.dataset.step)));
+if ('IntersectionObserver' in window) {
+  const stepObserver = new IntersectionObserver(entries => {
+    const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) setProgress(visible.target.dataset.step);
+  }, { rootMargin: '-12% 0px -56% 0px', threshold: [0, .2, .55] });
+  FORM_SECTIONS.forEach(section => stepObserver.observe(section));
+}
 
 /* ---------- אתחול: אימות הקישור ומילוי מראש ---------- */
 async function boot(){
@@ -351,7 +400,11 @@ function prefill(j){
   const s = c.sections || {};
   ['activities', 'about', 'schedule', 'contact', 'gallery'].forEach(k => {
     const tog = $('tog-' + k);
-    if (tog) tog.querySelector('input').checked = s[k] !== false;
+    if (tog) {
+      const cb = tog.querySelector('input');
+      cb.checked = s[k] !== false;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    }
   });
 }
 
@@ -416,7 +469,12 @@ $('saveBtn').addEventListener('click', async () => {
     btn.disabled = false;
   }
 });
-$('againBtn').addEventListener('click', () => { show('stForm'); });
+$('againBtn').addEventListener('click', () => {
+  $('saveBtn').disabled = false;
+  $('saveStatus').className = 'status';
+  $('saveStatus').textContent = '';
+  show('stForm');
+});
 
 boot();
 </script>

@@ -29,14 +29,31 @@ function mongoUri() {
 }
 
 let _client = null;
+let _connecting = null; /* ה-bקשת-חיבור הנוכחית — כישלון מנקה אותה כדי שהבקשה הבאה תנסה שוב */
 async function getDb() {
   const uri = mongoUri();
   if (!uri) throw new Error('MONGODB_URI is not configured');
-  if (!_client) {
-    _client = new MongoClient(uri, { serverApi: ServerApiVersion.api1 });
-    await _client.connect();
+  if (!_connecting) {
+    _connecting = (async () => {
+      /* ניסיון כפול עם הפסקה — מחליק על כשלי DNS/רשת חולפים */
+      let lastErr = null;
+      for (let i = 0; i < 2; i++) {
+        try {
+          _client = new MongoClient(uri, { serverApi: ServerApiVersion.api1 });
+          await _client.connect();
+          return _client;
+        } catch (e) {
+          lastErr = e;
+          try { if (_client) await _client.close(); } catch (e2) { /* כבר סגור */ }
+          _client = null;
+          if (i === 0) await new Promise(r => setTimeout(r, 700));
+        }
+      }
+      throw lastErr;
+    })().catch(e => { _connecting = null; throw e; });
   }
-  return _client.db(process.env.MONGO_DB || 'noa_site');
+  const c = await _connecting;
+  return c.db(process.env.MONGO_DB || 'noa_site');
 }
 
 /* ==================== סיסמאות (scrypt, בלי תלות חוץ) ==================== */
