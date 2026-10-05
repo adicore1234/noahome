@@ -211,6 +211,7 @@
     "style": "blocks"
   },
   "floatWa": true,
+  "floatCall": true,
   "sections": {
     "order": [
       "activities",

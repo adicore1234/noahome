@@ -3,6 +3,8 @@
  * ---------------------------------------------
  * GET  → {ok, users:[{id, slug, displayName, username, status, createdAt, siteUpdatedAt}]}
  * POST {action:'create',         displayName, slug, username, password}
+ * POST {action:'formLink',       id|slug}                ← קישור טופס מילוי ללקוח (יוצר טוקן אם חסר)
+ * POST {action:'newFormToken',   id|slug}                ← חידוש הטוקן (מבטל קישור ישן)
  * POST {action:'update',         id, displayName?, slug?, username?}
  * POST {action:'resetPassword',  id, newPassword}      (מנתק את כל הסשנים של היוזר)
  * POST {action:'setStatus',      id, status:'active'|'suspended'}
@@ -87,9 +89,13 @@ module.exports = async function handler(req, res) {
     /* ---------- GET: רשימת יוזרים + עדכון אחרון + סטטיסטיקות צפיות ---------- */
     if (req.method === 'GET') {
       const list = await users.find({}, { projection: { passHash: 0 } }).sort({ createdAt: -1 }).toArray();
-      const conts = await content.find({}, { projection: { slug: 1, updatedAt: 1 } }).toArray();
+      const conts = await content.find({}, { projection: { slug: 1, updatedAt: 1, 'content.formFilled': 1 } }).toArray();
       const bySlug = {};
-      conts.forEach(c => { bySlug[c.slug] = c.updatedAt || null; });
+      const filledBy = {};
+      conts.forEach(c => {
+        bySlug[c.slug] = c.updatedAt || null;
+        filledBy[c.slug] = !!(c.content && c.content.formFilled);
+      });
 
       /* צפיות לכל slug: סה״כ / היום (לפי יום ישראל) / ב-7 ימים / אחרונה */
       const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' });
@@ -110,6 +116,7 @@ module.exports = async function handler(req, res) {
         ok: true,
         users: list.map(u => Object.assign(safeUser(u), {
           siteUpdatedAt: bySlug[u.slug] || null,
+          formFilled: filledBy[u.slug] || false,
           viewsTotal: (viewsBy[u.slug] || {}).viewsTotal || 0,
           viewsToday: (viewsBy[u.slug] || {}).viewsToday || 0,
           viewsWeek: (viewsBy[u.slug] || {}).viewsWeek || 0,
@@ -140,11 +147,13 @@ module.exports = async function handler(req, res) {
         return;
       }
       const now = new Date();
+      const formToken = lib.genFormToken();
       const r = await users.insertOne({
         slug, displayName, username,
         passHash: lib.hashPassword(password),
         status: 'active',
         theme,
+        formToken,
         createdAt: now,
         updatedAt: now
       });
@@ -153,7 +162,22 @@ module.exports = async function handler(req, res) {
         { $set: { slug, content: lib.templateContent(displayName, theme), updatedAt: now } },
         { upsert: true }
       );
-      res.status(200).json({ ok: true, user: safeUser({ _id: r.insertedId, slug, displayName, username, status: 'active', theme, createdAt: now, updatedAt: now }) });
+      res.status(200).json({ ok: true, user: safeUser({ _id: r.insertedId, slug, displayName, username, status: 'active', theme, createdAt: now, updatedAt: now }), formToken });
+      return;
+    }
+
+    /* ---------- formLink: קישור טופס המילוי ללקוח (יוצר טוקן אם חסר — גם ליוזרים ותיקים) ---------- */
+    if (action === 'formLink' || action === 'newFormToken') {
+      const id = parseId(b.id);
+      const bySlug = !id ? String(b.slug || '').trim().toLowerCase() : null;
+      const user = id ? await users.findOne({ _id: id }) : (bySlug ? await users.findOne({ slug: bySlug }) : null);
+      if (!user) { res.status(404).json({ ok: false, error: 'יוזר לא נמצא' }); return; }
+      let token = user.formToken;
+      if (action === 'newFormToken' || !token) {
+        token = lib.genFormToken();
+        await users.updateOne({ _id: user._id }, { $set: { formToken: token, updatedAt: new Date() } });
+      }
+      res.status(200).json({ ok: true, slug: user.slug, token, theme: user.theme });
       return;
     }
 

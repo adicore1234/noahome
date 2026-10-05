@@ -12,7 +12,7 @@ if (path.dirname(output) !== root || path.basename(output) !== 'dist') {
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
 
-for (const file of ['index.html', 'site.html', 'site-business.html', 'content.json', 'template.json', 'template-kids.json']) {
+for (const file of ['index.html', 'site.html', 'site-business.html', 'form.html', 'content.json', 'template.json', 'template-kids.json']) {
   fs.copyFileSync(path.join(root, file), path.join(output, file));
 }
 

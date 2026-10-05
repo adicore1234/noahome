@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>מילוי פרטי הדף · Pagely</title>
+<meta name="description" content="טופס מילוי פרטים אישי לדף הנחיתה שלכם">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Assistant:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/placeholders/favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#faf9f7;--card:#ffffff;--ink:#1c2333;--muted:#6b7280;--line:#e8e4dd;
+  --gold:#b08d3e;--navy:#1e3a5f;--ok:#2e7d4f;--err:#b3403a;--r:16px;
+  --ff:'Heebo',sans-serif;--ff-d:'Assistant','Heebo',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff);background:radial-gradient(120% 80% at 80% -10%,rgba(176,141,62,.07),transparent 55%),radial-gradient(120% 80% at 10% -10%,rgba(30,58,95,.06),transparent 55%),var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:28px 18px 140px}
+
+/* כותרת */
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:34px}
+.brand .mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--navy),#0d1626);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--ff-d);font-weight:800;font-size:19px;box-shadow:0 4px 12px -4px rgba(13,22,38,.4)}
+.brand b{font-family:var(--ff-d);font-weight:800;font-size:19px;letter-spacing:.2px}
+.brand span{color:var(--muted);font-size:13px;margin-inline-start:auto}
+h1{font-family:var(--ff-d);font-weight:800;font-size:clamp(25px,6vw,32px);line-height:1.3}
+h1 em{font-style:normal;color:var(--gold)}
+.sub{color:var(--muted);margin-top:10px;font-size:15.5px}
+.sub b{color:var(--ink)}
+
+/* מצבים — רק אחד נראה בכל רגע (חשוב שינצח את .center המאוחר) */
+.state:not(.on){display:none!important}
+.state.on{display:block}
+.state.on.center{display:flex}
+.center{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+.spin{width:44px;height:44px;border-radius:50%;border:3.5px solid var(--line);border-top-color:var(--gold);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.lock-ico{width:64px;height:64px;border-radius:50%;background:#f6ece7;color:var(--err);display:flex;align-items:center;justify-content:center;font-size:28px}
+.ok-ico{width:76px;height:76px;border-radius:50%;background:#eaf4ee;color:var(--ok);display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 12px 30px -12px rgba(46,125,79,.45)}
+
+/* כרטיסי מקטע */
+.fs{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px 20px;margin-bottom:16px;box-shadow:0 2px 10px -6px rgba(13,22,38,.08)}
+.fs-h{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.fs-ico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;background:linear-gradient(135deg,#f3efe6,#faf7f0);border:1px solid var(--line)}
+.fs-h b{font-family:var(--ff-d);font-weight:800;font-size:17.5px}
+.fs-h small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;line-height:1.4;margin-top:1px}
+.fs .hint{color:var(--muted);font-size:13px;margin:4px 0 14px}
+
+/* שדות */
+label.f{display:block;margin-bottom:13px}
+label.f:last-child{margin-bottom:0}
+label.f>span{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
+label.f>span i{font-style:normal;color:var(--muted);font-weight:400}
+input[type=text],input[type=tel],textarea{width:100%;font-family:var(--ff);font-size:16px;color:var(--ink);background:#fdfcfa;border:1.5px solid var(--line);border-radius:11px;padding:11px 14px;transition:border-color .15s,box-shadow .15s;appearance:none}
+input:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3.5px rgba(176,141,62,.14)}
+textarea{resize:vertical;min-height:76px;line-height:1.55}
+input.ltr,textarea.ltr{direction:ltr;text-align:left}
+
+/* שורות חוזרות (שירותים/שעות) */
+.rows{display:flex;flex-direction:column;gap:11px}
+.row{display:grid;gap:8px;background:#faf8f4;border:1px solid var(--line);border-radius:12px;padding:12px 12px 12px;position:relative}
+.row.duo{grid-template-columns:1fr 1fr}
+@media(max-width:420px){.row.duo{grid-template-columns:1fr}}
+.row .del{position:absolute;top:8px;inset-inline-start:8px;width:28px;height:28px;border-radius:8px;border:none;background:#f6ece7;color:var(--err);font-size:15px;cursor:pointer;line-height:1;transition:transform .15s}
+.row .del:hover{transform:scale(1.1)}
+.row input,.row textarea{background:#fff}
+.row .num{position:absolute;top:-9px;inset-inline-end:10px;background:var(--gold);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px}
+.add{margin-top:11px;width:100%;padding:11px;border-radius:11px;border:1.5px dashed var(--line);background:none;color:var(--navy);font-family:var(--ff);font-size:14.5px;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s}
+.add:hover{border-color:var(--gold);background:#faf7f0}
+
+/* מתג הצגה */
+.tog{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#faf8f4;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-top:15px}
+.tog .t-l{display:flex;flex-direction:column}
+.tog .t-l b{font-size:14px;font-weight:700}
+.tog .t-l small{color:var(--muted);font-size:12px}
+.tog input{position:absolute;opacity:0;pointer-events:none}
+.tog .tr{width:46px;height:26px;border-radius:999px;background:#e4ded2;position:relative;transition:background .2s;flex:none;cursor:pointer}
+.tog .tr::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.2);transition:transform .2s}
+.tog input:checked+.tr{background:var(--ok)}
+.tog input:checked+.tr::after{transform:translateX(-20px)}
+.tog.off-row .t-l small{color:var(--err)}
+
+/* שמירה */
+.savebar{position:fixed;bottom:0;inset-inline:0;z-index:50;background:linear-gradient(to top,var(--bg) 62%,transparent);padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.savebar .in{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.btn-p{flex:1;border:none;border-radius:13px;padding:15px 20px;background:linear-gradient(135deg,var(--navy),#0d1626);color:#fff;font-family:var(--ff-d);font-weight:800;font-size:16.5px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(13,22,38,.55);transition:transform .15s,box-shadow .15s}
+.btn-p:hover{transform:translateY(-1px)}
+.btn-p:disabled{opacity:.55;cursor:wait;transform:none}
+.status{flex:none;font-size:13px;color:var(--muted);min-width:20px}
+.status.err{color:var(--err);font-weight:600}
+
+/* הצלחה */
+.ok-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:38px 26px;box-shadow:0 18px 44px -20px rgba(13,22,38,.2);text-align:center}
+.ok-card h2{font-family:var(--ff-d);font-weight:800;font-size:24px;margin:16px 0 8px}
+.ok-card p{color:var(--muted);font-size:15px}
+.ok-card .go{display:inline-block;margin-top:22px;border:none;border-radius:13px;padding:14px 30px;background:linear-gradient(135deg,var(--navy),#0d1626);color:#fff;font-family:var(--ff-d);font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 10px 26px -10px rgba(13,22,38,.55)}
+.ok-card .again{margin-top:14px;background:none;border:none;color:var(--muted);font-size:13.5px;text-decoration:underline;cursor:pointer;font-family:var(--ff)}
+
+/* נגישות */
+:focus-visible{outline:2.5px solid var(--gold);outline-offset:2px}
+.note{margin-top:26px;text-align:center;color:var(--muted);font-size:12.5px}
+.note b{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="mark">P</div>
+    <b>Pagely</b>
+    <span>טופס מילוי פרטים</span>
+  </div>
+
+  <!-- טוען -->
+  <div class="state center on" id="stLoad" role="status" aria-live="polite">
+    <div class="spin" aria-hidden="true"></div>
+    <div>רק רגע, בודקים את הקישור שלכם…</div>
+  </div>
+
+  <!-- נעול -->
+  <div class="state center" id="stLock">
+    <div class="lock-ico" aria-hidden="true">🔒</div>
+    <h1 style="font-size:24px">הקישור לא תקין</h1>
+    <p class="sub" style="max-width:420px" id="lockMsg">ייתכן שהקישור שגוי, ישן או שפג תוקפו. בקשו מהמנהל קישור חדש ונסו שוב.</p>
+  </div>
+
+  <!-- הטופס -->
+  <div class="state" id="stForm">
+    <h1>בואו נמלא את הדף של <em id="bizName"></em></h1>
+    <p class="sub">לוקח בערך <b>3 דקות</b>. מה שלא מילאתם — יישאר כמו שהוא עכשיו. מה שלא תרצו בדף — פשוט כבו.</p>
+
+    <form id="theForm" novalidate>
+      <!-- 1 שם העסק -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🏷️</div><div><b>שם העסק</b><small>איך שהלקוחות מכירים אתכם</small></div></div>
+        <label class="f"><span>שם העסק / המותג</span>
+          <input type="text" id="fName" maxlength="60" autocomplete="organization" placeholder="לדוגמה: סטודיו אלה">
+        </label>
+      </section>
+
+      <!-- 2 משפט פתיחה -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">✨</div><div><b>משפט פתיחה</b><small>מה אתם עושים — במשפט אחד שמוכר אותכם</small></div></div>
+        <label class="f"><span>המשפט שיופיע בפתיחת הדף <i>(שורה-שתיים)</i></span>
+          <textarea id="fHero" maxlength="300" placeholder="לדוגמה: מטפלות מוסמכות בשיטת … עם ליווי אישי מהפגישה הראשונה"></textarea>
+        </label>
+      </section>
+
+      <!-- 3 שירותים -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🃏</div><div><b>השירותים שלנו</b><small>כל שירות = כרטיס בדף. הוסיפו בין 1 ל-12</small></div></div>
+        <p class="hint">כתבו את שם השירות ושורת הסבר קצרה. אפשר למחוק שירות שלא רלוונטי.</p>
+        <div class="rows" id="fServices"></div>
+        <button type="button" class="add" id="addService">＋ הוספת שירות</button>
+        <div class="tog" id="tog-activities">
+          <div class="t-l"><b>הצגת השירותים בדף</b><small>כיבוי — החלק כולו ירד מהדף</small></div>
+          <input type="checkbox" checked aria-label="הצגת השירותים בדף"><span class="tr"></span>
+        </div>
+      </section>
+
+      <!-- 4 אודות -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">💬</div><div><b>קצת עלינו</b><small>פסקה קצרה שבונה אמון</small></div></div>
+        <label class="f"><span>על העסק <i>(ניסיון, התמחות, מה מיוחד בכם)</i></span>
+          <textarea id="fAbout" maxlength="800" rows="4" placeholder="לדוגמה: עם 12 שנות ניסיון ומאות לקוחות מרוצים…"></textarea>
+        </label>
+        <div class="tog" id="tog-about">
+          <div class="t-l"><b>הצגת "קצת עלינו" בדף</b><small>כיבוי — החלק כולו ירד מהדף</small></div>
+          <input type="checkbox" checked aria-label="הצגת האודות בדף"><span class="tr"></span>
+        </div>
+      </section>
+
+      <!-- 5 שעות -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🕘</div><div><b>שעות פעילות</b><small>ימים ושעות — כל שורה תופיע בדף</small></div></div>
+        <div class="rows" id="fHours"></div>
+        <button type="button" class="add" id="addHour">＋ הוספת שורת שעות</button>
+        <div class="tog" id="tog-schedule">
+          <div class="t-l"><b>הצגת השעות בדף</b><small>כיבוי — החלק כולו ירד מהדף</small></div>
+          <input type="checkbox" checked aria-label="הצגת השעות בדף"><span class="tr"></span>
+        </div>
+      </section>
+
+      <!-- 6 יצירת קשר -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">📞</div><div><b>איך יוצרים אתכם קשר</b><small>המספרים יפעילו את כפתורי ההתקשרות והוואטסאפ בדף</small></div></div>
+        <div class="row duo" style="margin-bottom:13px">
+          <label class="f"><span>טלפון <i>(לחיצה לשיחה)</i></span>
+            <input type="tel" id="fPhone" inputmode="tel" autocomplete="tel" placeholder="050-1234567">
+          </label>
+          <label class="f"><span>וואטסאפ <i>(מספר)</i></span>
+            <input type="tel" id="fWa" inputmode="tel" placeholder="050-1234567">
+          </label>
+        </div>
+        <div class="row duo" style="margin-bottom:13px">
+          <label class="f"><span>אינסטגרם <i>(שם משתמש או קישור)</i></span>
+            <input type="text" id="fIg" autocomplete="off" placeholder="@my.business" class="ltr" style="text-align:right">
+          </label>
+          <label class="f"><span>פייסבוק <i>(קישור לעמוד)</i></span>
+            <input type="text" id="fFb" autocomplete="off" placeholder="facebook.com/…" class="ltr" style="text-align:right">
+          </label>
+        </div>
+        <label class="f"><span>כתובת <i>(העיר והרחוב)</i></span>
+          <input type="text" id="fAddr" maxlength="140" autocomplete="street-address" placeholder="רחוב הרצל 12, תל אביב">
+        </label>
+        <div class="tog" id="tog-contact">
+          <div class="t-l"><b>הצגת יצירת הקשר בדף</b><small>כיבוי — החלק כולו ירד מהדף</small></div>
+          <input type="checkbox" checked aria-label="הצגת יצירת הקשר בדף"><span class="tr"></span>
+        </div>
+      </section>
+
+      <!-- 7 גלריה -->
+      <section class="fs">
+        <div class="fs-h"><div class="fs-ico" aria-hidden="true">🖼️</div><div><b>גלריית תמונות</b><small>התמונות עצמן מעלה עבורכם המנהל</small></div></div>
+        <p class="hint">אם אין לכם תמונות או שאתם לא רוצים גלריה — כבו את החלק הזה והוא ירד מהדף.</p>
+        <div class="tog" id="tog-gallery">
+          <div class="t-l"><b>הצגת הגלריה בדף</b><small>כיבוי — החלק כולו ירד מהדף</small></div>
+          <input type="checkbox" checked aria-label="הצגת הגלריה בדף"><span class="tr"></span>
+        </div>
+      </section>
+    </form>
+    <p class="note">זה הקישור האישי שלכם — <b>אל תשתפו</b> אותו עם אף אחד.<br>אפשר לחזור לטופס הזה בכל רגע ולעדכן שוב.</p>
+  </div>
+
+  <!-- הצלחה -->
+  <div class="state center" id="stDone">
+    <div class="ok-card">
+      <div class="ok-ico" aria-hidden="true">✓</div>
+      <h2>הדף שלכם עודכן!</h2>
+      <p>כל מה שמילאתם כבר חי בדף.<br>רוצים לשנות משהו? פשוט מלאו שוב.</p>
+      <a class="go" id="goPage" href="#" target="_blank" rel="noopener">לצפייה בדף שלכם ←</a>
+      <br><button type="button" class="again" id="againBtn">חזרה לטופס לעוד עדכון</button>
+    </div>
+  </div>
+</div>
+
+<!-- סרגל שמירה -->
+<div class="savebar" id="savebar" hidden>
+  <div class="in">
+    <button type="button" class="btn-p" id="saveBtn">שמירה ועדכון הדף</button>
+    <div class="status" id="saveStatus" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ===== Pagely · טופס מילוי ללקוח — /f/<slug>?t=<token> ===== */
+const SLUG = decodeURIComponent((location.pathname.split('/').filter(Boolean)[1] || '').toLowerCase());
+const T = new URLSearchParams(location.search).get('t') || '';
+const API = '/api/form';
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let CONTENT = null;
+
+function show(id){
+  ['stLoad','stLock','stForm','stDone'].forEach(s => $(s).classList.toggle('on', s === id));
+  $('savebar').hidden = (id !== 'stForm');
+  window.scrollTo(0, 0);
+}
+
+/* ---------- שורות חוזרות ---------- */
+function addServiceRow(title, text){
+  const rows = $('fServices');
+  const d = document.createElement('div');
+  d.className = 'row';
+  d.innerHTML =
+    '<span class="num" aria-hidden="true"></span>' +
+    '<button type="button" class="del" aria-label="מחיקת השירות">✕</button>' +
+    '<label class="f"><span>שם השירות</span><input type="text" class="sv-t" maxlength="60" placeholder="לדוגמה: טיפול אישי"></label>' +
+    '<label class="f"><span>הסבר קצר <i>(אופציונלי)</i></span><input type="text" class="sv-d" maxlength="200" placeholder="שורה אחת שמוכרת את השירות"></label>';
+  d.querySelector('.sv-t').value = title || '';
+  d.querySelector('.sv-d').value = text || '';
+  d.querySelector('.del').addEventListener('click', () => { d.remove(); renum(rows); });
+  rows.appendChild(d);
+  renum(rows);
+}
+function addHourRow(bold, rest){
+  const rows = $('fHours');
+  const d = document.createElement('div');
+  d.className = 'row duo';
+  d.innerHTML =
+    '<span class="num" aria-hidden="true"></span>' +
+    '<button type="button" class="del" aria-label="מחיקת השורה">✕</button>' +
+    '<label class="f"><span>ימים</span><input type="text" class="hr-b" maxlength="30" placeholder="א׳–ה׳"></label>' +
+    '<label class="f"><span>שעות</span><input type="text" class="hr-r" maxlength="60" placeholder="09:00–18:00"></label>';
+  d.querySelector('.hr-b').value = bold || '';
+  d.querySelector('.hr-r').value = (rest || '').trim() || '';
+  d.querySelector('.del').addEventListener('click', () => { d.remove(); renum(rows); });
+  rows.appendChild(d);
+  renum(rows);
+}
+function renum(rows){
+  rows.querySelectorAll('.num').forEach((n, i) => { n.textContent = i + 1; });
+}
+$('addService').addEventListener('click', () => addServiceRow('', ''));
+$('addHour').addEventListener('click', () => addHourRow('', ''));
+
+/* מתגי הצגה — הדגשה כשמכובים */
+document.querySelectorAll('.tog').forEach(t => {
+  const cb = t.querySelector('input');
+  const paint = () => t.classList.toggle('off-row', !cb.checked);
+  cb.addEventListener('change', paint);
+  paint();
+});
+
+/* ---------- אתחול: אימות הקישור ומילוי מראש ---------- */
+async function boot(){
+  if (!T) { $('lockMsg').textContent = 'חסרים פרטים בקישור. ודאו שפתחתם אותו במלואו או בקשו קישור חדש מהמנהל.'; show('stLock'); return; }
+  try {
+      const r = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'auth', t: T })
+      });
+    const j = await r.json();
+    if (!j.ok) { $('lockMsg').textContent = j.error || 'הקישור לא תקין.'; show('stLock'); return; }
+    CONTENT = j.content;
+    prefill(j);
+    show('stForm');
+  } catch (e) {
+    $('lockMsg').textContent = 'בעיית תקשורת — בדקו את החיבור לאינטרנט ונסו שוב.';
+    show('stLock');
+  }
+}
+
+function prefill(j){
+  const c = j.content || {};
+  $('bizName').textContent = j.displayName || (c.meta && c.meta.title) || 'העסק שלכם';
+  document.title = 'מילוי פרטי הדף · ' + (j.displayName || '');
+  const curName = (c.meta && c.meta.title && c.meta.title.indexOf('שם העסק') === -1) ? c.meta.title : '';
+  $('fName').value = curName || '';
+  const curSub = (c.hero && c.hero.sub) || '';
+  $('fHero').value = curSub.indexOf('כאן כותבים') === -1 ? curSub : '';
+  const items = (c.activities && Array.isArray(c.activities.items)) ? c.activities.items : [];
+  items.slice(0, 12).forEach(it => addServiceRow(it.title || '', it.text || ''));
+  if (!items.length) { addServiceRow('', ''); addServiceRow('', ''); }
+  const curAbout = (c.about && c.about.text) || '';
+  $('fAbout').value = curAbout.indexOf('פסקה קצרה') === -1 ? curAbout : '';
+  const chips = (c.schedule && Array.isArray(c.schedule.chips)) ? c.schedule.chips : [];
+  chips.slice(0, 6).forEach(ch => addHourRow(ch.bold || '', ch.rest || ''));
+  if (!chips.length) addHourRow('', '');
+  const ct = c.contact || {};
+  $('fPhone').value = (ct.phoneHref || '').replace(/^tel:\+?/, '');
+  $('fWa').value = (ct.waHref || '').replace(/^https:\/\/wa\.me\//, '');
+  $('fIg').value = (ct.instagram || '').replace(/^https:\/\/(www\.)?instagram\.com\//, '@');
+  $('fFb').value = ct.facebook || '';
+  $('fAddr').value = (ct.address || '').indexOf('הכתובת שלכם') === -1 ? (ct.address || '') : '';
+  const s = c.sections || {};
+  ['activities', 'about', 'schedule', 'contact', 'gallery'].forEach(k => {
+    const tog = $('tog-' + k);
+    if (tog) tog.querySelector('input').checked = s[k] !== false;
+  });
+}
+
+/* ---------- שמירה ---------- */
+function collect(){
+  const patch = {
+    sections: {
+      activities: $('tog-activities').querySelector('input').checked,
+      about: $('tog-about').querySelector('input').checked,
+      schedule: $('tog-schedule').querySelector('input').checked,
+      contact: $('tog-contact').querySelector('input').checked,
+      gallery: $('tog-gallery').querySelector('input').checked
+    }
+  };
+  const name = $('fName').value.trim();
+  if (name) patch.name = name;
+  const hero = $('fHero').value.trim();
+  if (hero) patch.heroSub = hero;
+  const services = [...$('fServices').querySelectorAll('.row')]
+    .map(r => ({ title: r.querySelector('.sv-t').value.trim(), text: r.querySelector('.sv-d').value.trim() }))
+    .filter(s => s.title);
+  if (services.length) patch.services = services.slice(0, 12);
+  const about = $('fAbout').value.trim();
+  if (about) patch.aboutText = about;
+  const hours = [...$('fHours').querySelectorAll('.row')]
+    .map(r => ({ bold: r.querySelector('.hr-b').value.trim(), rest: r.querySelector('.hr-r').value.trim() }))
+    .filter(h => h.bold || h.rest);
+  if (hours.length) patch.hours = hours.slice(0, 6);
+  const ph = $('fPhone').value.trim();
+  if (ph) patch.phone = ph;
+  const wa = $('fWa').value.trim();
+  if (wa) patch.whatsapp = wa;
+  const ig = $('fIg').value.trim();
+  if (ig) patch.instagram = ig;
+  const fb = $('fFb').value.trim();
+  if (fb) patch.facebook = fb;
+  const addr = $('fAddr').value.trim();
+  if (addr) patch.address = addr;
+  return patch;
+}
+
+$('saveBtn').addEventListener('click', async () => {
+  const btn = $('saveBtn');
+  const st = $('saveStatus');
+  btn.disabled = true;
+  st.className = 'status';
+  st.textContent = 'שומר…';
+  try {
+    const r = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'save', t: T, patch: collect() })
+    });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || 'שמירה נכשלה');
+    st.textContent = '';
+    $('goPage').href = j.url;
+    show('stDone');
+  } catch (e) {
+    st.className = 'status err';
+    st.textContent = e.message || 'שמירה נכשלה — נסו שוב';
+    btn.disabled = false;
+  }
+});
+$('againBtn').addEventListener('click', () => { show('stForm'); });
+
+boot();
+</script>
+</body>
+</html>

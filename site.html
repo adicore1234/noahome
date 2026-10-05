@@ -265,12 +265,19 @@ footer .fl{color:#fff;font-weight:700;font-size:18px;margin-bottom:14px;font-fam
 .foot-links a{color:#ecd9cf;text-decoration:none;font-size:13.5px;transition:color .2s}
 .foot-links a:hover{color:var(--gold)}
 
-/* Floating WhatsApp */
-.float-wa{position:fixed;bottom:22px;inset-inline-start:22px;z-index:70;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(37,211,102,.5);transition:transform .2s}
+/* Floating WhatsApp + התקשרות — שני צדי הדף, באותו גובה (כולל פס הבית של אייפון) */
+.float-wa,.float-call{position:fixed;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:70;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.float-wa{inset-inline-start:22px;background:var(--wa);box-shadow:0 8px 26px rgba(37,211,102,.5)}
 .float-wa:hover{transform:scale(1.1)}
 .float-wa::before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:ripple 2.2s ease-out infinite}
 @keyframes ripple{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
 .float-wa svg{width:30px;height:30px;fill:#fff;position:relative}
+/* התקשרות — הפינה השנייה, כתום-טרהקוטה שמח עם טבעת פעימה זהה לוואטסאפ */
+.float-call{inset-inline-end:22px;background:var(--terra);box-shadow:0 8px 26px rgba(226,96,60,.5)}
+.float-call:hover{transform:scale(1.1)}
+.float-call::before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--terra);animation:ripple 2.2s ease-out infinite}
+.float-call svg{width:27px;height:27px;fill:#fff;position:relative}
+.float-call:focus-visible,.float-wa:focus-visible{outline:3px solid #fff;outline-offset:3px}
 
 /* ===== Intro: full-page disassemble → reassemble → reveal ===== */
 #introStage{position:fixed;inset:0;z-index:100000;background:radial-gradient(120% 90% at 50% 0%,#8a4a33,#5c3527 48%,#3a2724 100%);overflow:hidden;pointer-events:none;opacity:0;visibility:hidden;perspective:1100px;perspective-origin:50% 44%}
@@ -341,7 +348,7 @@ footer .fl{color:#fff;font-weight:700;font-size:18px;margin-bottom:14px;font-fam
 .rv.on{opacity:1;transform:none}
 .no-js .rv{opacity:1;transform:none}
 @media (prefers-reduced-motion: reduce){
-  .rv{transition:none}.photo-blob,.pol1,.dd1,.dd2,.hero-glow,.about-ring,.float-wa::before{animation:none!important}
+  .rv{transition:none}.photo-blob,.pol1,.dd1,.dd2,.hero-glow,.about-ring,.float-wa::before,.float-call::before{animation:none!important}
   .hero-content{animation:none!important;opacity:1!important;transform:none!important}
   .intro-piece,.brush-bar,.balloon,.conf-piece,.crayon-svg path{animation:none!important}
   html{scroll-behavior:auto}
@@ -563,6 +570,10 @@ footer .fl{color:#fff;font-weight:700;font-size:18px;margin-bottom:14px;font-fam
 
 <a class="float-wa" id="floatWa" href="https://wa.me/972528379054" target="_blank" rel="noopener" aria-label="פנייה בוואטסאפ">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<a class="float-call" id="floatCall" href="tel:+972528379054" aria-label="התקשרו אלינו" title="התקשרו אלינו">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2Z"/></svg>
 </a>
 
 <script>
@@ -1206,6 +1217,12 @@ function applyContent(c){
     const mp=$id('contactMap');if(mp){if(c.contact.mapText)mp.textContent=c.contact.mapText;if(c.contact.mapHref)mp.href=c.contact.mapHref;}
     const hw=$id('headWa');if(hw){if(c.contact.waText)hw.textContent=c.contact.waText;if(c.contact.waHref)hw.href=c.contact.waHref;}
     const fw=$id('floatWa');if(fw&&c.contact.waHref)fw.href=c.contact.waHref;
+    /* כפתור התקשרות — מקבל את מספר הטלפון; נעלם כשאין מספר או כשהמתג כבוי */
+    const fc=$id('floatCall');
+    if(fc){
+      if(c.contact&&c.contact.phoneHref&&/^tel:/.test(c.contact.phoneHref))fc.href=c.contact.phoneHref;
+      fc.style.display=(c.floatCall===false||!(c.contact&&c.contact.phoneHref&&/^tel:/.test(c.contact.phoneHref)))?'none':'';
+    }
     const mP=$id('mPhone');if(mP){if(c.contact.phoneText)mP.textContent=c.contact.phoneText;if(c.contact.phoneHref)mP.href=c.contact.phoneHref;}
     const mW=$id('mWa');if(mW){if(c.contact.waText)mW.textContent=c.contact.waText;if(c.contact.waHref)mW.href=c.contact.waHref;}
   }

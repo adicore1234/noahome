@@ -102,6 +102,7 @@ tr:hover td{background:var(--soft)}
 .badge svg.lucide{width:12px;height:12px}
 .badge.on{background:#dcfce7;color:#15803d}
 .badge.off{background:#fee2e2;color:#b91c1c}
+.badge.filled{background:#fef3c7;color:#92400e;cursor:help}
 .date{color:var(--muted);font-size:12.5px;white-space:nowrap}
 .vw{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12.5px;font-weight:700;color:var(--text);cursor:pointer;font-family:'Assistant',sans-serif;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:border-color .15s,color .15s;min-height:32px}
 .vw:hover{border-color:var(--accent);color:var(--accent-d)}
@@ -407,6 +408,34 @@ tr:hover td{background:var(--soft)}
   </div>
 </div>
 
+<!-- ===== קישור טופס מילוי ללקוח ===== -->
+<div class="modal" id="linkModal">
+  <div class="modal-card" style="width:min(620px,94vw)">
+    <button class="m-x" type="button" aria-label="סגירה"><i data-lucide="x"></i></button>
+    <h3><i data-lucide="send"></i>טופס מילוי ללקוח · <span id="linkFor"></span></h3>
+    <p class="m-sub" id="linkSub">שלחו את הקישור האישי הזה ללקוח (וואטסאפ/מייל) — הוא ימלא את כל פרטי הדף בעצמו, בטלפון שלו, בלי סיסמה. מה שלא ירצה בדף — יכבה בעצמו. התוכן נכנס ישר לדף ואתם יכולים להמשיך לערוך.</p>
+    <div class="fld">
+      <label>הקישור האישי (כולל אימות מובנה)</label>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <input type="text" id="linkUrl" dir="ltr" readonly style="flex:1;font-size:13px;background:#f7f5f0">
+        <button class="btn btn-terra" id="linkCopy" type="button" style="flex:none"><i data-lucide="copy"></i>העתקה</button>
+      </div>
+      <div class="hint">לכל לקוח קישור משלו. חשוב לחדש אם הקישור דלף — הקישור הישן מפסיק לעבוד מיד.</div>
+    </div>
+    <div id="linkCreated" style="display:none" class="m-sub">
+      🎉 היוזר נוצר! שלב הבא הטבעי: <b>שלחו ללקוח את הקישור</b> למילוי עצמי —
+      או הדביקו בעצמכם טקסט שכבר קיבלתם ממנו:
+    </div>
+    <div class="m-actions" style="flex-wrap:wrap">
+      <a class="btn btn-ghost" id="linkOpen" href="#" target="_blank" rel="noopener"><i data-lucide="external-link"></i>פתיחה לבדיקה</a>
+      <button class="btn btn-ghost" id="linkNew" type="button"><i data-lucide="refresh-cw"></i>חידוש הקישור</button>
+      <button class="btn btn-ghost" id="linkIntake" type="button"><i data-lucide="clipboard-paste"></i>קליטת טקסט במקום</button>
+      <div class="grow"></div>
+      <button class="btn btn-ghost" id="linkClose" type="button">סגירה</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== מודל אישור מעוצב (מחליף confirm() נייטיב) ===== -->
 <div class="modal" id="confirmModal">
   <div class="modal-card confirm-card">
@@ -560,7 +589,8 @@ function renderRows(){
     const pageUrl=u.theme==='kids'?('/'+u.slug):('/b/'+u.slug);
     tr.innerHTML=
       '<td><div class="u-name">'+esc(u.displayName)+'</div>'+
-        '<span class="theme-chip '+(u.theme==='kids'?'kids':'business')+'"><i data-lucide="'+(u.theme==='kids'?'palette':'briefcase')+'"></i>'+(u.theme==='kids'?'ילדים':'עסקי')+'</span></td>'+
+        '<span class="theme-chip '+(u.theme==='kids'?'kids':'business')+'"><i data-lucide="'+(u.theme==='kids'?'palette':'briefcase')+'"></i>'+(u.theme==='kids'?'ילדים':'עסקי')+'</span>'+
+        (u.formFilled?' <span class="badge filled" title="הלקוח מילא את טופס המילוי העצמי"><i data-lucide="clipboard-check"></i>הלקוח מילא ✓</span>':'')+'</td>'+
       '<td><span class="u-slug"><a href="'+esc(pageUrl)+'" target="_blank" rel="noopener">'+esc(pageUrl)+'</a></span></td>'+
       '<td><span class="u-user">'+esc(u.username)+'</span></td>'+
       '<td>'+(u.status==='active'
@@ -572,6 +602,7 @@ function renderRows(){
       '<td><span class="date">'+fmtDate(u.createdAt)+'</span></td>'+
       '<td><span class="date">'+fmtDate(u.siteUpdatedAt)+'</span></td>'+
       '<td><div class="acts">'+
+        '<button class="btn btn-ghost btn-only" data-act="formlink" data-id="'+esc(u.id)+'" data-tip="קישור טופס מילוי — הלקוח ממלא בעצמו"><i data-lucide="send"></i></button>'+
         '<button class="btn btn-ghost btn-only" data-act="intake" data-id="'+esc(u.id)+'" data-tip="קליטת טקסט מהלקוח — מיקום אוטומטי"><i data-lucide="clipboard-paste"></i></button>'+
         '<a class="btn btn-ghost" href="/admin?as='+esc(u.slug)+'" data-tip="עריכת התוכן של הדף"><i data-lucide="pencil"></i>עריכה</a>'+
         '<a class="btn btn-ghost" href="'+esc(pageUrl)+'" target="_blank" rel="noopener" data-tip="צפייה בדף הציבורי"><i data-lucide="eye"></i>צפייה</a>'+
@@ -619,6 +650,8 @@ $id('rows').addEventListener('click',async e=>{
   }
 
   if(act==='intake'){openIntake(u.slug,u.displayName);return;}
+
+  if(act==='formlink'){openFormLink(u.slug,u.displayName,false);return;}
 
   if(act==='stats'){openStats(u);return;}
 
@@ -761,8 +794,8 @@ $id('nuSave').addEventListener('click',async()=>{
       $id('newModal').classList.remove('open');
       toast('היוזר "'+displayName+'" נוצר ✓ הדף: '+(theme==='kids'?'/':'/b/')+slug,'ok');
       loadUsers();
-      /* התרחיש הטבעי: קיבלתם טקסט מהלקוח — מיד פותחים את הקליטה ליוזר החדש */
-      setTimeout(()=>openIntake(slug,displayName),700);
+      /* שלב הבא הטבעי: קישור הטופס ללקוח (מילוי עצמי) — עם גישה גם לקליטת טקסט */
+      setTimeout(()=>openFormLink(slug,displayName,true),700);
     }else toast(j.error||'היצירה נכשלה','err');
   }catch(e){toast('שגיאת רשת','err');}
   btn.disabled=false;
@@ -855,6 +888,51 @@ function openIntake(slug,name){
   $id('intakeModal').classList.add('open');
   setTimeout(()=>$id('intakeText').focus(),60);
 }
+
+/* ================= קישור טופס מילוי ללקוח ================= */
+let linkSlug=null;
+async function openFormLink(slug,name,justCreated){
+  linkSlug=slug;
+  $id('linkFor').textContent=name||slug;
+  $id('linkUrl').value='…';
+  $id('linkOpen').href='#';
+  $id('linkCreated').style.display=justCreated?'':'none';
+  $id('linkSub').style.display=justCreated?'none':'';
+  $id('linkIntake').style.display=justCreated?'':'none';
+  $id('linkModal').classList.add('open');
+  await refreshLink(slug,false);
+}
+async function refreshLink(slug,renew){
+  try{
+    const r=await fetch('/api/users',{method:'POST',headers:apiHeaders(),body:JSON.stringify({action:renew?'newFormToken':'formLink',slug})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.ok)throw new Error(j.error||'טעינת הקישור נכשלה');
+    const url=location.origin+'/f/'+j.slug+'?t='+j.token;
+    $id('linkUrl').value=url;
+    $id('linkOpen').href=url;
+    if(renew)toast('הקישור חודש — הישן בוטל ✓','ok');
+  }catch(e){toast(e.message||'טעינת הקישור נכשלה','err');}
+}
+$id('linkClose').addEventListener('click',()=>$id('linkModal').classList.remove('open'));
+$id('linkModal').addEventListener('click',e=>{if(e.target.id==='linkModal')e.target.classList.remove('open');});
+$id('linkNew').addEventListener('click',()=>{if(linkSlug)refreshLink(linkSlug,true);});
+$id('linkIntake').addEventListener('click',()=>{
+  const u=USERS.find(x=>x.slug===linkSlug);
+  $id('linkModal').classList.remove('open');
+  openIntake(linkSlug,u?u.displayName:linkSlug);
+});
+$id('linkCopy').addEventListener('click',async()=>{
+  const v=$id('linkUrl').value;
+  if(!v||v==='…')return;
+  let ok=false;
+  try{await navigator.clipboard.writeText(v);ok=true;}catch(e){
+    /* גיבוי לדפדפנים בלי Clipboard API */
+    const inp=$id('linkUrl');inp.select();
+    try{ok=document.execCommand('copy');}catch(e2){ok=false;}
+    inp.blur();
+  }
+  toast(ok?'הקישור הועתק — שלחו ללקוח ✓':'סמנו את הקישור והעתיקו ידנית',ok?'ok':'err');
+});
 const INT_PHONE=/(?:\+?972|0)(?:[\s\-]?\d){8,9}(?!\d)/g;
 const intNormPhone=p=>p.replace(/[\s\-]/g,'');
 const intToTel=p=>p.startsWith('0')?('+972'+p.slice(1)):(p.startsWith('+')?p:('+'+p));

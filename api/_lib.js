@@ -232,5 +232,135 @@ module.exports = {
   getDb, hashPassword, verifyPassword, safeEqual, isSuperadminLogin,
   throttleBlocked, throttleFail, throttleClear,
   validSlug, validUsername, RESERVED_SLUGS, validTheme,
-  tokenFromReq, createSession, getSession, ensureReady, migrateLegacy, templateContent
+  tokenFromReq, createSession, getSession, ensureReady, migrateLegacy, templateContent,
+  /* טוקן אישי לקישור טופס המילוי של הלקוח (/f/<slug>?t=<token>) */
+  genFormToken: () => crypto.randomBytes(16).toString('hex'),
+  /* נרמול מספר טלפון (ישראלי 0…/972…/בינלאומי) ← ספרות טהורות עם קוד מדינה */
+  normPhone(raw) {
+    let d = String(raw || '').replace(/[^\d+]/g, '');
+    if (d.startsWith('+')) d = d.slice(1);
+    if (d.startsWith('00')) d = d.slice(2);
+    if (d.startsWith('0')) d = '972' + d.slice(1);
+    d = d.replace(/\+/g, '');
+    if (d.length < 8 || d.length > 15 || !/^\d+$/.test(d)) return null;
+    return d;
+  },
+  /* טופס לקוח — אימות לפי הטוקן האישי בלבד (הטוקן הוא הזיהוי היחיד, כמו סשן).
+     הטוקן מחולץ מתוך req בתוך השכבה הזו (כמו tokenFromReq) ועובר סינון הקסה. */
+  async formUserByToken(db, t) {
+    let tok = '';
+    for (const ch of String(t || '')) if (/[a-f0-9]/.test(ch)) tok += ch;
+    if (tok.length !== 32) return null;
+    const user = await db.collection('users').findOne({ formToken: tok });
+    if (!user || user.status !== 'active') return null;
+    return user;
+  },
+  /* טופס לקוח — טעינת התוכן למילוי מראש (מאומתת בטוקן; מחזירה user+content או null) */
+  async formLoad(req, db) {
+    const body = (req && req.body && typeof req.body === 'object') ? req.body : {};
+    const user = await this.formUserByToken(db, body.t);
+    if (!user) return null;
+    const doc = await db.collection('content').findOne({ slug: user.slug });
+    return { user, content: (doc && doc.content) ? doc.content : templateContent(user.displayName, user.theme) };
+  },
+  /* טופס לקוח — החלת טופס מלא על תוכן הדף (מאומתת בטוקן; רשימת שדות מאושרת בלבד).
+     מחזירה {user} או null כשהאימות נכשל. */
+  async formApply(req, db, patch) {
+    const r = await this.formLoad(req, db);
+    if (!r) return null;
+    const user = r.user;
+    const c = r.content;
+    const p = (patch && typeof patch === 'object') ? patch : {};
+    const S = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+
+    /* שם העסק — מוזרם ללוגו, כותרת הדף, הפתיח והפוטר */
+    const name = S(p.name, 60);
+    if (name) {
+      if (c.meta) c.meta.title = name;
+      if (c.header) c.header.logoText = name;
+      if (c.intro) c.intro.name = name;
+      if (c.footer && typeof c.footer.brand === 'string' &&
+          (c.footer.brand.indexOf('נוצר עם Pagely') !== -1 || c.footer.brand.indexOf('שם העסק') !== -1 || !c.footer.brand.trim())) {
+        c.footer.brand = name + ' · נוצר עם Pagely';
+      }
+    }
+    const heroSub = S(p.heroSub, 300);
+    if (heroSub && c.hero) c.hero.sub = heroSub;
+
+    /* שירותים — מחליף את רשימת הכרטיסים כפי שהיא בטופס (מינימום אחד) */
+    if (Array.isArray(p.services) && p.services.length >= 1 && c.activities) {
+      const old = Array.isArray(c.activities.items) ? c.activities.items : [];
+      const palette = [c.colors && c.colors.terra, c.colors && c.colors.gold, c.colors && c.colors.teal].filter(Boolean);
+      c.activities.items = p.services.slice(0, 12).map((sv, i) => ({
+        emoji: (old[i] && old[i].emoji) ? old[i].emoji : '✨',
+        title: S(sv && sv.title, 60) || 'שירות',
+        text: S(sv && sv.text, 200),
+        color: (old[i] && old[i].color) || palette[i % palette.length] || '#1e3a5f'
+      }));
+    }
+
+    const aboutText = S(p.aboutText, 800);
+    if (aboutText && c.about) c.about.text = aboutText;
+
+    /* שעות */
+    if (Array.isArray(p.hours) && p.hours.length >= 1 && c.schedule) {
+      const oldChips = Array.isArray(c.schedule.chips) ? c.schedule.chips : [];
+      c.schedule.chips = p.hours.slice(0, 6).map((h, i) => ({
+        icon: (oldChips[i] && oldChips[i].icon) ? oldChips[i].icon : '🗓️',
+        bold: S(h && h.bold, 30) || 'ימים',
+        rest: ' ' + S(h && h.rest, 60)
+      }));
+    }
+
+    /* יצירת קשר — טלפון/וואטסאפ לספרות בלבד; רשתות חברתיות ב-allowlist דומיינים */
+    if (c.contact) {
+      if (p.phone) {
+        const d = this.normPhone(p.phone);
+        if (d) c.contact.phoneHref = 'tel:+' + d;
+      }
+      if (p.whatsapp) {
+        const d = this.normPhone(p.whatsapp);
+        if (d) c.contact.waHref = 'https://wa.me/' + d;
+      }
+      const SOCIAL = {
+        instagram: /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._\-\/]{1,80}$/,
+        facebook: /^https:\/\/(www\.)?facebook\.com\/[A-Za-z0-9._\-\/]{1,80}$/
+      };
+      const socialUrl = (raw, net) => {
+        const v = S(raw, 140);
+        if (!v) return '';
+        const host = (net === 'instagram') ? 'instagram' : 'facebook';
+        let url = '';
+        if (v.startsWith('@')) url = 'https://www.' + host + '.com/' + v.slice(1);
+        else if (/^https:\/\//.test(v)) url = v;
+        else if (/^[A-Za-z0-9._\-]{1,60}$/.test(v) && v.indexOf('://') === -1 && v.indexOf('.') === -1) url = 'https://www.' + host + '.com/' + v;
+        else return '';
+        return SOCIAL[net].test(url) ? url : '';
+      };
+      const ig = socialUrl(p.instagram, 'instagram');
+      if (ig) c.contact.instagram = ig;
+      const fb = socialUrl(p.facebook, 'facebook');
+      if (fb) c.contact.facebook = fb;
+      const addr = S(p.address, 140);
+      if (addr) c.contact.address = addr;
+    }
+
+    /* מה להציג בדף — מתגי הצגה/הסתרה של חלקי הדף */
+    if (p.sections && typeof p.sections === 'object' && c.sections) {
+      ['activities', 'about', 'schedule', 'gallery', 'contact'].forEach(k => {
+        if (typeof p.sections[k] === 'boolean') c.sections[k] = p.sections[k];
+      });
+    }
+
+    /* חותם שהלקוח מילא את הטופס — לחיווי בסופר-אדמין */
+    c.formFilled = true;
+
+    const s = user.slug;
+    await db.collection('content').updateOne(
+      { slug: s },
+      { $set: { slug: s, content: c, updatedAt: new Date() } },
+      { upsert: true }
+    );
+    return { user };
+  }
 };

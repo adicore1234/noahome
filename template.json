@@ -221,6 +221,7 @@
     "style": "fade"
   },
   "floatWa": true,
+  "floatCall": true,
   "sections": {
     "order": [
       "hero",

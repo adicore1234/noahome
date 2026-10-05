@@ -905,6 +905,7 @@ const SCHEMA=[
   F('text','contact.mapText','טקסט קישור ניווט'),
   F('url','contact.mapHref','קישור ניווט (מפות)'),
   F('bool','floatWa','כפתור וואטסאפ צף'),
+  F('bool','floatCall','כפתור התקשרות צף',{hint:'מוצג רק כשמוגדר מספר טלפון — בפינה השנייה, מול הוואטסאפ'}),
 ]},
 {id:'footer',icon:'🦶',label:'פוטר',fields:[
   F('text','footer.brand','שורת המותג'),

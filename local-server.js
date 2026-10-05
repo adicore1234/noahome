@@ -36,7 +36,8 @@ const API_HANDLERS = {
   '/api/content': require('./api/content.js'),
   '/api/auth': require('./api/auth.js'),
   '/api/users': require('./api/users.js'),
-  '/api/track': require('./api/track.js')
+  '/api/track': require('./api/track.js'),
+  '/api/form': require('./api/form.js')
 };
 
 /* adapter: מעטפת דמוית-Vercel סביב תשובת http נטיבית (status/json/send) */
@@ -129,6 +130,12 @@ const server = http.createServer(async (req, res) => {
   /* ---------- התבנית העסקית: /b/<slug> ---------- */
   if (segs[0] === 'b' && segs.length === 2) {
     serveFile(res, path.join(__dirname, 'site-business.html'));
+    return;
+  }
+
+  /* ---------- טופס המילוי ללקוח: /f/<slug> ---------- */
+  if (segs[0] === 'f' && segs.length === 2) {
+    serveFile(res, path.join(__dirname, 'form.html'));
     return;
   }
 
