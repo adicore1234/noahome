@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>ניהול משתמשים · Pagely</title>
-<link rel="icon" type="image/svg+xml" href="../assets/placeholders/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/placeholders/favicon.svg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -198,7 +198,7 @@ tr:hover td{background:var(--soft)}
 </style>
 <link rel="stylesheet" href="../assets/admin/ui.css">
 </head>
-<body class="grain">
+<body class="grain superadmin-page">
 
 <div id="boot">
   <div class="b-blocks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -217,6 +217,18 @@ tr:hover td{background:var(--soft)}
 </header>
 
 <main>
+  <section class="dashboard-hero" aria-labelledby="dashboardTitle">
+    <div>
+      <span class="eyebrow"><i data-lucide="sparkles"></i>מרכז השליטה של Pagely</span>
+      <h1 id="dashboardTitle">כל הדפים, במקום אחד.</h1>
+      <p>ניהול לקוחות, תוכן וביצועים בחוויה נקייה, מהירה ונעימה.</p>
+    </div>
+    <div class="hero-orbit" aria-hidden="true">
+      <span><i data-lucide="layout-dashboard"></i></span>
+      <span><i data-lucide="wand-sparkles"></i></span>
+      <span><i data-lucide="chart-no-axes-combined"></i></span>
+    </div>
+  </section>
   <div class="stats" id="stats"></div>
 
   <div class="toolbar">
@@ -588,20 +600,20 @@ function renderRows(){
     const tr=document.createElement('tr');
     const pageUrl=u.theme==='kids'?('/'+u.slug):('/b/'+u.slug);
     tr.innerHTML=
-      '<td><div class="u-name">'+esc(u.displayName)+'</div>'+
+      '<td data-label="לקוח"><div class="u-name">'+esc(u.displayName)+'</div>'+
         '<span class="theme-chip '+(u.theme==='kids'?'kids':'business')+'"><i data-lucide="'+(u.theme==='kids'?'palette':'briefcase')+'"></i>'+(u.theme==='kids'?'ילדים':'עסקי')+'</span>'+
         (u.formFilled?' <span class="badge filled" title="הלקוח מילא את טופס המילוי העצמי"><i data-lucide="clipboard-check"></i>הלקוח מילא ✓</span>':'')+'</td>'+
-      '<td><span class="u-slug"><a href="'+esc(pageUrl)+'" target="_blank" rel="noopener">'+esc(pageUrl)+'</a></span></td>'+
-      '<td><span class="u-user">'+esc(u.username)+'</span></td>'+
-      '<td>'+(u.status==='active'
+      '<td data-label="כתובת הדף"><span class="u-slug"><a href="'+esc(pageUrl)+'" target="_blank" rel="noopener">'+esc(pageUrl)+'</a></span></td>'+
+      '<td data-label="שם משתמש"><span class="u-user">'+esc(u.username)+'</span></td>'+
+      '<td data-label="סטטוס">'+(u.status==='active'
         ?'<span class="badge on"><i data-lucide="circle-check"></i>פעיל</span>'
         :'<span class="badge off"><i data-lucide="circle-pause"></i>מושהה</span>')+'</td>'+
-      '<td>'+(u.viewsTotal
+      '<td data-label="צפיות">'+(u.viewsTotal
         ?'<button class="vw" data-act="stats" data-id="'+esc(u.id)+'" title="צפיות בדף הציבורי — לחיצה לפירוט"><i data-lucide="eye"></i>'+u.viewsTotal+(u.viewsToday?' <span class="today">+'+u.viewsToday+' היום</span>':'')+'</button>'
         :'<span class="date">—</span>')+'</td>'+
-      '<td><span class="date">'+fmtDate(u.createdAt)+'</span></td>'+
-      '<td><span class="date">'+fmtDate(u.siteUpdatedAt)+'</span></td>'+
-      '<td><div class="acts">'+
+      '<td data-label="נוצר"><span class="date">'+fmtDate(u.createdAt)+'</span></td>'+
+      '<td data-label="עדכון אחרון"><span class="date">'+fmtDate(u.siteUpdatedAt)+'</span></td>'+
+      '<td data-label="פעולות"><div class="acts">'+
         '<button class="btn btn-ghost btn-only" data-act="formlink" data-id="'+esc(u.id)+'" data-tip="קישור טופס מילוי — הלקוח ממלא בעצמו"><i data-lucide="send"></i></button>'+
         '<button class="btn btn-ghost btn-only" data-act="intake" data-id="'+esc(u.id)+'" data-tip="קליטת טקסט מהלקוח — מיקום אוטומטי"><i data-lucide="clipboard-paste"></i></button>'+
         '<a class="btn btn-ghost" href="/admin?as='+esc(u.slug)+'" data-tip="עריכת התוכן של הדף"><i data-lucide="pencil"></i>עריכה</a>'+

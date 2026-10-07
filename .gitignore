@@ -20,3 +20,6 @@ Thumbs.db
 .zcode/
 .zcodeignore
 bg3d-matrix*.json
+
+# גיבוי מקומי לפני הרולבק (2026-10-06) — קוד שבור, לא למאגר
+_backup-before-rollback/

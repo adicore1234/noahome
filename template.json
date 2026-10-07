@@ -104,6 +104,31 @@
       "btnHref": "#contact"
     }
   },
+  "catalog": {
+    "items": [
+      {
+        "img": "/assets/placeholders/square.svg",
+        "title": "המוצר הראשון",
+        "text": "שורה קצרה שמסבירה מה המוצר נותן ולמי הוא מתאים.",
+        "price": "99 ₪",
+        "alt": ""
+      },
+      {
+        "img": "/assets/placeholders/square.svg",
+        "title": "המוצר השני",
+        "text": "אפשר להעלות תמונה אמיתית בעורך — ולשנות מחיר חופשי.",
+        "price": "החל מ-149 ₪",
+        "alt": ""
+      },
+      {
+        "img": "/assets/placeholders/square.svg",
+        "title": "המוצר השלישי",
+        "text": "המחיר הוא טקסט חופשי: 99 ₪, החל מ-…, או ״לפי הזמנה״.",
+        "price": "לפי הזמנה",
+        "alt": ""
+      }
+    ]
+  },
   "about": {
     "tag": "אודות",
     "title": "קצת עלינו",
@@ -214,11 +239,12 @@
     "copyright": "כל הזכויות שמורות © 2026"
   },
   "intro": {
+    "logoImg": "",
     "logoEmoji": "assets/icons/business/briefcase.svg",
     "name": "שם העסק",
     "sub": "נוצר עם Pagely",
     "skipText": "לדלג",
-    "style": "fade"
+    "style": "splash"
   },
   "floatWa": true,
   "floatCall": true,
@@ -227,6 +253,7 @@
       "hero",
       "header",
       "activities",
+      "catalog",
       "about",
       "schedule",
       "gallery",
@@ -236,6 +263,7 @@
     "hero": true,
     "header": true,
     "activities": true,
+    "catalog": true,
     "about": true,
     "schedule": true,
     "gallery": true,

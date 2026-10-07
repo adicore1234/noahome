@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>עורך דף · Pagely</title>
-<link rel="icon" type="image/svg+xml" href="../assets/placeholders/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/placeholders/favicon.svg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -46,6 +46,17 @@ svg.lucide{width:16px;height:16px;flex-shrink:0}
 .login-card .lc-emoji svg.lucide{width:30px;height:30px}
 .login-card h1{font-size:26px;font-weight:800}
 .login-card p{color:var(--muted);margin-top:8px;font-size:14.5px}
+/* מסך הטעינה — מוזאיקת המותג + פס נצנוץ */
+.blocks{display:grid;grid-template-columns:repeat(2,26px);grid-auto-rows:26px;gap:5px;transform:rotate(-5deg)}
+.blocks i{border-radius:8px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.13),0 5px 12px rgba(16,42,67,.22);animation:blocksIn .7s cubic-bezier(.22,1,.36,1) backwards}
+.blocks i:nth-child(1){animation-delay:.02s}
+.blocks i:nth-child(2){animation-delay:.1s}
+.blocks i:nth-child(3){animation-delay:.18s}
+.blocks i:nth-child(4){animation-delay:.26s}
+@keyframes blocksIn{from{opacity:0;transform:translateY(-14px) scale(.6)}to{opacity:1;transform:none}}
+.il-loader-line{width:130px;height:3.5px;background:#e8e2da;border-radius:99px;margin:16px auto 8px;overflow:hidden;position:relative}
+.il-loader-bar{position:absolute;inset:0;width:55%;background:linear-gradient(90deg,transparent,#e2603c,#f2b33d,transparent);border-radius:99px;animation:loaderShimmer 1.4s ease-in-out infinite}
+@keyframes loaderShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(240%)}}
 .err{color:var(--err);font-size:13.5px;margin-top:12px;min-height:18px}
 .shake{animation:shake .4s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
@@ -128,6 +139,10 @@ iframe#pv{height:100%;background:#fff;transition:width .3s}
 .color-row .cval{font-size:13.5px;color:var(--muted);direction:ltr}
 .switch{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line-strong);border-radius:8px;padding:10px 12px;cursor:pointer;user-select:none}
 .switch input{width:20px;height:20px;accent-color:var(--accent);cursor:pointer}
+/* מתג הזזה קומפקטי לשדות בוליאניים — אותו מראה כמו ב"מבנה הדף" */
+.switch.fit{display:inline-flex;width:fit-content;max-width:100%;margin:0 0 2px;cursor:pointer}
+.switch.fit .sw-word{font-size:12.5px;font-weight:700;color:var(--text);white-space:nowrap;transition:color .16s}
+.switch.fit input:checked ~ .sw-word{color:var(--ink)}
 
 /* שדה תמונה */
 .img-fld{border:1px solid var(--line-strong);border-radius:10px;padding:12px;background:var(--card)}
@@ -179,6 +194,8 @@ iframe#pv{height:100%;background:#fff;transition:width .3s}
 .istyle-card .is-ico{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;margin:0 auto 7px;background:hsl(var(--th,18) 65% 44%);color:#fff;transition:transform .2s cubic-bezier(.2,.9,.3,1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 4px 10px -3px hsl(var(--th,18) 65% 44% / .45)}
 .istyle-card:hover .is-ico{transform:scale(1.08) rotate(-3deg)}
 .istyle-card .is-ico svg.lucide{width:23px;height:23px}
+.istyle-card .is-tech{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:3px 8px;border-radius:999px;background:#edf7f6;color:#277b77;font-size:9.5px;font-weight:800;direction:ltr;box-shadow:inset 0 0 0 1px rgba(46,166,160,.16)}
+.istyle-card .is-tech svg.lucide{width:10px;height:10px}
 .istyle-card .is-name{font-weight:700;font-size:13.5px;color:var(--ink);display:block}
 .istyle-card .is-desc{font-size:11.5px;color:var(--muted);display:block;margin-top:4px;line-height:1.5}
 /* משפחות סגנונות כרטיסים */
@@ -271,6 +288,8 @@ iframe#pv{height:100%;background:#fff;transition:width .3s}
 .li-bar button.del:hover{background:#fef2f2;border-color:#fecaca;color:var(--err)}
 .list-add{display:block;width:100%;padding:13px;background:none;border:none;border-top:1px dashed var(--line-strong);color:var(--accent-d);font-weight:700;font-size:13.5px;cursor:pointer;font-family:'Assistant',sans-serif;transition:background .15s}
 .list-add:hover{background:var(--accent-soft)}
+.list-add:disabled{color:var(--muted);cursor:not-allowed;background:none;opacity:.75}
+.list-add:disabled:hover{background:none}
 /* גרירת שורות במבנה הדף — פרימיום: קלון רפאים חי + רווח-יעד */
 .sec-sort{perspective:1000px}
 .drag-handle{width:36px;height:36px;border-radius:8px;border:1px solid var(--line-strong);background:var(--card);cursor:grab;touch-action:none;display:flex;align-items:center;justify-content:center;color:hsl(var(--sh,18) 65% 45%);user-select:none;flex-shrink:0;transition:color .15s,border-color .15s,background .15s,transform .15s}
@@ -351,10 +370,17 @@ code.inline{background:var(--soft);border:1px solid var(--line);padding:2px 7px;
 
 <!-- ===== מסך אתחול: בדיקת התחברות מול /api/auth ===== -->
 <div id="loginWrap">
-  <div class="login-card">
-    <div class="lc-emoji"><i data-lucide="puzzle"></i></div>
-    <h1>Pagely</h1>
-    <p id="bootMsg">…מאמתים התחברות</p>
+  <div class="login-card" style="padding:40px 32px;display:flex;flex-direction:column;align-items:center;">
+    <div class="blocks" style="margin-bottom:14px;">
+      <i></i><i></i><i></i><i></i>
+    </div>
+    <div class="logo-txt" style="font-family:'Assistant','Heebo',sans-serif;font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.6px;">
+      Page<b style="color:var(--accent);">ly</b>
+    </div>
+    <div class="il-loader-line" style="margin:16px 0 8px;">
+      <div class="il-loader-bar"></div>
+    </div>
+    <p id="bootMsg" style="font-size:13.5px;color:var(--muted);font-weight:600;margin:0;">…מאמתים התחברות</p>
   </div>
 </div>
 
@@ -568,9 +594,9 @@ const app=document.getElementById('app');
 
 /* ================= helpers ================= */
 /* אייקוני Lucide לפאנלים ולכפתורים (במקום אימוג'י) */
-const ICONS={general:'sliders-horizontal',introAnim:'clapperboard',bg3d:'orbit',cards:'boxes',structure:'rows-3',icons:'smile',header:'panel-top',hero:'rocket',activities:'layout-grid',about:'user-round',schedule:'calendar-days',gallery:'images',contact:'mail',footer:'panel-bottom',_theme:'paintbrush'};
+const ICONS={general:'sliders-horizontal',introAnim:'clapperboard',bg3d:'orbit',cards:'boxes',structure:'rows-3',icons:'smile',header:'panel-top',hero:'rocket',activities:'layout-grid',catalog:'package',about:'user-round',schedule:'calendar-days',gallery:'images',contact:'mail',footer:'panel-bottom',_theme:'paintbrush'};
 /* גווני-סקשן (S 65% L 55% קבועים, רק H משתנה — הצבע רק בגליפים קטנים) */
-const SEC_HUES={_theme:322,general:262,introAnim:212,bg3d:175,cards:338,structure:45,icons:90,header:155,hero:0,activities:100,about:285,schedule:230,gallery:195,contact:125,footer:272};
+const SEC_HUES={_theme:322,general:262,introAnim:212,bg3d:175,cards:338,structure:45,icons:90,header:155,hero:0,activities:100,catalog:25,about:285,schedule:230,gallery:195,contact:125,footer:272};
 const secHue=id=>SEC_HUES[id]!=null?SEC_HUES[id]:18;
 function refreshIcons(){try{window.lucide&&lucide.createIcons();}catch(e){}}
 /* מטמון אייקונים — SVG מוכן מראש לתוכן דינמי (טוסטים/פלטה/רשימות), בלי סריקת מסמך בכל אירוע */
@@ -785,6 +811,7 @@ const SCHEMA=[
 {id:'introAnim',icon:'🎬',label:'אנימציית פתיחה',fields:[
   F('introstyles','intro.style','סגנון אנימציית הפתיחה'),
   F('sep','הטקסטים בפתיחה'),
+  F('image','intro.logoImg','לוגו בפתיחה',{maxW:320,clearable:true,hint:'ריק = לוקח אוטומטית את הלוגו מהכותרת העליונה. העלו תמונה אחרת אם הפתיחה צריכה משהו ייעודי.'}),
   F('emoji','intro.logoEmoji','אייקון בפתיחה'),
   F('text','intro.name','השם שמופיע בפתיחה'),
   F('text','intro.sub','הכיתוב מתחת לשם'),
@@ -876,6 +903,14 @@ const SCHEMA=[
   F('text','schedule.btnText','טקסט הכפתור'),
   F('url','schedule.btnHref','קישור הכפתור'),
 ]},
+{id:'catalog',icon:'📦',label:'קטלוג',bizOnly:true,fields:[
+  F('list','catalog.items','מוצרים',{add:()=>({img:'',title:'מוצר חדש',text:'',price:'',alt:''}),title:it=>(it.title||''),max:10,fields:[
+    F('text','title','שם המוצר'),
+    F('text','price','מחיר (״99 ₪״, ״החל מ-…״, ״לפי הזמנה״)'),
+    F('image','img','תמונת המוצר'),
+    F('textarea','text','תיאור המוצר',{short:true}),
+    F('text','alt','טקסט אלטרנטיבי לתמונה (נגישות — ריק = שם המוצר)')]}),
+]},
 {id:'gallery',icon:'📸',label:'גלריה',fields:[
   F('text','gallery.tag','תגית'),
   F('text','gallery.title','כותרת'),
@@ -885,6 +920,7 @@ const SCHEMA=[
     F('text','caption','כיתוב'),
     F('text','alt','תיאור (נגישות)')]}),
   F('sep','השקף האחרון (הבאנר הרחב)'),
+  F('bool','gallery.wide.visible','להציג את הבאנר הרחב',{defTrue:true}),
   F('image','gallery.wide.img','תמונת הבאנר'),
   F('text','gallery.wide.caption','כיתוב הבאנר'),
   F('text','gallery.wide.alt','תיאור'),
@@ -956,14 +992,30 @@ function fieldEl(f,prefix){
     c.addEventListener('input',()=>{setPath(content,path,c.value);val.textContent=c.value;onChange();});
     row.appendChild(c);row.appendChild(val);wrap.appendChild(row);
   }else if(f.type==='bool'){
-    const lab2=document.createElement('label');lab2.className='switch';
+    /* מתג הזזה — אותו סגנון כמו ב"מבנה הדף": מילת מצב קצרה + מסלול גולל; הכותרת נשארת למעלה כמו בכל שדה */
+    const TB_WORDS={
+      'hero.noImage':{on:'בלי תמונה',off:'עם תמונה'},
+      'activities.now.visible':{on:'מוצג',off:'מוסתר'},
+      'gallery.wide.visible':{on:'מוצג',off:'מוסתר'},
+      'floatWa':{on:'מופעל',off:'כבוי'},
+      'floatCall':{on:'מופעל',off:'כבוי'}
+    };
+    const tbWord=p=>{const m=TB_WORDS[p];return on=>m?(on?m.on:m.off):(on?'פעיל':'כבוי');};
+    const word=tbWord(path);
+    const sw=document.createElement('label');sw.className='switch fit';
     const cb=document.createElement('input');cb.type='checkbox';
-    cb.checked=!!getPath(content,path);
-    cb.addEventListener('change',()=>{setPath(content,path,cb.checked);onChange();});
-    lab2.appendChild(cb);
-    lab2.insertAdjacentHTML('beforeend','<span class="sw-track" aria-hidden="true"><span class="sw-knob"></span></span>');
-    lab2.appendChild(document.createTextNode(f.label));
-    wrap.innerHTML='';wrap.appendChild(lab2);
+    cb.checked=f.defTrue?getPath(content,path)!==false:!!getPath(content,path);
+    const lbl=document.createElement('span');lbl.className='sw-word';lbl.textContent=word(cb.checked);
+    cb.addEventListener('change',()=>{
+      setPath(content,path,cb.checked);
+      lbl.textContent=word(cb.checked);
+      onChange();
+    });
+    sw.appendChild(cb);
+    sw.insertAdjacentHTML('beforeend','<span class="sw-track" aria-hidden="true"><span class="sw-knob"></span></span>');
+    sw.appendChild(lbl);
+    wrap.appendChild(sw);
+    if(f.hint){const h=document.createElement('div');h.className='hint';h.textContent=f.hint;wrap.appendChild(h);}
   }else if(f.type==='strlist'){
     wrap.appendChild(buildStrList(path));
   }else if(f.type==='list'){
@@ -981,12 +1033,13 @@ const SPOT_EXACT={
   'hero.photo':'.hero-visual','hero.bgImg':'#top','hero.bg3d':'#top',
   'header.logoText':'#logoText','header.logoBold':'#logoBold','header.logoMark':'#logoEmoji','header.logoImg':'#logoEmoji','header.nav':'#mainNav',
   'activities.items':'#actsGrid','activities.now.img':'#nowStrip','activities.now':'#nowStrip',
+  'catalog.items':'#prodGrid',
   'about.photo':'.about-visual','about.stats':'.about-stats',
   'schedule.poster':'.sched-frame','schedule.chips':'.sched-chips',
   'gallery.items':'#galCarousel','gallery.wide':'#galWide',
   'contact.phone':'#contactPhone','contact.wa':'#contactWa','contact.address':'.loc'
 };
-const SPOT_PREFIX={'hero.':'#top','header.':'#hdr','activities.':'#classes','about.':'#noa','schedule.':'#schedule','gallery.':'#gallery','contact.':'#contact','footer.':'footer','colors.':'#top','intro.':'#top','meta.':'#top'};
+const SPOT_PREFIX={'hero.':'#top','header.':'#hdr','activities.':'#classes','catalog.':'#catalog','about.':'#noa','schedule.':'#schedule','gallery.':'#gallery','contact.':'#contact','footer.':'footer','colors.':'#top','intro.':'#top','meta.':'#top'};
 function spotSelFor(path){
   if(!path)return '';
   if(SPOT_EXACT[path])return SPOT_EXACT[path];
@@ -1025,55 +1078,263 @@ function wireSpotlight(){
   forms.addEventListener('mouseleave',()=>sendSpotlight(''));
 }
 
-/* palette presets — one click recolors the whole site */
+/* palette presets — one click recolors the whole site (106 פלטות ב-7 קטגוריות) */
 const PAL_KEYS=['terra','gold','teal','rose','lavender','plum','cream'];
-const PALETTES=[
- {name:'הפלטה המקורית',orig:true,colors:{terra:'#e2603c',gold:'#f2b33d',teal:'#2ea6a0',rose:'#f08ca5',lavender:'#9b8ce8',plum:'#43302e',cream:'#fff6ec'}},
- {name:'קשת בגינה',colors:{terra:'#e2513e',gold:'#ffc233',teal:'#3ba05f',rose:'#f88f6d',lavender:'#64a8dd',plum:'#33422e',cream:'#f6faef'}},
- {name:'פסטל חלומי',colors:{terra:'#ef8f76',gold:'#f8d08a',teal:'#86ccc3',rose:'#f2b6c6',lavender:'#b1a5e8',plum:'#59495f',cream:'#fdf9f5'}},
- {name:'דובדבן וניל',colors:{terra:'#dd4f6c',gold:'#f2c14e',teal:'#5fb7b0',rose:'#f7a8b8',lavender:'#a394d6',plum:'#472735',cream:'#fff6f1'}},
- {name:'יער קסום',colors:{terra:'#dd7e57',gold:'#e0b868',teal:'#4c9e6e',rose:'#df8fa5',lavender:'#8aa4d8',plum:'#2f3c33',cream:'#f5f9ef'}},
- {name:'לבנדר ודבש',colors:{terra:'#e58a52',gold:'#f0b42b',teal:'#63b5ab',rose:'#e79fbf',lavender:'#9677e0',plum:'#3e3350',cream:'#faf6fe'}},
- {name:'שקיעה זהובה',colors:{terra:'#ec6a4d',gold:'#ffc457',teal:'#2f8f8a',rose:'#f28bb2',lavender:'#c28bd8',plum:'#3c2b3d',cream:'#fff4e8'}},
- {name:'סוכריות',colors:{terra:'#ff8a7a',gold:'#ffd166',teal:'#2ec4b6',rose:'#ff97c9',lavender:'#9b8cf0',plum:'#35414d',cream:'#f6fbff'}},
- {name:'תות שדה',colors:{terra:'#e63946',gold:'#ffb703',teal:'#2a9d8f',rose:'#f28482',lavender:'#9b5de5',plum:'#3f232b',cream:'#fff5f0'}},
- {name:'בוקר חם',colors:{terra:'#f4795b',gold:'#fbcf5c',teal:'#4fb3a9',rose:'#f5a3b3',lavender:'#a79be0',plum:'#4a3528',cream:'#fffaf0'}}
+const PAL_CATS=[
+  {id:'beauty',label:'ציפורניים וביוטי',fullTitle:'💅 קליניקות ציפורניים, קוסמטיקה ויופי',sub:'ורוד פסטל, סגול לילך, טורקיז יוקרתי, פוקסיה ורוז גולד — מושלם למניקור, פדיקור, ספא ואסתטיקה',icon:'💅'},
+  {id:'dark',label:'אתר שחור (Dark)',fullTitle:'🌑 אתר שחור ומצב כהה (Dark Mode)',sub:'שחור אובסידיאן, פחם מט, סייבר-לילה, שחור וזהב יוקרתי — הופך את כל האתר למצב כהה פרימיום',icon:'🌑'},
+  {id:'gaming',label:'גיימינג וטכנולוגיה',fullTitle:'🎮 גיימינג, סייברפאנק וטכנולוגיה',sub:'סייברפאנק 2077, ניאון ארקייד, רייזר גרין, סינת\'ווייב 80s, קהילות גיימינג ויוצרי תוכן',icon:'🎮'},
+  {id:'luxury',label:'יוקרה ועסקים',fullTitle:'👑 יוקרה, פרימיום ועסקים',sub:'רויאל נייבי וזהב, ירוק רולקס, כתום הרמס, פלטינום ובורדו קרטייה — לעסקים, נדל״ן ועורכי דין',icon:'👑'},
+  {id:'health',label:'רפואה ובריאות',fullTitle:'🩺 רפואה, בריאות וקליניקות טיפול',sub:'מנטה קליני, תרפיה מרגיעה, כחול רפואי עדין, לילך מרגיע וספא טיפולי',icon:'🩺'},
+  {id:'food',label:'אוכל ומסעדות',fullTitle:'☕ קולינריה, מסעדות ובתי קפה',sub:'מאפיית בוטיק, אספרסו וקרמל, טרטוריה כפרית, יין בוטיק וטראפלס',icon:'☕'},
+  {id:'kids',label:'יצירה וילדים',fullTitle:'🎨 יצירה, ילדים וסדנאות',sub:'קשת צבעים שמחה, פסטל קסום, קרקס צבעוני, גן פיות וסדנאות יצירה ואמנות',icon:'🎨'}
 ];
-/* פלטות עסקיות — רציניות ומכובדות, בשמות צבעים (מוצגות רק כשהעיצוב עסקי) */
-const BIZ_PALETTES=[
- {name:'נייבי וארד',orig:true,origText:'⭐ ברירת המחדל העסקית',colors:{terra:'#1e3a5f',gold:'#b08d3e',teal:'#3e6d9c',rose:'#7a2e3e',lavender:'#5a6f8f',plum:'#0d1626',cream:'#f7f8fa'}},
- {name:'חצות וארד',colors:{terra:'#14284a',gold:'#9c7c35',teal:'#34567e',rose:'#6e2a3a',lavender:'#52678a',plum:'#0a1020',cream:'#f8f5ef'}},
- {name:'אמרלד וברונזה',colors:{terra:'#0e5e4a',gold:'#a3803a',teal:'#2f7a68',rose:'#8a4a3a',lavender:'#5c7a6e',plum:'#122019',cream:'#f4f6f2'}},
- {name:'בורדו ודבש',colors:{terra:'#7a2230',gold:'#d9a441',teal:'#6b7f5a',rose:'#b05a4a',lavender:'#8a6f5c',plum:'#241514',cream:'#faf4ea'}},
- {name:'אוניקס וענבר',colors:{terra:'#15161a',gold:'#f2c027',teal:'#2e3038',rose:'#8f2020',lavender:'#4a4c55',plum:'#0a0b0e',cream:'#f5f5f3'}},
- {name:'לילה ונחושת',colors:{terra:'#1f2d4d',gold:'#b4713f',teal:'#41608f',rose:'#7c3a3a',lavender:'#5c6b8a',plum:'#101726',cream:'#f6f4f1'}},
- {name:'זית וחול',colors:{terra:'#44502e',gold:'#a89444',teal:'#66755a',rose:'#a3705f',lavender:'#7a7f6a',plum:'#1d2218',cream:'#f6f4ec'}},
- {name:'אינדיגו וכסף',colors:{terra:'#2b2e6e',gold:'#97a3c4',teal:'#4a5aa8',rose:'#6e3a6e',lavender:'#5d6ba8',plum:'#131530',cream:'#f4f5fa'}}
+const ALL_PALETTES=[
+  /* 💅 ציפורניים, ביוטי וקוסמטיקה (16) */
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'קליניקת ציפורניים גלאם',colors:{terra:'#e02475',gold:'#e5a93c',teal:'#25b5b0',rose:'#f472b6',lavender:'#a78bfa',plum:'#381228',cream:'#fff8fb'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'סטודיו מניקור רוז גולד',colors:{terra:'#c05c7e',gold:'#dfa46d',teal:'#569b9b',rose:'#f1abb9',lavender:'#b8a5c9',plum:'#351e28',cream:'#fff9f9'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'טורקיז וסגול קליניק',colors:{terra:'#0284c7',gold:'#f59e0b',teal:'#06b6d4',rose:'#ec4899',lavender:'#8b5cf6',plum:'#1e1b4b',cream:'#f0fdfa'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'ציפורני ג\'ל פוקסיה',colors:{terra:'#db2777',gold:'#fbbf24',teal:'#14b8a6',rose:'#f43f5e',lavender:'#c084fc',plum:'#310e20',cream:'#fdf2f8'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'פרנץ\' אלגנט ופנינה',colors:{terra:'#be185d',gold:'#d4af37',teal:'#5eead4',rose:'#fbcfe8',lavender:'#ddd6fe',plum:'#2b1822',cream:'#fafaf9'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'ספא ציפורניים לבנדר',colors:{terra:'#7c3aed',gold:'#f59e0b',teal:'#2dd4bf',rose:'#f472b6',lavender:'#a78bfa',plum:'#2e1065',cream:'#faf5ff'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'מג\'נטה וקטיפה',colors:{terra:'#be123c',gold:'#eab308',teal:'#0d9488',rose:'#fb7185',lavender:'#9333ea',plum:'#2a0815',cream:'#fff1f2'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'קליניקה אסתטית פרימיום',colors:{terra:'#9f1239',gold:'#ca8a04',teal:'#0f766e',rose:'#fda4af',lavender:'#a855f7',plum:'#1f0a14',cream:'#fff7ed'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'שיש ורוד וזהב',colors:{terra:'#e11d48',gold:'#d97706',teal:'#065f46',rose:'#f9a8d4',lavender:'#c4b5fd',plum:'#2c0a1a',cream:'#fff5f7'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'בייבי פינק ומרשמלו',colors:{terra:'#f43f5e',gold:'#fde047',teal:'#38bdf8',rose:'#fbcfe8',lavender:'#e9d5ff',plum:'#371322',cream:'#fffbfd'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'סחלבים ופוקסיה',colors:{terra:'#a21caf',gold:'#f59e0b',teal:'#10b981',rose:'#f472b6',lavender:'#c084fc',plum:'#27072e',cream:'#fdf4ff'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'מנטה ורובי ביוטי',colors:{terra:'#e11d48',gold:'#eab308',teal:'#14b8a6',rose:'#fca5a5',lavender:'#818cf8',plum:'#2b0b18',cream:'#f0fdf4'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'סומק ואפרסק עדין',colors:{terra:'#ea580c',gold:'#fbbf24',teal:'#2dd4bf',rose:'#fb7185',lavender:'#c084fc',plum:'#38181a',cream:'#fff8f6'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'גלוס דובדבן וזהב',colors:{terra:'#be123c',gold:'#d97706',teal:'#0d9488',rose:'#fda4af',lavender:'#7c3aed',plum:'#340817',cream:'#fff7f9'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'סטודיו גבות וציפורניים',colors:{terra:'#b91c1c',gold:'#ca8a04',teal:'#047857',rose:'#f87171',lavender:'#6366f1',plum:'#280909',cream:'#fffaf5'}},
+  {cat:'beauty',catName:'ציפורניים וביוטי',name:'אקריל טורקיז וקורל',colors:{terra:'#f97316',gold:'#facc15',teal:'#06b6d4',rose:'#fb7185',lavender:'#8b5cf6',plum:'#1a2a30',cream:'#ecfeff'}},
+  /* 🖤 אתרים כהים ושחורים (18) */
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור אובידיאן וזהב',colors:{terra:'#f59e0b',gold:'#fbbf24',teal:'#38bdf8',rose:'#f43f5e',lavender:'#a78bfa',plum:'#f8fafc',cream:'#0a0a0c'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'חצות וניאון כחול',colors:{terra:'#38bdf8',gold:'#facc15',teal:'#2dd4bf',rose:'#f472b6',lavender:'#818cf8',plum:'#f1f5f9',cream:'#080c14'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור פחם וטיטניום',colors:{terra:'#60a5fa',gold:'#e2e8f0',teal:'#34d399',rose:'#f87171',lavender:'#a78bfa',plum:'#ffffff',cream:'#111318'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור ורובי מלכותי',colors:{terra:'#f43f5e',gold:'#f59e0b',teal:'#2dd4bf',rose:'#fb7185',lavender:'#c084fc',plum:'#fdf2f8',cream:'#0d070b'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור ואמרלד יוקרתי',colors:{terra:'#10b981',gold:'#fbbf24',teal:'#06b6d4',rose:'#f472b6',lavender:'#a78bfa',plum:'#f0fdf4',cream:'#060d0a'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור סגול אמטיסט',colors:{terra:'#c084fc',gold:'#facc15',teal:'#38bdf8',rose:'#f472b6',lavender:'#e879f9',plum:'#faf5ff',cream:'#0d0814'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור מונוכרום מוחלט',colors:{terra:'#e2e8f0',gold:'#cbd5e1',teal:'#94a3b8',rose:'#64748b',lavender:'#475569',plum:'#ffffff',cream:'#050507'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור ונחושת לוהטת',colors:{terra:'#fb923c',gold:'#fcd34d',teal:'#38bdf8',rose:'#f87171',lavender:'#a78bfa',plum:'#fff7ed',cream:'#0f0c08'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'קוד שחור ומטריקס',colors:{terra:'#22c55e',gold:'#a3e635',teal:'#06b6d4',rose:'#f472b6',lavender:'#4ade80',plum:'#f0fdf4',cream:'#050a06'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'חצות וספיר עמוק',colors:{terra:'#3b82f6',gold:'#fbbf24',teal:'#06b6d4',rose:'#f43f5e',lavender:'#8b5cf6',plum:'#eff6ff',cream:'#070d18'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'גרפיט וזהב שמפניה',colors:{terra:'#fbbf24',gold:'#fde047',teal:'#2dd4bf',rose:'#f472b6',lavender:'#94a3b8',plum:'#f8fafc',cream:'#14151a'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור וסייבר ציאן',colors:{terra:'#06b6d4',gold:'#fbbf24',teal:'#14b8a6',rose:'#f43f5e',lavender:'#818cf8',plum:'#ecfeff',cream:'#060c10'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור וורוד ניאון',colors:{terra:'#ec4899',gold:'#facc15',teal:'#06b6d4',rose:'#f43f5e',lavender:'#a855f7',plum:'#fdf2f8',cream:'#0d060a'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור ואמבר לוהט',colors:{terra:'#f97316',gold:'#fde047',teal:'#06b6d4',rose:'#ef4444',lavender:'#a855f7',plum:'#fff7ed',cream:'#0e0a06'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'פנטום נייבי ואפור כהה',colors:{terra:'#818cf8',gold:'#fbbf24',teal:'#34d399',rose:'#f472b6',lavender:'#c084fc',plum:'#e0e7ff',cream:'#0a0d16'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור ואולטרה סגול',colors:{terra:'#a855f7',gold:'#f59e0b',teal:'#06b6d4',rose:'#ec4899',lavender:'#d946ef',plum:'#f3e8ff',cream:'#090510'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'אספרסו כהה ופחם',colors:{terra:'#d97706',gold:'#fde68a',teal:'#14b8a6',rose:'#f87171',lavender:'#a78bfa',plum:'#fffbeb',cream:'#100b08'}},
+  {cat:'dark',catName:'אתר שחור וכהה',name:'שחור וירח מלא',colors:{terra:'#94a3b8',gold:'#facc15',teal:'#38bdf8',rose:'#fb7185',lavender:'#cbd5e1',plum:'#ffffff',cream:'#08090c'}},
+  /* 🎮 גיימינג, סייבר וטק (16) */
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג סייברפאנק',colors:{terra:'#e11d48',gold:'#facc15',teal:'#06b6d4',rose:'#ec4899',lavender:'#8b5cf6',plum:'#ffffff',cream:'#0b0b12'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג רייזר ירוק-רעיל',colors:{terra:'#22c55e',gold:'#84cc16',teal:'#14b8a6',rose:'#ef4444',lavender:'#3b82f6',plum:'#f0fdf4',cream:'#050c07'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג סינת\'ווייב רטרו',colors:{terra:'#d946ef',gold:'#f59e0b',teal:'#06b6d4',rose:'#f43f5e',lavender:'#8b5cf6',plum:'#fdf4ff',cream:'#0f0817'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג אולטרה RGB',colors:{terra:'#3b82f6',gold:'#facc15',teal:'#10b981',rose:'#ec4899',lavender:'#a855f7',plum:'#ffffff',cream:'#07080d'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג לבה אדומה',colors:{terra:'#ef4444',gold:'#f97316',teal:'#06b6d4',rose:'#f43f5e',lavender:'#a855f7',plum:'#fef2f2',cream:'#100607'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג טוקיו ניאון',colors:{terra:'#f43f5e',gold:'#facc15',teal:'#06b6d4',rose:'#ec4899',lavender:'#8b5cf6',plum:'#fff1f2',cream:'#09070e'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג אי-ספורט כחול',colors:{terra:'#2563eb',gold:'#fbbf24',teal:'#06b6d4',rose:'#f43f5e',lavender:'#6366f1',plum:'#eff6ff',cream:'#060a14'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג מכניקה כסופה',colors:{terra:'#0284c7',gold:'#e2e8f0',teal:'#10b981',rose:'#f43f5e',lavender:'#64748b',plum:'#f8fafc',cream:'#0d1117'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג גלקסיה סגולה',colors:{terra:'#8b5cf6',gold:'#f59e0b',teal:'#06b6d4',rose:'#ec4899',lavender:'#c084fc',plum:'#f5f3ff',cream:'#0a0614'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג ניאון צהוב',colors:{terra:'#eab308',gold:'#facc15',teal:'#06b6d4',rose:'#f43f5e',lavender:'#8b5cf6',plum:'#ffffff',cream:'#0c0b06'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג פלזמה טורקיז',colors:{terra:'#0d9488',gold:'#facc15',teal:'#06b6d4',rose:'#f43f5e',lavender:'#6366f1',plum:'#f0fdfa',cream:'#040e0d'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג ארקייד 80s',colors:{terra:'#ec4899',gold:'#fbbf24',teal:'#06b6d4',rose:'#f43f5e',lavender:'#8b5cf6',plum:'#ffffff',cream:'#120a1c'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג סופרנובה',colors:{terra:'#ea580c',gold:'#fbbf24',teal:'#38bdf8',rose:'#f43f5e',lavender:'#a855f7',plum:'#fff7ed',cream:'#120905'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג צללים סגולים',colors:{terra:'#7c3aed',gold:'#38bdf8',teal:'#10b981',rose:'#f472b6',lavender:'#a78bfa',plum:'#faf5ff',cream:'#080510'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג קרח קוונטי',colors:{terra:'#0284c7',gold:'#facc15',teal:'#38bdf8',rose:'#fb7185',lavender:'#818cf8',plum:'#f0f9ff',cream:'#050c14'}},
+  {cat:'gaming',catName:'גיימינג וסייבר',name:'גיימינג טכנו מינימל',colors:{terra:'#10b981',gold:'#f59e0b',teal:'#06b6d4',rose:'#f43f5e',lavender:'#a78bfa',plum:'#f8fafc',cream:'#0e1015'}},
+  /* 👑 יוקרה, פרמיום ועסקים (16) */
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'נייבי וארד תאגידי',orig:true,origText:'⭐ ברירת המחדל העסקית',colors:{terra:'#1e3a5f',gold:'#b08d3e',teal:'#3e6d9c',rose:'#7a2e3e',lavender:'#5a6f8f',plum:'#0d1626',cream:'#f8fafc'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'זהב מלכותי ושחור',colors:{terra:'#d4af37',gold:'#f3e5ab',teal:'#4a5568',rose:'#991b1b',lavender:'#718096',plum:'#0a0a0a',cream:'#fffdfa'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'משרד עורכי דין שווייצרי',colors:{terra:'#1e293b',gold:'#c29b38',teal:'#475569',rose:'#991b1b',lavender:'#64748b',plum:'#0f172a',cream:'#f8fafc'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'נדל״ן יוקרתי ומגדלים',colors:{terra:'#0f172a',gold:'#d97706',teal:'#0284c7',rose:'#be123c',lavender:'#64748b',plum:'#020617',cream:'#f8fafc'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'פלטינום וקרבון',colors:{terra:'#334155',gold:'#94a3b8',teal:'#0ea5e9',rose:'#e11d48',lavender:'#64748b',plum:'#0f172a',cream:'#f8fafc'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'בנקאות והשקעות פרטיות',colors:{terra:'#065f46',gold:'#b45309',teal:'#0f766e',rose:'#881337',lavender:'#475569',plum:'#022c22',cream:'#f0fdf4'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'קשמיר ועץ אלון',colors:{terra:'#854d0e',gold:'#ca8a04',teal:'#0d9488',rose:'#be185d',lavender:'#a1a1aa',plum:'#292524',cream:'#fafaf9'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'מועדון חברים אקסקלוסיבי',colors:{terra:'#881337',gold:'#d97706',teal:'#155e75',rose:'#be123c',lavender:'#57534e',plum:'#270714',cream:'#fff1f2'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'יהלום וספיר',colors:{terra:'#1d4ed8',gold:'#eab308',teal:'#06b6d4',rose:'#e11d48',lavender:'#6366f1',plum:'#1e1b4b',cream:'#eff6ff'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'שיש קררה וגרניט',colors:{terra:'#475569',gold:'#d97706',teal:'#0891b2',rose:'#be123c',lavender:'#94a3b8',plum:'#0f172a',cream:'#f8fafc'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'הוט קוטור פריז',colors:{terra:'#18181b',gold:'#d4af37',teal:'#52525b',rose:'#e11d48',lavender:'#71717a',plum:'#09090b',cream:'#fbfbfa'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'שגרירות ודיפלומטיה',colors:{terra:'#1e3a8a',gold:'#b45309',teal:'#1d4ed8',rose:'#991b1b',lavender:'#475569',plum:'#172554',cream:'#f8fafc'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'תעופה פרטית',colors:{terra:'#0369a1',gold:'#ca8a04',teal:'#0284c7',rose:'#be123c',lavender:'#64748b',plum:'#0c4a6e',cream:'#f0f9ff'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'חצות וארד יוקרתי',colors:{terra:'#14284a',gold:'#9c7c35',teal:'#34567e',rose:'#6e2a3a',lavender:'#52678a',plum:'#0a1020',cream:'#f8f5ef'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'אמרלד וברונזה עסקית',colors:{terra:'#0e5e4a',gold:'#a3803a',teal:'#2f7a68',rose:'#8a4a3a',lavender:'#5c7a6e',plum:'#122019',cream:'#f4f6f2'}},
+  {cat:'luxury',catName:'יוקרה ועסקים',name:'אינדיגו וכסף',colors:{terra:'#2b2e6e',gold:'#97a3c4',teal:'#4a5aa8',rose:'#6e3a6e',lavender:'#5d6ba8',plum:'#131530',cream:'#f4f5fa'}},
+  /* 🌿 בריאות, רפואה וספא (14) */
+  {cat:'health',catName:'בריאות וספא',name:'קליניקת שיניים מודרנית',colors:{terra:'#0284c7',gold:'#38bdf8',teal:'#06b6d4',rose:'#f43f5e',lavender:'#818cf8',plum:'#0f172a',cream:'#f0fdfa'}},
+  {cat:'health',catName:'בריאות וספא',name:'מרפאת מומחים ורופאים',colors:{terra:'#0369a1',gold:'#f59e0b',teal:'#0d9488',rose:'#e11d48',lavender:'#6366f1',plum:'#082f49',cream:'#f0f9ff'}},
+  {cat:'health',catName:'בריאות וספא',name:'ספא יפני זן',colors:{terra:'#047857',gold:'#ca8a04',teal:'#0d9488',rose:'#f472b6',lavender:'#a7f3d0',plum:'#064e3b',cream:'#f6fbf7'}},
+  {cat:'health',catName:'בריאות וספא',name:'יוגה ופילאטיס טבעי',colors:{terra:'#c2410c',gold:'#d97706',teal:'#0f766e',rose:'#fb7185',lavender:'#a8a29e',plum:'#431407',cream:'#fff7ed'}},
+  {cat:'health',catName:'בריאות וספא',name:'טיפולי גוף ונפש',colors:{terra:'#7c3aed',gold:'#f59e0b',teal:'#14b8a6',rose:'#f472b6',lavender:'#c084fc',plum:'#3b0764',cream:'#faf5ff'}},
+  {cat:'health',catName:'בריאות וספא',name:'תזונה ואורח חיים בריא',colors:{terra:'#15803d',gold:'#eab308',teal:'#06b6d4',rose:'#f43f5e',lavender:'#86efac',plum:'#14532d',cream:'#f0fdf4'}},
+  {cat:'health',catName:'בריאות וספא',name:'בית טבע ואורגני',colors:{terra:'#65a30d',gold:'#ca8a04',teal:'#15803d',rose:'#f97316',lavender:'#bef264',plum:'#365314',cream:'#f7fee7'}},
+  {cat:'health',catName:'בריאות וספא',name:'רפואה אסתטית נקייה',colors:{terra:'#0ea5e9',gold:'#d97706',teal:'#14b8a6',rose:'#f43f5e',lavender:'#a5f3fc',plum:'#0c4a6e',cream:'#f8fafc'}},
+  {cat:'health',catName:'בריאות וספא',name:'מעיינות חמים',colors:{terra:'#0d9488',gold:'#eab308',teal:'#06b6d4',rose:'#fb7185',lavender:'#99f6e4',plum:'#134e4a',cream:'#f0fdfa'}},
+  {cat:'health',catName:'בריאות וספא',name:'פיזיותרפיה וספורט',colors:{terra:'#2563eb',gold:'#f59e0b',teal:'#10b981',rose:'#ef4444',lavender:'#93c5fd',plum:'#1e3a8a',cream:'#eff6ff'}},
+  {cat:'health',catName:'בריאות וספא',name:'ארומתרפיה ולבנדר',colors:{terra:'#6d28d9',gold:'#fbbf24',teal:'#2dd4bf',rose:'#f472b6',lavender:'#c4b5fd',plum:'#2e1065',cream:'#faf5ff'}},
+  {cat:'health',catName:'בריאות וספא',name:'קליניקת עיניים ואופטיקה',colors:{terra:'#0284c7',gold:'#f59e0b',teal:'#059669',rose:'#f43f5e',lavender:'#7dd3fc',plum:'#082f49',cream:'#f0f9ff'}},
+  {cat:'health',catName:'בריאות וספא',name:'מיינדפולנס ושקט',colors:{terra:'#4f46e5',gold:'#d97706',teal:'#0d9488',rose:'#fb7185',lavender:'#a5b4fc',plum:'#1e1b4b',cream:'#eef2ff'}},
+  {cat:'health',catName:'בריאות וספא',name:'בית מרקחת פרימיום',colors:{terra:'#059669',gold:'#ca8a04',teal:'#0891b2',rose:'#f43f5e',lavender:'#6ee7b7',plum:'#064e3b',cream:'#ecfdf5'}},
+  /* ☕ אוכל, קולינריה ובתי קפה (12) */
+  {cat:'food',catName:'אוכל וקפה',name:'ביסטרו פריזאי',colors:{terra:'#991b1b',gold:'#d97706',teal:'#0f766e',rose:'#f87171',lavender:'#a8a29e',plum:'#450a0a',cream:'#fff1f2'}},
+  {cat:'food',catName:'אוכל וקפה',name:'בית קפה גל שלישי',colors:{terra:'#78350f',gold:'#d97706',teal:'#0d9488',rose:'#f43f5e',lavender:'#b45309',plum:'#292524',cream:'#fffbeb'}},
+  {cat:'food',catName:'אוכל וקפה',name:'מאפייה בוטיקית',colors:{terra:'#b45309',gold:'#f59e0b',teal:'#047857',rose:'#fb7185',lavender:'#d97706',plum:'#451a03',cream:'#fffbeb'}},
+  {cat:'food',catName:'אוכל וקפה',name:'מסעדת שף מודרנית',colors:{terra:'#1c1917',gold:'#eab308',teal:'#065f46',rose:'#dc2626',lavender:'#78716c',plum:'#0c0a09',cream:'#fafaf9'}},
+  {cat:'food',catName:'אוכל וקפה',name:'גלידריה איטלקית',colors:{terra:'#059669',gold:'#fbbf24',teal:'#06b6d4',rose:'#f472b6',lavender:'#c084fc',plum:'#064e3b',cream:'#fff7ed'}},
+  {cat:'food',catName:'אוכל וקפה',name:'בר קוקטיילים לילי',colors:{terra:'#881337',gold:'#f59e0b',teal:'#0891b2',rose:'#f43f5e',lavender:'#7c3aed',plum:'#1f050f',cream:'#fff1f2'}},
+  {cat:'food',catName:'אוכל וקפה',name:'סושי בר עכשווי',colors:{terra:'#dc2626',gold:'#eab308',teal:'#059669',rose:'#fb7185',lavender:'#52525b',plum:'#18181b',cream:'#fafaf9'}},
+  {cat:'food',catName:'אוכל וקפה',name:'פיצרייה נפוליטנית',colors:{terra:'#b91c1c',gold:'#f59e0b',teal:'#15803d',rose:'#f87171',lavender:'#a8a29e',plum:'#3f0708',cream:'#fffaf5'}},
+  {cat:'food',catName:'אוכל וקפה',name:'יקב ובוטיק יין',colors:{terra:'#701a75',gold:'#ca8a04',teal:'#0f766e',rose:'#be185d',lavender:'#a21caf',plum:'#2e0827',cream:'#fdf4ff'}},
+  {cat:'food',catName:'אוכל וקפה',name:'מסעדת בשרים וגריל',colors:{terra:'#9a3412',gold:'#ea580c',teal:'#047857',rose:'#ef4444',lavender:'#78716c',plum:'#431407',cream:'#fff7ed'}},
+  {cat:'food',catName:'אוכל וקפה',name:'שוקולטייר בוטיק',colors:{terra:'#543310',gold:'#f3c623',teal:'#227b94',rose:'#d1512d',lavender:'#7f4f24',plum:'#1b1811',cream:'#fbf8f1'}},
+  {cat:'food',catName:'אוכל וקפה',name:'בר שייקים ומיצים',colors:{terra:'#ea580c',gold:'#facc15',teal:'#14b8a6',rose:'#f43f5e',lavender:'#8b5cf6',plum:'#431407',cream:'#fffbeb'}},
+  /* 🎨 יצירה, ילדים ומשפחה (14) */
+  {cat:'kids',catName:'יצירה וילדים',name:'הפלטה המקורית של נעה',orig:true,colors:{terra:'#e2603c',gold:'#f2b33d',teal:'#2ea6a0',rose:'#f08ca5',lavender:'#9b8ce8',plum:'#43302e',cream:'#fff6ec'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'קשת בגינה',colors:{terra:'#e2513e',gold:'#ffc233',teal:'#3ba05f',rose:'#f88f6d',lavender:'#64a8dd',plum:'#33422e',cream:'#f6faef'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'פסטל חלומי',colors:{terra:'#ef8f76',gold:'#f8d08a',teal:'#86ccc3',rose:'#f2b6c6',lavender:'#b1a5e8',plum:'#59495f',cream:'#fdf9f5'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'דובדבן וניל',colors:{terra:'#dd4f6c',gold:'#f2c14e',teal:'#5fb7b0',rose:'#f7a8b8',lavender:'#a394d6',plum:'#472735',cream:'#fff6f1'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'יער קסום',colors:{terra:'#dd7e57',gold:'#e0b868',teal:'#4c9e6e',rose:'#df8fa5',lavender:'#8aa4d8',plum:'#2f3c33',cream:'#f5f9ef'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'לבנדר ודבש',colors:{terra:'#e58a52',gold:'#f0b42b',teal:'#63b5ab',rose:'#e79fbf',lavender:'#9677e0',plum:'#3e3350',cream:'#faf6fe'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'שקיעה זהובה',colors:{terra:'#ec6a4d',gold:'#ffc457',teal:'#2f8f8a',rose:'#f28bb2',lavender:'#c28bd8',plum:'#3c2b3d',cream:'#fff4e8'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'סוכריות גומי',colors:{terra:'#ff8a7a',gold:'#ffd166',teal:'#2ec4b6',rose:'#ff97c9',lavender:'#9b8cf0',plum:'#35414d',cream:'#f6fbff'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'תות שדה וקרם',colors:{terra:'#e63946',gold:'#ffb703',teal:'#2a9d8f',rose:'#f28482',lavender:'#9b5de5',plum:'#3f232b',cream:'#fff5f0'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'בוקר חם',colors:{terra:'#f4795b',gold:'#fbcf5c',teal:'#4fb3a9',rose:'#f5a3b3',lavender:'#a79be0',plum:'#4a3528',cream:'#fffaf0'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'חלליות וכוכבים',colors:{terra:'#0284c7',gold:'#facc15',teal:'#38bdf8',rose:'#f43f5e',lavender:'#818cf8',plum:'#0c4a6e',cream:'#f0f9ff'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'צעצועי עץ וטבע',colors:{terra:'#ea580c',gold:'#d97706',teal:'#059669',rose:'#fb7185',lavender:'#a8a29e',plum:'#431407',cream:'#fffbeb'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'קרקס צבעוני',colors:{terra:'#dc2626',gold:'#facc15',teal:'#0284c7',rose:'#f43f5e',lavender:'#8b5cf6',plum:'#450a0a',cream:'#fffdf5'}},
+  {cat:'kids',catName:'יצירה וילדים',name:'גן פיות וקסמים',colors:{terra:'#9333ea',gold:'#fbbf24',teal:'#14b8a6',rose:'#f472b6',lavender:'#c084fc',plum:'#3b0764',cream:'#fdf4ff'}}
 ];
+const PALETTES=ALL_PALETTES;
+const BIZ_PALETTES=ALL_PALETTES;
 function paletteActive(p){
   const cur=content.colors||{};
-  return PAL_KEYS.every(k=>String(cur[k]||'').toLowerCase()===p.colors[k].toLowerCase());
+  return PAL_KEYS.every(k=>String(cur[k]||'').toLowerCase()===String(p.colors[k]||'').toLowerCase());
+}
+function isDarkColorHex(hex){
+  if(!hex||typeof hex!=='string')return false;
+  let c=hex.replace('#','').trim();
+  if(c.length===3)c=c.split('').map(x=>x+x).join('');
+  const num=parseInt(c,16);
+  if(isNaN(num))return false;
+  const r=(num>>16)&255,g=(num>>8)&255,b=num&255;
+  return (0.2126*r+0.7152*g+0.0722*b)<125;
 }
 function buildPalettes(){
-  const box=document.createElement('div');
-  const list=THEME==='kids'?PALETTES:BIZ_PALETTES;
-  const grid=document.createElement('div');grid.className='pal-grid';
-  list.forEach(p=>{
-    const b=document.createElement('button');b.type='button';b.className='pal-card'+(paletteActive(p)?' active':'');
-    b.innerHTML='<span class="p-name">'+esc(p.name)+(p.orig?'<span class="orig-star">'+(p.origText||'⭐ הפלטה שאיתה התחלנו')+'</span>':'')+'</span>'+
-      '<span class="pal-dots">'+PAL_KEYS.map(k=>'<i style="background:'+p.colors[k]+'" title="'+k+'"></i>').join('')+'</span>';
-    b.addEventListener('click',()=>{
-      PAL_KEYS.forEach(k=>setPath(content,'colors.'+k,p.colors[k]));
-      buildPanels();openSec('general');
-      onChange();pushPreview();
-      toast('הפלטה "'+p.name+'" הוחלה ✓','ok');
+  const wrap=document.createElement('div');
+  wrap.className='pal-wrap';
+  const activePal=ALL_PALETTES.find(paletteActive);
+  let currentCat=activePal?activePal.cat:'beauty';
+  let query='';
+  /* כרטיס הפלטה פעילה */
+  const activeCard=document.createElement('div');
+  activeCard.className='pal-active-card';
+  const updateActiveCard=()=>{
+    const curP=ALL_PALETTES.find(paletteActive);
+    const curColors=content.colors||{};
+    const isDark=isDarkColorHex(curColors.cream);
+    const palName=curP?esc(curP.name):'צבעים מותאמים אישית';
+    const catName=curP?esc(curP.catName||''):'';
+    activeCard.innerHTML=
+      '<div class="pal-active-info">'+
+      '<span class="pal-active-label">הפלטה הפעילה באתר כרגע</span>'+
+      '<span class="pal-active-name">'+palName+
+      (catName?' <small style="font-weight:600;font-size:11px;color:var(--muted)">('+catName+')</small>':'')+
+      (isDark?' <span class="pal-dark-tag">🌑 אתר שחור</span>':'')+
+      '</span></div>'+
+      '<div class="pal-active-swatches">'+PAL_KEYS.map(k=>'<i style="background:'+(curColors[k]||'#e2e8f0')+'" title="'+k+': '+(curColors[k]||'')+'"></i>').join('')+'</div>';
+  };
+  updateActiveCard();
+  /* סרגל קטגוריות */
+  const catGrid=document.createElement('div');
+  catGrid.className='pal-cat-grid';
+  const catBanner=document.createElement('div');
+  catBanner.className='pal-cat-banner';
+  const searchRow=document.createElement('div');
+  searchRow.className='pal-search-row';
+  searchRow.innerHTML='<span class="ps-ic">🔍</span><input type="text" class="pal-search-input" placeholder="חיפוש פלטה בכל 100+ הפלטות (למשל: ורוד, שחור, זהב, גיימינג, ספא, טורקיז)...">';
+  const searchInput=searchRow.querySelector('input');
+  const scrollBox=document.createElement('div');
+  scrollBox.className='pal-scroll-grid';
+  const grid=document.createElement('div');
+  grid.className='pal-grid';
+  scrollBox.appendChild(grid);
+  const note=document.createElement('div');
+  note.className='pal-note';
+  const updateCatBanner=()=>{
+    const cat=PAL_CATS.find(c=>c.id===currentCat)||PAL_CATS[0];
+    const count=ALL_PALETTES.filter(p=>p.cat===cat.id).length;
+    catBanner.innerHTML=
+      '<span class="pcb-icon">'+cat.icon+'</span>'+
+      '<div class="pcb-txt"><h4>'+cat.fullTitle+' <span class="pcb-badge">'+count+' פלטות לבחירה</span></h4><p>'+cat.sub+'</p></div>';
+  };
+  const renderGrid=()=>{
+    grid.innerHTML='';
+    const q=query.trim().toLowerCase();
+    let list=[];
+    if(q){
+      catBanner.style.display='none';
+      list=ALL_PALETTES.filter(p=>((p.name+' '+(p.catName||'')+' '+(p.cat||'')).toLowerCase()).includes(q));
+      note.textContent='נמצאו '+list.length+' פלטות תואמות לחיפוש "'+query+'" · לחיצה מחליפה את כל צבעי האתר בבת אחת.';
+    }else{
+      catBanner.style.display='flex';
+      updateCatBanner();
+      list=ALL_PALETTES.filter(p=>p.cat===currentCat);
+      const catObj=PAL_CATS.find(c=>c.id===currentCat);
+      note.textContent='מציג '+list.length+' פלטות מותאמות עבור '+(catObj?catObj.label:'הקטגוריה')+' · לחיצה מחליפה את כל צבעי האתר.';
+    }
+    if(!list.length){
+      const empty=document.createElement('div');
+      empty.style.cssText='grid-column:1/-1;text-align:center;padding:28px 12px;color:var(--muted);font-size:13px;';
+      empty.textContent='לא נמצאו פלטות תואמות לחיפוש "'+query+'"';
+      grid.appendChild(empty);
+      return;
+    }
+    list.forEach(p=>{
+      const b=document.createElement('button');
+      b.type='button';
+      const isActive=paletteActive(p);
+      const isDark=isDarkColorHex(p.colors.cream);
+      b.className='pal-card'+(isActive?' active':'')+(isDark?' is-dark':'');
+      b.title=p.name+' ('+(p.catName||'')+')';
+      b.innerHTML='<span class="p-name">'+esc(p.name)+'</span>'+
+        '<span class="pal-dots">'+PAL_KEYS.map(k=>'<i style="background:'+p.colors[k]+'" title="'+k+': '+p.colors[k]+'"></i>').join('')+'</span>';
+      b.addEventListener('click',()=>{
+        PAL_KEYS.forEach(k=>setPath(content,'colors.'+k,p.colors[k]));
+        buildPanels();openSec('general');
+        onChange();pushPreview();
+        toast('הפלטה "'+p.name+'" הוחלה בהצלחה ✓','ok');
+      });
+      grid.appendChild(b);
     });
-    grid.appendChild(b);
-  });
-  const note=document.createElement('div');note.className='pal-note';
-  note.textContent=THEME==='kids'?'לחיצה מחליפה את כל צבעי האתר בבת אחת — ואפשר לדייק אחר כך בצבעים בודדים למטה.':'פלטות בשמות צבעים — נייבי וחצות למשרדים, בורדו לאוכל, אוניקס לתחבורה, אמרלד לכספים, זית לקליניקות ואינדיגו לטק. לחיצה מחליפה את כל הצבעים בבת אחת, ואפשר לדייק אחר כך בצבעים בודדים למטה.';
-  box.appendChild(grid);box.appendChild(note);
-  return box;
+  };
+  const renderCatGrid=()=>{
+    catGrid.innerHTML='';
+    PAL_CATS.forEach(c=>{
+      const tile=document.createElement('button');
+      tile.type='button';
+      const count=ALL_PALETTES.filter(p=>p.cat===c.id).length;
+      tile.className='pal-cat-tile'+(currentCat===c.id?' active':'');
+      tile.innerHTML='<span class="pct-icon">'+c.icon+'</span>'+
+        '<div class="pct-txt"><span class="pct-title">'+c.label+'</span><span class="pct-count">'+count+' פלטות</span></div>';
+      tile.addEventListener('click',()=>{
+        currentCat=c.id;query='';searchInput.value='';
+        catGrid.querySelectorAll('.pal-cat-tile').forEach(t=>t.classList.remove('active'));
+        tile.classList.add('active');
+        renderGrid();
+      });
+      catGrid.appendChild(tile);
+    });
+  };
+  searchInput.addEventListener('input',e=>{query=e.target.value;renderGrid();});
+  renderCatGrid();
+  renderGrid();
+  wrap.appendChild(activeCard);
+  wrap.appendChild(catGrid);
+  wrap.appendChild(catBanner);
+  wrap.appendChild(searchRow);
+  wrap.appendChild(scrollBox);
+  wrap.appendChild(note);
+  return wrap;
 }
 
 /* intro style picker — 5 סגנונות + "בלי פתיחה", לפי התבנית של הדף */
@@ -1083,6 +1344,9 @@ const INTRO_STYLES_KIDS=[
   {v:'balloons',hue:200,icon:'🎈',luc:'party-popper',name:'בלונים',desc:'בלונים צבעוניים עולים מלמטה ומתפוצצים'},
   {v:'confetti',hue:130,icon:'🎊',luc:'sparkles',name:'גשם קונפטי',desc:'מטר של פתיתים צבעוניים יורד מלמעלה'},
   {v:'crayon',hue:280,icon:'🖍️',luc:'pen-tool',name:'ציור קריון',desc:'כוכב, שמש וקשתות מציירים את עצמם'},
+  {v:'webgl-fireworks',hue:0,luc:'party-popper',name:'זיקוקים',desc:'פיצוצי צבע נפתחים ברצף וחושפים את הלוגו',webgl:true},
+  {v:'webgl-helix',hue:200,luc:'dna',name:'סליל הזהב',desc:'סליל תלת־ממדי נפתל ומנצנץ בצבעי המותג',webgl:true},
+  {v:'webgl-blob',hue:25,luc:'droplets',name:'טיפת נוזל',desc:'גוף נוזלי מתנועע בזוהר זכוכית ומתגבש ללוגו',webgl:true},
   {v:'none',hue:225,icon:'🚫',name:'בלי פתיחה',desc:'הדף נפתח מיד, בלי אנימציה'}
 ];
 const INTRO_STYLES_BIZ=[
@@ -1091,6 +1355,15 @@ const INTRO_STYLES_BIZ=[
   {v:'curtain',hue:335,icon:'🎬',luc:'rectangle-horizontal',name:'וילון נפתח',desc:'שני משטחי מותג נפגשים ונפתחים בהדרת טקס'},
   {v:'type',hue:105,icon:'⌨️',luc:'keyboard',name:'קלידת תגית',desc:'משפט המיתוג נקלד אות אחר אות'},
   {v:'rise',hue:175,icon:'📈',luc:'trending-up',name:'עלייה וחשיפה',desc:'משטח המותג עולה מלמטה וחושף את הדף'},
+  {v:'webgl-prism',hue:18,luc:'gem',name:'פריזמה חתומה',desc:'קריסטל תלת־ממדי נשבר לאור בצבעי המותג',webgl:true},
+  {v:'webgl-portal',hue:202,luc:'circle-dot-dashed',name:'פורטל מותג',desc:'טבעות אור נפתחות לעומק וחושפות את הלוגו',webgl:true},
+  {v:'webgl-ribbons',hue:328,luc:'waves',name:'סרטי אור',desc:'סרטים תלת־ממדיים נשזרים לתנועה אלגנטית',webgl:true},
+  {v:'webgl-constellation',hue:222,luc:'share-2',name:'קונסטלציה',desc:'רשת נקודות יוקרתית מתחברת סביב המותג',webgl:true},
+  {v:'webgl-monolith',hue:42,luc:'panels-top-left',name:'מונולית זהב',desc:'לוחות חומר עולים וננעלים לקומפוזיציה אדריכלית',webgl:true},
+  {v:'webgl-nebula',hue:270,luc:'sparkles',name:'נבולת חלקיקים',desc:'אלפי חלקיקי אור מתכנסים לחשיפת המותג',webgl:true},
+  {v:'webgl-fireworks',hue:0,luc:'party-popper',name:'זיקוקים',desc:'פיצוצי צבע נפתחים ברצף וחושפים את הלוגו',webgl:true},
+  {v:'webgl-helix',hue:200,luc:'dna',name:'סליל הזהב',desc:'סליל תלת־ממדי נפתל ומנצנץ בצבעי המותג',webgl:true},
+  {v:'webgl-blob',hue:25,luc:'droplets',name:'טיפת נוזל',desc:'גוף נוזלי מתנועע בזוהר זכוכית ומתגבש ללוגו',webgl:true},
   {v:'none',hue:225,icon:'🚫',luc:'ban',name:'בלי פתיחה',desc:'הדף נפתח מיד — הכי מהיר והכי עסקי'}
 ];
 function buildIntroStyles(path){
@@ -1100,7 +1373,7 @@ function buildIntroStyles(path){
   const cur=getPath(content,path)||(isKids?'blocks':'none');
   list.forEach(s=>{
     const b=document.createElement('button');b.type='button';b.className='istyle-card'+(cur===s.v?' active':'');
-    b.innerHTML='<span class="is-ico" aria-hidden="true" style="--th:'+(s.hue!=null?s.hue:18)+'"><i data-lucide="'+(s.luc||'sparkles')+'"></i></span><span class="is-name">'+s.name+'</span><span class="is-desc">'+s.desc+'</span>';
+    b.innerHTML='<span class="is-ico" aria-hidden="true" style="--th:'+(s.hue!=null?s.hue:18)+'"><i data-lucide="'+(s.luc||'sparkles')+'"></i></span><span class="is-name">'+s.name+'</span><span class="is-desc">'+s.desc+'</span>'+(s.webgl?'<span class="is-tech"><i data-lucide="box"></i> Three.js · WebGL</span>':'');
     b.addEventListener('click',()=>{
       setPath(content,path,s.v);
       grid.querySelectorAll('.istyle-card').forEach(x=>x.classList.toggle('active',x===b));
@@ -1121,6 +1394,7 @@ const SECTION_DEFS=[
   {k:'hero',icon:'🚀',kids:'פתיח הדף',biz:'פתיח הדף',bizOnly:true},
   {k:'header',icon:'🧭',kids:'הכותרת העליונה',biz:'הכותרת העליונה',bizOnly:true},
   {k:'activities',icon:'🎨',kids:'פעילויות',biz:'שירותים'},
+  {k:'catalog',icon:'📦',kids:'קטלוג',biz:'קטלוג',bizOnly:true},
   {k:'about',icon:'👋',kids:'אודות',biz:'אודות'},
   {k:'schedule',icon:'🗓️',kids:'המערכת',biz:'שעות פעילות'},
   {k:'gallery',icon:'📸',kids:'גלריה',biz:'גלריה'},
@@ -1130,11 +1404,12 @@ const SECTION_DEFS=[
 function ensureSections(){
   if(!content.sections||typeof content.sections!=='object')content.sections={};
   if(!Array.isArray(content.sections.order))content.sections.order=SECTION_DEFS.map(d=>d.k);
-  /* משלימים מפתחות חדשים לרשימות קיימות — פתיח וכותרת בראש, תחתית בסוף */
-  SECTION_DEFS.forEach(d=>{
+  /* משלימים מפתחות חדשים לרשימות קיימות — אחרי השכן הקודם בהגדרות (לא בראש הרשימה); תחתית בסוף */
+  SECTION_DEFS.forEach((d,di)=>{
     if(!content.sections.order.includes(d.k)){
-      if(d.k==='footer')content.sections.order.push(d.k);
-      else content.sections.order.unshift(d.k);
+      const prev=SECTION_DEFS.slice(0,di).reverse().find(p=>content.sections.order.includes(p.k));
+      const at=prev?content.sections.order.indexOf(prev.k)+1:0;
+      content.sections.order.splice(d.k==='footer'?content.sections.order.length:at,0,d.k);
     }
   });
   SECTION_DEFS.forEach(d=>{if(typeof content.sections[d.k]!=='boolean')content.sections[d.k]=true;});
@@ -1640,7 +1915,9 @@ function buildList(f,path){
       box.appendChild(em);
     }
     const add=document.createElement('button');add.className='list-add';add.textContent='＋ הוספת '+(f.label||'פריט');
+    if(f.max&&arr.length>=f.max){add.disabled=true;add.textContent='הגעתם למקסימום ('+f.max+') — מספיק מוצרים לקטלוג מנצח';add.title='הקטלוג מוגבל ל-'+f.max+' מוצרים';}
     add.addEventListener('click',()=>{
+      if(add.disabled)return;
       if(!Array.isArray(getPath(content,path)))setPath(content,path,[]);
       const obj=f.add?f.add():{};
       getPath(content,path).push(obj);
@@ -1842,6 +2119,7 @@ function buildPanels(){
   syncThemePick();
   SCHEMA.forEach((sec,ix)=>{
     if(sec.id==='bg3d'&&THEME!=='business')return; /* רקע תלת-מימדי/תמונה — לדפים עסקיים בלבד */
+    if(sec.bizOnly&&THEME!=='business')return; /* קטלוג מוצרים — עסקי בלבד */
     const b=document.createElement('button');b.className='sec-btn';b.type='button';
     b.style.setProperty('--sh',secHue(sec.id));
     b.innerHTML='<i data-lucide="'+(ICONS[sec.id]||'circle')+'"></i><span>'+sec.label+'</span>';b.dataset.sec=sec.id;
@@ -1850,7 +2128,7 @@ function buildPanels(){
     const p=document.createElement('div');p.className='panel';p.id='panel-'+sec.id;
     p.style.setProperty('--th',secHue(sec.id));
     const h=document.createElement('h2');h.innerHTML='<span class="h2-tile"><i data-lucide="'+(ICONS[sec.id]||'circle')+'"></i></span>'+sec.label;
-    const sub=document.createElement('div');sub.className='p-sub';sub.textContent={general:'הגדרות כלליות וצבעים',introAnim:(THEME==='kids'?'5 סגנונות פתיחה חמודים — הדף נפתח כמו משחק':'5 פתיחות מהודרות ברוח עסקית — או בלי פתיחה בכלל'),bg3d:'תמונת רקע משלכם או 10 סצנות תלת-מימדיות חיות לפתיחת הדף — בצבעי הפלטה שלכם',cards:'10 עיצובים לכרטיסי השירותים — מקלאסי נקי ועד גופים תלת-מימדיים חיים',structure:'בוחרים איפה כל חלק ממוקם בדף — ואילו חלקים בכלל לא יוצגו',icons:'55 אייקוני 3D בכל חבילה — בוחרים חבילה, רואים הכול בגריד, ומחילים על הדף בלחיצה',header:'הלוגו והתפריט העליון',hero:'החלק הראשון שרואים — הכי חשוב!',activities:'כרטיסי הפעילויות והסטריפ המודלן',about:'הסקשן "אודות"',schedule:'פוסטר המערכת והצ\'יפים',gallery:'התמונות מוצגות באתר כקרוסלה נעה — הוסיפו, סדרו ומחקו שקפים',contact:'טלפון, וואטסאפ, רשתות וכתובת',footer:'תחתית העמוד'}[sec.id]||'';
+    const sub=document.createElement('div');sub.className='p-sub';sub.textContent={general:'הגדרות כלליות וצבעים',introAnim:(THEME==='kids'?'5 סגנונות פתיחה חמודים — הדף נפתח כמו משחק':'5 פתיחות מהודרות ברוח עסקית — או בלי פתיחה בכלל'),bg3d:'תמונת רקע משלכם או 10 סצנות תלת-מימדיות חיות לפתיחת הדף — בצבעי הפלטה שלכם',cards:'10 עיצובים לכרטיסי השירותים — מקלאסי נקי ועד גופים תלת-מימדיים חיים',structure:'בוחרים איפה כל חלק ממוקם בדף — ואילו חלקים בכלל לא יוצגו',icons:'55 אייקוני 3D בכל חבילה — בוחרים חבילה, רואים הכול בגריד, ומחילים על הדף בלחיצה',header:'הלוגו והתפריט העליון',hero:'החלק הראשון שרואים — הכי חשוב!',activities:'כרטיסי הפעילויות והסטריפ המודלן',catalog:'עד 10 מוצרים — תמונה, שם, תיאור ומחיר. בלי מוצרים הסקשן מוסתר מהדף.',about:'הסקשן "אודות"',schedule:'פוסטר המערכת והצ\'יפים',gallery:'התמונות מוצגות באתר כקרוסלה נעה — הוסיפו, סדרו ומחקו שקפים',contact:'טלפון, וואטסאפ, רשתות וכתובת',footer:'תחתית העמוד'}[sec.id]||'';
     p.appendChild(h);p.appendChild(sub);
     sec.fields.forEach(f=>p.appendChild(fieldEl(f,null)));
     forms.appendChild(p);

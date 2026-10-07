@@ -10,7 +10,7 @@
 <meta property="og:description" content="דף נחיתה שנוצר עם Pagely.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/placeholders/og-default.png">
-<link rel="icon" type="image/svg+xml" href="assets/placeholders/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="assets/placeholders/favicon.svg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -63,9 +63,11 @@ nav{display:flex;gap:6px}
 nav a{color:var(--plum);text-decoration:none;font-size:15px;font-weight:500;padding:8px 13px;border-radius:999px;transition:color .2s,background .2s}
 nav a:hover{color:var(--terra);background:rgba(226,96,60,.09)}
 .head-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.head-call{background:var(--wa);color:#fff;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;font-size:15px;box-shadow:0 4px 0 var(--wa-d);transition:transform .12s,box-shadow .12s;white-space:nowrap;font-family:'Fredoka',sans-serif}
-.head-call:hover{transform:translateY(-1px)}
-.head-call:active{transform:translateY(4px);box-shadow:none}
+.head-call{position:relative;overflow:hidden;background:linear-gradient(135deg,#34d399,var(--wa));color:#fff;font-weight:700;padding:10px 22px;border-radius:999px;text-decoration:none;font-size:15px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 20px -8px rgba(37,211,102,.75);transition:transform .16s,box-shadow .16s;white-space:nowrap;font-family:'Fredoka','Heebo',sans-serif}
+.head-call::after{content:'';position:absolute;inset:-50% auto -50% -25%;width:22%;transform:rotate(20deg);background:rgba(255,255,255,.24);transition:left .45s}
+.head-call:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 24px -8px rgba(37,211,102,.85)}
+.head-call:hover::after{left:125%}
+.head-call:active{transform:scale(.98)}
 .burger{display:none;flex-direction:column;gap:5px;background:rgba(226,96,60,.12);border:none;cursor:pointer;padding:11px;border-radius:12px}
 .burger span{display:block;width:22px;height:2.5px;background:var(--terra);border-radius:2px;transition:.25s}
 .burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
@@ -98,12 +100,14 @@ nav a:hover{color:var(--terra);background:rgba(226,96,60,.09)}
 .hero-content .sub{color:#7a6157;font-size:clamp(16px,2.2vw,20px);margin-top:18px;font-weight:300;line-height:1.75;max-width:30em}
 .hero-content .sub b{font-weight:700;color:var(--terra)}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 30px;border-radius:999px;font-size:17px;font-weight:700;text-decoration:none;transition:transform .12s,box-shadow .12s,filter .12s;border:none;cursor:pointer;font-family:'Fredoka',sans-serif}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}
-.btn:active{transform:translateY(4px);box-shadow:none!important}
-.btn-flame{background:var(--terra);color:#fff;box-shadow:0 5px 0 var(--terra-d)}
-.btn-gold{background:var(--gold);color:#5b4300;box-shadow:0 5px 0 var(--gold-d)}
-.btn-wa{background:var(--wa);color:#fff;box-shadow:0 5px 0 var(--wa-d)}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 32px;border-radius:999px;font-size:17px;font-weight:700;text-decoration:none;transition:transform .16s,box-shadow .16s,filter .16s;border:none;cursor:pointer;font-family:'Fredoka','Heebo',sans-serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px -10px rgba(226,96,60,.65)}
+.btn::after{content:'';position:absolute;inset:-50% auto -50% -25%;width:22%;transform:rotate(20deg);background:rgba(255,255,255,.26);transition:left .45s cubic-bezier(.22,1,.36,1)}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.btn:hover::after{left:125%}
+.btn:active{transform:scale(.985);box-shadow:inset 0 2px 4px rgba(0,0,0,.15)!important}
+.btn-flame{background:linear-gradient(135deg,#f17650,var(--terra));color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px -10px rgba(226,96,60,.75)}
+.btn-gold{background:linear-gradient(135deg,#ffd56f,var(--gold));color:#4a3400;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 12px 28px -10px rgba(242,179,61,.75)}
+.btn-wa{background:linear-gradient(135deg,#34d399,var(--wa));color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px -10px rgba(37,211,102,.75)}
 .hero-meta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px}
 .playful{background:none;border:none;color:var(--teal);font-family:'Fredoka',sans-serif;font-size:14.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:6px 4px}
 .playful:hover{color:var(--teal-d)}
@@ -283,6 +287,16 @@ footer .fl{color:#fff;font-weight:700;font-size:18px;margin-bottom:14px;font-fam
 #introStage{position:fixed;inset:0;z-index:100000;background:radial-gradient(120% 90% at 50% 0%,#8a4a33,#5c3527 48%,#3a2724 100%);overflow:hidden;pointer-events:none;opacity:0;visibility:hidden;perspective:1100px;perspective-origin:50% 44%}
 #introStage.active{opacity:1;visibility:visible;transition:none}
 #introStage.fadeout{opacity:0;transition:opacity .6s ease}
+/* פתיחות WebGL — רקע כהה יוקרתי + קנבס חי */
+#introStage.webgl-intro{background:radial-gradient(90% 90% at 50% 46%,#1d2c48 0%,#0d1526 52%,#060a14 100%)}
+#introStage.webgl-fireworks{background:radial-gradient(85% 85% at 50% 40%,color-mix(in srgb,var(--plum) 34%,#182036),#070b13 78%)}
+#introStage.webgl-helix{background:radial-gradient(80% 80% at 50% 46%,color-mix(in srgb,var(--teal) 18%,#152238),#080e18 74%)}
+#introStage.webgl-blob{background:radial-gradient(75% 75% at 50% 50%,color-mix(in srgb,var(--terra) 22%,#1c2338),#0a0e16 76%)}
+.intro-webgl-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;pointer-events:none;opacity:0;animation:webglCanvasIn .7s ease .05s forwards}
+@keyframes webglCanvasIn{to{opacity:1}}
+#introStage.webgl-intro .intro-logo{z-index:5;text-shadow:0 8px 28px rgba(0,0,0,.35)}
+#introStage.webgl-intro .il-brand-logo,#introStage.webgl-intro .il-brand-badge{box-shadow:0 18px 55px -12px rgba(0,0,0,.65),0 0 45px -8px color-mix(in srgb,var(--gold) 60%,transparent)}
+@media(prefers-reduced-motion:reduce){.intro-webgl-canvas{animation:none;opacity:1}}
 .intro-cam{position:absolute;inset:0;transform-style:preserve-3d}
 .intro-cam.move{animation:camDrift var(--intro-total,5s) ease-in-out forwards}
 @keyframes camDrift{0%{transform:rotateX(0) rotateY(0) scale(1)}35%{transform:rotateX(7deg) rotateY(-8deg) scale(1.07)}70%{transform:rotateX(-3deg) rotateY(4deg) scale(1.03)}100%{transform:rotateX(0) rotateY(0) scale(1)}}
@@ -292,13 +306,21 @@ footer .fl{color:#fff;font-weight:700;font-size:18px;margin-bottom:14px;font-fam
 .intro-shock{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;border:3px solid rgba(242,179,61,.95);transform:translate(-50%,-50%);opacity:0;z-index:4;pointer-events:none}
 .intro-shock.go{animation:shockwave 1.2s cubic-bezier(.1,.6,.3,1) forwards}
 @keyframes shockwave{0%{opacity:.95;width:10px;height:10px;box-shadow:0 0 60px 20px rgba(242,179,61,.55)}100%{opacity:0;width:170vmax;height:170vmax;box-shadow:0 0 0 0 rgba(242,179,61,0)}}
-.intro-logo{position:absolute;left:50%;top:50%;z-index:5;width:min(560px,84vw);transform:translate(-50%,-50%) scale(.72);opacity:0;transition:opacity .6s ease,transform .8s cubic-bezier(.18,.9,.28,1.35);text-align:center;pointer-events:none;filter:drop-shadow(0 0 34px rgba(242,179,61,.5)) drop-shadow(0 12px 30px rgba(0,0,0,.45))}
+.intro-logo{position:absolute;left:50%;top:50%;z-index:5;width:min(540px,88vw);transform:translate(-50%,-50%) scale(.84);opacity:0;transition:opacity .55s ease,transform .65s cubic-bezier(.22,1,.36,1);text-align:center;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:12px}
 .intro-logo.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .intro-logo.show{animation:logoPulse 2.2s ease-in-out .7s infinite}
 @keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 26px rgba(242,179,61,.4)) drop-shadow(0 12px 30px rgba(0,0,0,.45))}50%{filter:drop-shadow(0 0 52px rgba(242,179,61,.8)) drop-shadow(0 12px 30px rgba(0,0,0,.45))}}
-.intro-logo .il-emoji{font-size:clamp(40px,7vw,64px);display:block;margin-bottom:10px}
-.intro-logo .il-name{font-family:'Fredoka','Heebo',sans-serif;font-weight:700;color:#fff6ec;font-size:clamp(38px,8vw,68px);line-height:1.1;text-shadow:0 4px 0 rgba(0,0,0,.2)}
-.intro-logo .il-sub{font-family:'Heebo',sans-serif;font-weight:500;color:#ffd98f;font-size:clamp(15px,2.6vw,21px);margin-top:12px;letter-spacing:1px}
+.il-brand-logo{width:104px;height:104px;border-radius:26px;background:rgba(255,255,255,.96);padding:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 36px rgba(0,0,0,.35),0 0 45px -8px color-mix(in srgb,var(--terra) 55%,transparent);border:1.5px solid rgba(255,255,255,.8);backdrop-filter:blur(14px);animation:logoFloat 3s ease-in-out infinite}
+.il-brand-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.il-brand-badge{width:90px;height:90px;border-radius:24px;background:linear-gradient(135deg,var(--terra),var(--gold));color:#fff;font-size:38px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px -8px color-mix(in srgb,var(--terra) 65%,transparent),0 0 40px -6px color-mix(in srgb,var(--gold) 50%,transparent);border:2.5px solid rgba(255,255,255,.6);animation:logoFloat 3s ease-in-out infinite;font-family:'Fredoka','Assistant',sans-serif}
+.il-brand-badge.il-emoji-badge{font-size:42px}
+@keyframes logoFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.03)}}
+.il-text-wrap{display:flex;flex-direction:column;gap:5px;align-items:center}
+.intro-logo .il-name{font-family:'Fredoka','Assistant','Heebo',sans-serif;font-weight:800;font-size:clamp(30px,6vw,50px);color:#fff6ec;line-height:1.15;text-shadow:0 4px 16px rgba(0,0,0,.4);letter-spacing:-.3px}
+.intro-logo .il-sub{font-family:'Heebo',sans-serif;font-size:clamp(14.5px,2.2vw,18.5px);color:#ffd98f;font-weight:500;letter-spacing:.6px;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+.il-loader-line{width:130px;height:3px;border-radius:999px;background:rgba(255,255,255,.2);margin-top:8px;overflow:hidden;position:relative}
+.il-loader-bar{position:absolute;inset:0;width:55%;background:linear-gradient(90deg,transparent,var(--gold),#fff,var(--gold),transparent);border-radius:999px;animation:loaderShimmer 1.3s ease-in-out infinite}
+@keyframes loaderShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(240%)}}
 .intro-bar{position:absolute;bottom:0;inset-inline-start:0;height:5px;width:0%;z-index:6;background:linear-gradient(90deg,var(--gold),var(--terra));box-shadow:0 0 14px rgba(242,179,61,.7)}
 .intro-flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:7;pointer-events:none}
 .intro-flash.go{animation:introFlash .4s ease-out}
@@ -661,7 +683,7 @@ const INTRO=(function(){
   const K=0.11, DAMP=0.72, RL=0.10;
   const HOLD=420, EXPLODE=1700, ASSEMBLE=2400, REVEAL=800;
   const TOTAL=HOLD+EXPLODE+ASSEMBLE;
-  let stage,hint,cam,fx={},items=[],running=false,done=false,raf=0,skipTimer=0,skipOn=null,onDone=null;
+  let stage,hint,cam,fx={},items=[],running=false,done=false,raf=0,skipTimer=0,skipOn=null,onDone=null,disposeFx=null;
   let vt=[]; /* טיימרים של הסגנונות — מנוקים בסיום/דילוג */
 
   const pieceCss=(col,dark)=>
@@ -678,8 +700,32 @@ const INTRO=(function(){
   function makeLogo(){
     fx.logo=document.createElement('div');
     fx.logo.className='intro-logo';
-    const ic=(window.NOAH_CONTENT&&window.NOAH_CONTENT.intro)||{};
-    fx.logo.innerHTML='<span class="il-emoji">'+iconHtml(ic.logoEmoji||'🎨','il-emoji-img')+'</span><span class="il-name">'+esc(ic.name||'')+'</span><span class="il-sub">'+esc(ic.sub||'')+'</span>';
+    const c=window.NOAH_CONTENT||{};
+    const ic=c.intro||{};
+    const h=c.header||{};
+
+    const introLogo = String((ic&&ic.logoImg)||'').trim();
+    const logoImg = introLogo || String((h&&h.logoImg)||'').trim();
+    const logoMark = String((h&&h.logoMark)||'').trim();
+    let logoHtml = '';
+    if(logoImg){
+      logoHtml = '<div class="il-brand-logo"><img src="'+esc(abs(logoImg))+'" alt="" class="il-img"></div>';
+    } else if(logoMark){
+      logoHtml = '<div class="il-brand-badge">'+esc(logoMark)+'</div>';
+    } else {
+      const em = ic.logoEmoji || (h&&h.logoEmoji) || '🎨';
+      logoHtml = '<div class="il-brand-badge il-emoji-badge">'+iconHtml(em,'il-emoji-img')+'</div>';
+    }
+
+    const brandName = ic.name || (h.logoText ? (h.logoText + ' ' + (h.logoBold||'')) : (c.meta&&c.meta.title) || '');
+    const brandSub = ic.sub || (c.meta&&c.meta.description) || '';
+
+    fx.logo.innerHTML = logoHtml +
+      '<div class="il-text-wrap">' +
+        '<span class="il-name">' + esc(brandName) + '</span>' +
+        (brandSub ? '<span class="il-sub">' + esc(brandSub) + '</span>' : '') +
+      '</div>' +
+      '<div class="il-loader-line"><span class="il-loader-bar"></span></div>';
     stage.appendChild(fx.logo);
     return fx.logo;
   }
@@ -718,6 +764,7 @@ const INTRO=(function(){
     if(stage){stage.classList.remove('active');stage.classList.add('fadeout');}
     setTimeout(()=>{
       running=false; cancelAnimationFrame(raf);
+      if(disposeFx){try{disposeFx();}catch(e){}disposeFx=null;}
       if(stage){stage.className='';stage.innerHTML='';}
       document.body.style.overflow=''; if(btn)btn.disabled=false;
       if(onDone){const f=onDone;onDone=null;f();}
@@ -920,11 +967,135 @@ const INTRO=(function(){
   }
 
   /* ---------- בחירת הסגנון מהתוכן והרצה ---------- */
-  const VARIANTS={blocks:runBlocks,brush:runBrush,balloons:runBalloons,confetti:runConfetti,crayon:runCrayon};
+  /* --- סגנון פרימיום: לוגו מותג מהודר עם זוהר ושורת טעינה (מופעל בכל רענון דף) --- */
+  function runLogoSplash(cb){
+    if(!startStage(cb,false))return;
+    makeLogo();
+    vtAfter(60,showLogo);
+    vtAfter(1600,endNow);
+  }
+
+  /* --- שלוש פתיחות WebGL פרימיום (Three.js) — זיקוקים · סליל · טיפת נוזל --- */
+  async function runWebGL(kind,cb){
+    if(!startStage(cb,false))return;
+    stage.classList.add('webgl-intro','webgl-'+kind);
+    const canvas=document.createElement('canvas');canvas.className='intro-webgl-canvas';stage.appendChild(canvas);
+    makeLogo();
+    vtAfter(500,showLogo);
+    vtAfter(2600,()=>{if(fx.logo)fx.logo.classList.remove('show');});
+    vtAfter(3150,endNow);
+    try{
+      if(!window.__THREE)window.__THREE=await import('https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js');
+      if(done||!canvas.isConnected)return;
+      const T=window.__THREE;
+      const renderer=new T.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
+      renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.65));
+      renderer.outputColorSpace=T.SRGBColorSpace;
+      renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
+      const scene=new T.Scene(),camera=new T.PerspectiveCamera(42,1,.1,100);camera.position.set(0,0,7.4);
+      const root=new T.Group();scene.add(root);
+      const css=getComputedStyle(document.documentElement);
+      const col=n=>new T.Color(css.getPropertyValue(n).trim()||({ '--terra':'#e2603c','--gold':'#f2b33d','--teal':'#2ea6a0','--rose':'#f08ca5','--lavender':'#9b8ce8','--plum':'#43302e'}[n]));
+      const terra=col('--terra'),gold=col('--gold'),teal=col('--teal'),rose=col('--rose'),lavender=col('--lavender');
+      scene.add(new T.HemisphereLight(0xfff4e0,0x1a1030,2.1));
+      const key=new T.DirectionalLight(0xffffff,4.2);key.position.set(3,4,6);scene.add(key);
+      const rim=new T.PointLight(gold,9,14);rim.position.set(-3,1.5,3);scene.add(rim);
+      const mats=[];
+      const physical=(color,opts={})=>{const m=new T.MeshPhysicalMaterial({color,metalness:.58,roughness:.2,clearcoat:1,clearcoatRoughness:.13,...opts});mats.push(m);return m;};
+      const glowMat=(color,opacity=.7)=>{const m=new T.MeshBasicMaterial({color,transparent:true,opacity,blending:T.AdditiveBlending,depthWrite:false});mats.push(m);return m;};
+      const randomSphere=(count,r0,r1)=>{
+        const a=new Float32Array(count*3);
+        for(let i=0;i<count;i++){const r=r0+Math.random()*(r1-r0),u=Math.random()*2-1,p=Math.random()*Math.PI*2,s=Math.sqrt(1-u*u);a[i*3]=r*s*Math.cos(p);a[i*3+1]=r*u;a[i*3+2]=r*s*Math.sin(p);}
+        const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(a,3));return g;
+      };
+      let update=()=>{};
+      if(kind==='fireworks'){
+        const palette=[terra,gold,teal,rose,lavender];
+        const bursts=[];let lastBurst=-1,bi=0;
+        const sphereGeo=new T.SphereGeometry(.05,8,8);
+        const spawnBurst=(x,y)=>{
+          const color=palette[bi++%palette.length];
+          const group=new T.Group();group.position.set(x,y,0);root.add(group);
+          for(let i=0;i<64;i++){
+            const m=new T.Mesh(sphereGeo,physical(color,{emissive:color,emissiveIntensity:.8,metalness:.2,roughness:.3}));
+            const u=Math.random()*2-1,p=Math.random()*Math.PI*2,s=Math.sqrt(1-u*u),r=.7+Math.random()*1.25;
+            m.userData.v=new T.Vector3(r*s*Math.cos(p),r*u*.9+.3,r*s*Math.sin(p)*.55);
+            group.add(m);
+          }
+          const glow=new T.Mesh(new T.SphereGeometry(.3,16,16),glowMat(color,.5));group.add(glow);
+          bursts.push({group,glow,t0:performance.now()});
+        };
+        update=t=>{
+          const now=performance.now();
+          if((lastBurst<0||now-lastBurst>360)&&t<2.5){lastBurst=now;spawnBurst((Math.random()-.5)*4.8,.9+Math.random()*1.9);}
+          for(let i=bursts.length-1;i>=0;i--){
+            const b=bursts[i],age=(now-b.t0)/1000;
+            b.group.children.forEach(m=>{
+              if(!m.userData.v)return;
+              m.userData.v.y-=.034;
+              m.position.addScaledVector(m.userData.v,.016);
+              m.scale.setScalar(Math.max(.05,1-age*.75));
+            });
+            b.glow.scale.setScalar(Math.max(.02,1-age*2.2));
+            if(age>1.7){root.remove(b.group);bursts.splice(i,1);}
+          }
+        };
+      }else if(kind==='helix'){
+        const N=42,turns=2.7,height=5.4;
+        const nodeGeo=new T.SphereGeometry(.105,18,18);
+        const rungGeo=new T.CylinderGeometry(.024,.024,1.68,8);
+        for(let i=0;i<N;i++){
+          const a=(i/(N-1))*turns*Math.PI*2,y=-height/2+(i/(N-1))*height;
+          const s1=new T.Mesh(nodeGeo,physical(terra,{metalness:.7,roughness:.22}));s1.position.set(Math.cos(a)*.85,y,Math.sin(a)*.85);root.add(s1);
+          const s2=new T.Mesh(nodeGeo,physical(teal,{metalness:.7,roughness:.22}));s2.position.set(Math.cos(a+Math.PI)*.85,y,Math.sin(a+Math.PI)*.85);root.add(s2);
+          if(i%3===1){
+            const rung=new T.Mesh(rungGeo,physical(gold,{metalness:.85,roughness:.18}));
+            rung.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),new T.Vector3(Math.cos(a),0,Math.sin(a)));
+            root.add(rung);
+          }
+        }
+        const pm=new T.PointsMaterial({color:gold,size:.03,transparent:true,opacity:.6,blending:T.AdditiveBlending});mats.push(pm);
+        root.add(new T.Points(randomSphere(240,1.8,3.6),pm));
+        const halo=new T.Mesh(new T.TorusGeometry(2.35,.016,8,150),glowMat(gold,.4));halo.rotation.x=Math.PI/2;root.add(halo);
+        root.position.y=.15;camera.position.set(0,.4,7.4);
+        update=t=>{root.rotation.y=t*.55;root.position.y=.15+Math.sin(t*.9)*.12;halo.rotation.z=t*.2;};
+      }else{
+        const geo=new T.IcosahedronGeometry(1.35,5);
+        const posAttr=geo.attributes.position,base=posAttr.array.slice();
+        const blob=new T.Mesh(geo,physical(terra,{transmission:.42,thickness:1.6,roughness:.12,ior:1.35,clearcoatRoughness:.06}));
+        root.add(blob);
+        const core=new T.Mesh(new T.IcosahedronGeometry(.52,2),physical(gold,{emissive:gold,emissiveIntensity:.4}));root.add(core);
+        const ring=new T.Mesh(new T.TorusGeometry(2.05,.02,8,140),glowMat(teal,.5));ring.rotation.x=Math.PI/2.4;root.add(ring);
+        const pm=new T.PointsMaterial({color:0xffffff,size:.02,transparent:true,opacity:.7,blending:T.AdditiveBlending});mats.push(pm);
+        root.add(new T.Points(randomSphere(150,2,3.6),pm));
+        update=t=>{
+          const arr=posAttr.array;
+          for(let i=0;i<posAttr.count;i++){
+            const x=base[i*3],y=base[i*3+1],z=base[i*3+2];
+            const n=1+.13*Math.sin(2.4*y+t*1.6)*Math.cos(1.8*x+t*1.1)+.08*Math.sin(3.1*z+t*.9);
+            arr[i*3]=x*n;arr[i*3+1]=y*n;arr[i*3+2]=z*n;
+          }
+          posAttr.needsUpdate=true;geo.computeVertexNormals();
+          blob.rotation.y=t*.24;core.rotation.y=-t*.6;core.scale.setScalar(1+Math.sin(t*1.5)*.07);ring.rotation.z=t*.28;
+        };
+      }
+      let raf2=0,alive=true,last=performance.now();
+      const resize=()=>{const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();};resize();addEventListener('resize',resize,{passive:true});
+      const tick=now=>{if(!alive)return;const t=(now-last)/1000;update(t);renderer.render(scene,camera);raf2=requestAnimationFrame(tick);};raf2=requestAnimationFrame(tick);
+      disposeFx=()=>{alive=false;cancelAnimationFrame(raf2);removeEventListener('resize',resize);scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){const a=Array.isArray(o.material)?o.material:[o.material];a.forEach(m=>m.dispose());}});renderer.dispose();renderer.forceContextLoss();};
+    }catch(e){
+      /* CDN/WebGL נכשל — לוגו המותג נשאר כפתיחה חיננית בלי חסימה */
+      canvas.remove();
+    }
+  }
+
+  /* ---------- בחירת הסגנון מהתוכן והרצה ---------- */
+  const VARIANTS={splash:runLogoSplash,blocks:runBlocks,brush:runBrush,balloons:runBalloons,confetti:runConfetti,crayon:runCrayon,
+    'webgl-fireworks':cb=>runWebGL('fireworks',cb),'webgl-helix':cb=>runWebGL('helix',cb),'webgl-blob':cb=>runWebGL('blob',cb)};
   function run(cb){
     const ic=(window.NOAH_CONTENT&&window.NOAH_CONTENT.intro)||{};
-    if(ic.style==='none'){if(cb)cb();return;} /* בלי פתיחה — הדף נפתח מיד */
-    (VARIANTS[ic.style]||runBlocks)(cb);
+    const runner=(ic.style&&ic.style!=='none'&&VARIANTS[ic.style]) || runLogoSplash;
+    runner(cb);
   }
   /* טעינה ראשונה: מכסים את המסך מיד (וילון כהה) וממתינים עד שהתוכן
      מגיע — כדי שהסגנון שנבחר באמת ירוץ, גם כשה-API עדיין בדרך */
